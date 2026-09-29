@@ -1,5 +1,6 @@
 # Render Blueprint — NIYANTA (SIH26161)
-#   niyanta-api : FastAPI + job workers, SQLite + storage on a persistent disk
+#   niyanta-api : FastAPI + job workers; SQLite + run outputs baked in at build
+#                 (free tier — replace <your-username> in NIYANTA_DATA_URL)
 #   niyanta-web : the built React app; /api/* is rewritten to niyanta-api so the
 #                 browser sees one origin (no CORS); WebSockets go straight to
 #                 the API host via VITE_API_BASE_URL (static rewrites can't carry them)
@@ -10,25 +11,35 @@ services:
   - type: web
     name: niyanta-api
     runtime: python
-    # A persistent disk needs a paid instance. starter = 512 MB RAM: enough to
-    # serve and replay runs; choose standard (2 GB) to run new simulations.
-    plan: starter
+    # FREE tier: no persistent disk, so the data archive (DB + run outputs) is
+    # downloaded at BUILD time and baked into the deploy. Every restart / wake
+    # from sleep starts from that snapshot; runs made on the live site are lost
+    # when it sleeps (15 min idle). For persistence switch to a paid plan and
+    # mount a disk (see the commented block below).
+    plan: free
     region: singapore
     rootDir: backend
-    buildCommand: pip install -r requirements.txt
+    buildCommand: >-
+      pip install -r requirements.txt &&
+      curl -fL -o /tmp/niyanta-data.tar.gz "$NIYANTA_DATA_URL" &&
+      tar -xzf /tmp/niyanta-data.tar.gz -C . &&
+      rm /tmp/niyanta-data.tar.gz
     startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/health
-    disk:
-      name: niyanta-data
-      mountPath: /var/data
-      sizeGB: 10
+    # Paid alternative (persistent data):
+    #   plan: starter
+    #   disk: { name: niyanta-data, mountPath: /var/data, sizeGB: 10 }
+    #   and point NIYANTA_DB / NIYANTA_STORAGE at /var/data/...
     envVars:
       - key: PYTHON_VERSION
         value: 3.13.2
+      # GitHub release asset holding deploy_data/niyanta-data.tar.gz
+      - key: NIYANTA_DATA_URL
+        value: https://github.com/<your-username>/niyanta/releases/download/data-v1/niyanta-data.tar.gz
       - key: NIYANTA_DB
-        value: /var/data/niyanta.sqlite
+        value: /opt/render/project/src/backend/niyanta.sqlite
       - key: NIYANTA_STORAGE
-        value: /var/data/storage
+        value: /opt/render/project/src/backend/storage
       - key: NIYANTA_WORKERS
         value: "1"
       # Earth Engine needs your Google login, which a server doesn't have
