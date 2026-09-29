@@ -1,6 +1,6 @@
 # Render Blueprint — NIYANTA (SIH26161)
 #   niyanta-api : FastAPI + job workers; SQLite + run outputs baked in at build
-#                 (free tier — replace <your-username> in NIYANTA_DATA_URL)
+#                 (free tier — archive = GitHub release data-v1 of this repo)
 #   niyanta-web : the built React app; /api/* is rewritten to niyanta-api so the
 #                 browser sees one origin (no CORS); WebSockets go straight to
 #                 the API host via VITE_API_BASE_URL (static rewrites can't carry them)
@@ -35,7 +35,7 @@ services:
         value: 3.13.2
       # GitHub release asset holding deploy_data/niyanta-data.tar.gz
       - key: NIYANTA_DATA_URL
-        value: https://github.com/<your-username>/niyanta/releases/download/data-v1/niyanta-data.tar.gz
+        value: https://github.com/lakhanrathor/NIYANTA-Model/releases/download/data-v1/niyanta-data.tar.gz
       - key: NIYANTA_DB
         value: /opt/render/project/src/backend/niyanta.sqlite
       - key: NIYANTA_STORAGE
