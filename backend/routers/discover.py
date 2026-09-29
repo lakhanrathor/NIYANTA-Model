@@ -266,7 +266,9 @@ def corridor_datasets(corridor_id: str) -> list[dict]:
     # a second round trip. Finished jobs are dropped: the row itself is the truth.
     latest: dict[str, dict] = {}
     for job in db.query(
-        """SELECT id, status, progress, error, right(log, 400) AS log,
+        # substr(x, -400) = last 400 chars; `right(` is a keyword (RIGHT JOIN)
+        # that some SQLite builds refuse as a function name (Render's does)
+        """SELECT id, status, progress, error, substr(log, -400) AS log,
                   params->>'kind' AS kind
              FROM job
             WHERE type = 'corridor.dataset' AND params->>'corridor_id' = %s

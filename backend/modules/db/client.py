@@ -68,7 +68,13 @@ _WORD_MAP = {
 }
 
 
+_JSON_ARROW = re.compile(r"\b([A-Za-z_][\w.]*)\s*->>\s*'([A-Za-z_]\w*)'")
+
+
 def _translate(sql: str) -> str:
+    # col->>'key' needs SQLite ≥ 3.38; Render's Ubuntu 22.04 image ships
+    # 3.37.2, where it is a syntax error. json_extract works everywhere.
+    sql = _JSON_ARROW.sub(r"json_extract(\1, '$.\2')", sql)
     out: list[str] = []
     i, n = 0, len(sql)
     while i < n:
