@@ -1,0 +1,78 @@
+{
+ "a": {
+  "run_id": "a4332fb1-29d3-4642-93c7-cc701a9b2241",
+  "engine": "sph",
+  "status": null,
+  "metrics": {
+   "window_m": 0.0,
+   "peak_at_hr": 1.593888888888889,
+   "volume_hm3": 108.5434667144415,
+   "duration_hr": 6.0,
+   "max_depth_m": 6.828275203704834,
+   "primed_cells": 0,
+   "inundation_km2": 47.93175804464062,
+   "near_field_only": false,
+   "peak_discharge_cms": 7269.852981731704,
+   "mass_balance_error_pct": 2.1371852454408957e-06
+  },
+  "scenario_id": "8300f9db-1ca6-4e32-be77-b7eef191418d"
+ },
+ "b": {
+  "run_id": "ae999c3f-715a-49ee-9bb8-50f19078d502",
+  "engine": "sph",
+  "status": null,
+  "metrics": {
+   "window_m": 0.0,
+   "peak_at_hr": 1.593888888888889,
+   "volume_hm3": 108.53486552364598,
+   "duration_hr": 6.0,
+   "max_depth_m": 6.2004075050354,
+   "primed_cells": 0,
+   "inundation_km2": 100.29309289419717,
+   "near_field_only": false,
+   "peak_discharge_cms": 7269.852981731704,
+   "mass_balance_error_pct": 6.898107493917318e-06
+  },
+  "scenario_id": "d2379235-b05c-4777-a667-c4bf7e10cde5"
+ },
+ "delta": {
+  "duration_hr": 0.0,
+  "inundation_km2": 52.361335,
+  "mass_balance_error_pct": 5e-06,
+  "max_depth_m": -0.627868,
+  "near_field_only": 0,
+  "peak_at_hr": 0.0,
+  "peak_discharge_cms": 0.0,
+  "primed_cells": 0,
+  "volume_hm3": -0.008601,
+  "window_m": 0.0
+ },
+ "spec_diff": {
+  "aoi": {
+   "a": {
+    "crs": "EPSG:4326",
+    "type": "bbox",
+    "coords": [
+     78.071713542235,
+     29.72106291656486,
+     78.34388143664748,
+     30.01582127085879
+    ]
+   },
+   "b": {
+    "crs": "EPSG:4326",
+    "type": "bbox",
+    "coords": [
+     78.01,
+     29.348,
+     78.243,
+     29.993
+    ]
+   }
+  },
+  "scenario_id": {
+   "a": "4e231d9a-d368-406d-9191-c6cb96cfa130",
+   "b": "a7739599-99f8-451c-8e4b-c3bc0e9d51ff"
+  }
+ }
+}

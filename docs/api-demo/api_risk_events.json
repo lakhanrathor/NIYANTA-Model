@@ -1,0 +1,57 @@
+[
+ {
+  "id": "33fc90e1-d204-435b-85e0-15fce0749cb9",
+  "kind": "change",
+  "box_id": "d709880e-7730-4c08-94ec-e8523c95eedd",
+  "risk_id": "175f9e9c-87be-4f12-a38d-07553f6726a6",
+  "payload": {
+   "class": "HIGH",
+   "score": 60.0
+  },
+  "ts": "2026-09-26 21:58:56"
+ },
+ {
+  "id": "238df6b1-069d-4dbb-903a-9be09357f29f",
+  "kind": "change",
+  "box_id": "d709880e-7730-4c08-94ec-e8523c95eedd",
+  "risk_id": "622b620b-4f72-44b3-bfe9-ebdbc8897056",
+  "payload": {
+   "class": "HIGH",
+   "score": 60.0
+  },
+  "ts": "2026-09-26 21:58:51"
+ },
+ {
+  "id": "d6a84d1d-b6cc-473c-bdac-69e542668faf",
+  "kind": "change",
+  "box_id": "6c00acd2-5350-44bd-a751-69964717ea84",
+  "risk_id": "324c306f-0f5d-45ca-9342-3fbe70f3e14b",
+  "payload": {
+   "class": "HIGH",
+   "score": 60.0
+  },
+  "ts": "2026-09-25 22:46:12"
+ },
+ {
+  "id": "295e42c1-9fb7-4b87-ac48-eaab8532db7c",
+  "kind": "change",
+  "box_id": "d709880e-7730-4c08-94ec-e8523c95eedd",
+  "risk_id": "0da67fe8-545a-41e7-8f0d-6573632e9503",
+  "payload": {
+   "class": "HIGH",
+   "score": 60.0
+  },
+  "ts": "2026-09-25 22:46:03"
+ },
+ {
+  "id": "35498ab2-0690-4bf6-88be-2df3a74291e9",
+  "kind": "change",
+  "box_id": "d709880e-7730-4c08-94ec-e8523c95eedd",
+  "risk_id": "e12c3bab-aa04-45d9-97f9-3b7c5d4494e7",
+  "payload": {
+   "class": "HIGH",
+   "score": 60.0
+  },
+  "ts": "2026-09-25 22:45:57"
+ }
+]

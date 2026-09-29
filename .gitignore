@@ -1,0 +1,31 @@
+# environments
+.venv/
+.venv-win/
+node_modules/
+__pycache__/
+*.pyc
+
+# data — lives on the Render disk, never in git (GitHub rejects files > 100 MB)
+backend/data/*.sqlite
+backend/data/*.sqlite-*
+backend/storage/
+backend/logs_*.txt
+backend/logs_*.err
+/damatlas/data/
+/delft3d_fm_suite/
+/delft3d/
+*.msi
+*.part
+reference.mp4
+
+# data bundle uploaded to the Render disk (see render.yaml)
+deploy_data/
+# separate git database used only for the code-only deploy repo
+.deploy-git/
+
+# build output
+frontend/app/dist/
+frontend/dist/
+frontend/test-results/
+frontend/public/flood_frames.json
+frontend/public/flood_frames.bin

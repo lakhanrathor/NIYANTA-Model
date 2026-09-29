@@ -1,0 +1,41 @@
+{
+  "1": {
+    "name": "Water",
+    "type": "liquid",
+    "color": "0x00aaff",
+    "density_kg_m3": 1000,
+    "viscosity": 0.001
+  },
+  "2": {
+    "name": "Air",
+    "type": "gas",
+    "color": "0xffffff",
+    "density_kg_m3": 1.2
+  },
+  "3": {
+    "name": "Unbreakable Bedrock",
+    "type": "solid",
+    "color": "0x3d5c3a",
+    "density_kg_m3": 2500,
+    "tensile_strength_mpa": "infinity",
+    "friction": 0.8
+  },
+  "4": {
+    "name": "Reinforced Concrete",
+    "type": "solid",
+    "color": "0x999999",
+    "density_kg_m3": 2400,
+    "tensile_strength_mpa": 15.0,
+    "shear_strength_mpa": 30.0,
+    "friction": 0.6
+  },
+  "5": {
+    "name": "Wood Structure",
+    "type": "solid",
+    "color": "0x8b5a2b",
+    "density_kg_m3": 600,
+    "tensile_strength_mpa": 5.0,
+    "shear_strength_mpa": 7.0,
+    "friction": 0.4
+  }
+}

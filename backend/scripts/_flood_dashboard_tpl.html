@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIYANTA · dam-break flood impact dashboard</title>
+<style>
+:root{
+  --bg:#0a111c;--card:#121d2e;--card2:#0f1926;--line:#23334a;--tx:#e9eff8;--dim:#8fa3bd;
+  --acc:#3fc1ff;--hot:#ff5d5d;--ok:#5cf2b5;--amber:#ffc857;
+}
+*{box-sizing:border-box}
+body{margin:0;background:
+  radial-gradient(1200px 600px at 15% -10%,#16304a 0%,transparent 60%),
+  linear-gradient(180deg,#0a111c,#0d1524);
+  color:var(--tx);font:14px/1.5 "Segoe UI",system-ui,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:16px 26px;border-bottom:1px solid var(--line);background:rgba(8,14,24,.7);
+  position:sticky;top:0;z-index:9;backdrop-filter:blur(8px)}
+h1{margin:0;font-size:19px;letter-spacing:.3px}
+h1 small{display:block;color:var(--dim);font-size:12px;font-weight:400;margin-top:3px}
+.pill{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:5px 13px;
+  font-size:12px;color:var(--dim);white-space:nowrap}
+.pill b{color:var(--acc)}
+.wrap{max-width:1520px;margin:0 auto;padding:20px 26px 70px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:11px;margin-bottom:20px}
+.kpi{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);
+  border-radius:12px;padding:11px 13px;position:relative;overflow:hidden}
+.kpi:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--acc)}
+.kpi.warn:before{background:var(--hot)}
+.kpi.ok:before{background:var(--ok)}
+.kpi span{color:var(--dim);font-size:10.5px;text-transform:uppercase;letter-spacing:.8px}
+.kpi b{display:block;font-size:19px;margin-top:3px;font-variant-numeric:tabular-nums}
+.kpi i{font-style:normal;color:var(--dim);font-size:11px}
+section{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);
+  border-radius:14px;padding:18px 20px;margin-bottom:20px}
+h2{margin:0 0 3px;font-size:15.5px}
+.hint{color:var(--dim);font-size:12px;margin-bottom:14px}
+.maprow{display:grid;grid-template-columns:minmax(320px,1fr) 320px;gap:18px}
+@media(max-width:1000px){.maprow{grid-template-columns:1fr}}
+#cv{width:100%;aspect-ratio:1/1;display:block;border-radius:12px;border:1px solid var(--line);
+  background:#0b1220;cursor:crosshair;image-rendering:auto}
+.readout{font-family:Consolas,monospace;font-size:12px;color:var(--acc);min-height:36px;margin-top:8px;
+  background:#0b1424;border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.ctl{display:flex;flex-direction:column;gap:13px}
+.box{background:#0c1626;border:1px solid var(--line);border-radius:10px;padding:12px 13px}
+.box h3{margin:0 0 9px;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+.btns{display:flex;gap:7px;flex-wrap:wrap}
+.btn{background:#12203a;border:1px solid var(--line);color:var(--dim);border-radius:8px;
+  padding:7px 12px;cursor:pointer;font-size:13px}
+.btn.on{background:var(--acc);border-color:var(--acc);color:#04131f;font-weight:700}
+.btn.play{background:#12351f;border-color:#1f7a4f;color:#8dffc6;font-weight:700;min-width:92px}
+label.ck{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tx);cursor:pointer;padding:3px 0}
+input[type=range]{width:100%;accent-color:var(--acc)}
+.tlabel{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);
+  font-family:Consolas,monospace}
+.tlabel b{color:var(--amber);font-size:14px}
+.live{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.live div{background:#0b1424;border:1px solid var(--line);border-radius:8px;padding:7px 9px}
+.live span{display:block;color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:.7px}
+.live b{font-size:15px;font-variant-numeric:tabular-nums}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1000px){.charts{grid-template-columns:1fr}}
+.charts .wide{grid-column:1/-1}
+canvas.ch{width:100%;height:245px;display:block;background:#0b1424;border:1px solid var(--line);
+  border-radius:10px}
+.ba{position:relative;width:min(100%,840px);aspect-ratio:1/1;overflow:hidden;border-radius:12px;
+  border:1px solid var(--line);margin:0 auto;user-select:none}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .top{clip-path:inset(0 0 0 var(--x,50%))}
+.ba .bar{position:absolute;top:0;bottom:0;width:3px;background:#fff;left:var(--x,50%);
+  transform:translateX(-1.5px);box-shadow:0 0 10px rgba(0,0,0,.7)}
+.ba .knob{position:absolute;top:50%;left:var(--x,50%);width:36px;height:36px;margin:-18px 0 0 -18px;
+  border-radius:50%;background:#fff;color:#111;display:grid;place-items:center;font-weight:700;
+  box-shadow:0 3px 12px rgba(0,0,0,.55)}
+.ba .tag{position:absolute;bottom:11px;padding:4px 10px;border-radius:7px;background:rgba(0,0,0,.7);
+  font-size:12px}
+.ba .tag.l{left:11px}.ba .tag.r{right:11px}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1000px){.gal{grid-template-columns:1fr}}
+.gal figure{margin:0;background:#0b1424;border:1px solid var(--line);border-radius:12px;padding:10px}
+.gal img{width:100%;border-radius:8px;background:#fff;display:block}
+.gal figcaption{font-size:12px;color:var(--dim);margin-top:8px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:right}
+th{background:#0e1a2c;color:var(--dim);font-weight:600}
+th:first-child,td:first-child{text-align:left}
+tr:hover td{background:#16233a}
+.flow{font-family:Consolas,monospace;font-size:12px;color:var(--dim);line-height:1.7}
+.flow b{color:var(--acc);font-weight:600}
+.flow em{color:var(--amber);font-style:normal}
+</style>
+</head><body>
+<header>
+  <h1>NIYANTA · dam-break flood impact
+    <small>synthetic valley case · grid <b id="g_grid"></b> · dx <b id="g_dx"></b> m · horizon
+      <b id="g_hor"></b> h · engine <b id="g_eng"></b></small></h1>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <span class="pill">breach peak <b id="g_pk"></b> m³/s</span>
+    <span class="pill">released <b id="g_rel"></b> hm³</span>
+    <span class="pill">area flooded <b id="g_ar"></b> km²</span>
+    <span class="pill">reach <b id="g_re"></b> km</span>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="kpis" id="kpis"></div>
+
+  <section>
+    <h2>1 · What happens on the map as the clock runs</h2>
+    <div class="hint">One time control drives the map, the live gauges and every graph below.
+      Hover the map for terrain elevation, water depth and hazard class at that cell.</div>
+    <div class="maprow">
+      <div>
+        <canvas id="cv" width="768" height="768"></canvas>
+        <div class="readout" id="ro">hover the map…</div>
+      </div>
+      <div class="ctl">
+        <div class="box">
+          <h3>map layer</h3>
+          <div class="btns" id="layers">
+            <button class="btn on" data-l="depth">water depth</button>
+            <button class="btn" data-l="hazard">hazard class</button>
+            <button class="btn" data-l="arrival">arrival time</button>
+            <button class="btn" data-l="vel">flow speed</button>
+          </div>
+          <div style="height:10px"></div>
+          <h3>overlays</h3>
+          <label class="ck"><input type="checkbox" id="c_out" checked> inundation outline</label>
+          <label class="ck"><input type="checkbox" id="c_gau" checked> breach ★ + gauges CH0/5/10</label>
+        </div>
+        <div class="box">
+          <h3>time control</h3>
+          <div class="tlabel"><span>elapsed</span><b id="tnow">0 min</b>
+            <span id="tfrac">0 %</span></div>
+          <input type="range" id="tslider" min="0" max="1" value="0">
+          <div class="btns" style="margin-top:9px">
+            <button class="btn play" id="play">▶ play</button>
+            <button class="btn" id="rst">⟲ reset</button>
+          </div>
+        </div>
+        <div class="box">
+          <h3>at this moment</h3>
+          <div class="live" id="live"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2 · The graphs behind the map</h2>
+    <div class="hint">The dashed cursor on every graph follows the map time. Left: how much water
+      explodes out. Right: where it goes.</div>
+    <div class="charts">
+      <div><h3 style="font-size:13px;margin:0 0 6px">Breach outflow hydrograph Q(t)</h3>
+        <canvas class="ch" id="ch_q"></canvas></div>
+      <div><h3 style="font-size:13px;margin:0 0 6px">Volume released vs water standing</h3>
+        <canvas class="ch" id="ch_v"></canvas></div>
+      <div><h3 style="font-size:13px;margin:0 0 6px">Area affected by depth class</h3>
+        <canvas class="ch" id="ch_a"></canvas></div>
+      <div><h3 style="font-size:13px;margin:0 0 6px">How far the flood has travelled</h3>
+        <canvas class="ch" id="ch_r"></canvas></div>
+      <div class="wide"><h3 style="font-size:13px;margin:0 0 6px">Depth at gauging stations
+        (CH0 at the breach, CH5 / CH10 downstream)</h3>
+        <canvas class="ch" id="ch_s"></canvas></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3 · Before ⇄ after — drag to compare the area</h2>
+    <div class="hint">Left: the valley as it was. Right: maximum inundation after the horizon.</div>
+    <div class="ba" id="ba" style="--x:22%">
+      <img id="im_before" alt="before">
+      <img class="top" id="im_after" alt="after">
+      <div class="bar"></div><div class="knob">⟷</div>
+      <div class="tag l">BEFORE · t = 0</div>
+      <div class="tag r">AFTER · max inundation</div>
+    </div>
+    <input type="range" min="0" max="100" value="22" id="baS">
+  </section>
+
+  <section>
+    <h2>4 · Result plates</h2>
+    <div class="hint">Static views an analyst can drop straight into a report.</div>
+    <div class="gal">
+      <figure><img src="20_breach_hydrograph.png" alt="hydrograph">
+        <figcaption>Breach outflow and the volume that comes out of the reservoir.</figcaption></figure>
+      <figure><img src="21_hazard_map.png" alt="hazard">
+        <figcaption>Hazard classification at the end of the horizon (low / moderate / high).</figcaption></figure>
+      <figure><img src="22_depth_extent_overlay.png" alt="overlay">
+        <figcaption>Depth raster over terrain with inundation outline and arrival labels.</figcaption></figure>
+      <figure><img src="23_area_and_reach.png" alt="area">
+        <figcaption>Area by depth class and distance the flood front travelled.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>5 · Result matrix</h2>
+    <table id="tbl"><thead><tr>
+      <th>metric</th><th>value</th><th>metric</th><th>value</th></tr></thead><tbody></tbody></table>
+    <div class="flow" style="margin-top:14px">
+      <b>input</b> → mesh{z, cell_m, breach_cells, stations_km} + hydrograph{time_s, q_cms} +
+      duration/frames/device &nbsp;→&nbsp; <em>FX = flux solver</em> (Bates 2010 local-inertial,
+      <b id="f_steps"></b> steps) &nbsp;→&nbsp; <b>output</b> FrameSeries{times_s, depth, max_depth,
+      max_vel, arrival_s, stations, meta} → rasters/impact.
+    </div>
+  </section>
+</div>
+
+<script>
+const P = __PAYLOAD__;
+const N = P.n, NF = P.nF, W = 768, CELL = W / N;
+const S = P.s;
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+cv.width = W; cv.height = W;
+
+function b64u8(s){const bin=atob(s);const u=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
+const FR = b64u8(P.frames), ZD = new DataView(b64u8(P.z).buffer),
+      ARR = b64u8(P.arrival), VEL = b64u8(P.vel);
+const TURBO = P.turbo;
+function turbo(t){
+  t = Math.max(0, Math.min(1, t)) * (TURBO.length - 1);
+  const i = Math.floor(t), f = t - i, a = TURBO[i], b = TURBO[Math.min(TURBO.length - 1, i + 1)];
+  return [a[0]+(b[0]-a[0])*f, a[1]+(b[1]-a[1])*f, a[2]+(b[2]-a[2])*f];
+}
+const baseImg = new Image(); baseImg.src = 'data:image/png;base64,' + P.base;
+const beforeImg = new Image();
+beforeImg.src = 'data:image/png;base64,' + P.base;
+document.getElementById('im_before').src = beforeImg.src;
+
+let cur = 0, layer = 'depth', showOut = true, showGau = true, timer = null;
+
+function clsOf(q){const d = q * P.scaleM / 255;
+  if (d <= 0.05) return 0; if (d <= 0.5) return 1; if (d <= 2) return 2; return 3;}
+const HAZ = [[0,0,0],[255,215,94],[255,140,26],[232,50,45]];
+
+function frameGrid(f){return FR.subarray(f*N*N, (f+1)*N*N);}
+
+function drawOverlayCanvas(grid){
+  const off = document.createElement('canvas'); off.width = off.height = N;
+  const o = off.getContext('2d'), im = o.createImageData(N, N), D = im.data;
+  for (let i = 0; i < N*N; i++){
+    let r=0,g=0,b=0,a=0;
+    if (layer === 'depth'){
+      const dm = grid[i]*P.scaleM/255;
+      if (dm > 0.02){const c = turbo(dm/3.5); r=c[0];g=c[1];b=c[2];
+        a = Math.min(245, 70 + dm/3.5*200);}
+    } else if (layer === 'hazard'){
+      const k = clsOf(grid[i]);
+      if (k){const c = HAZ[k]; r=c[0];g=c[1];b=c[2]; a = 225;}
+    } else if (layer === 'arrival'){
+      const v = ARR[i];
+      if (v !== 255){const c = turbo(v/254); r=c[0];g=c[1];b=c[2]; a = 240;}
+    } else if (layer === 'vel'){
+      const v = VEL[i];
+      if (v > 3){const c = turbo(v/255); r=c[0];g=c[1];b=c[2]; a = 235;}
+    }
+    D[i*4]=r; D[i*4+1]=g; D[i*4+2]=b; D[i*4+3]=a;
+  }
+  o.putImageData(im, 0, 0);
+  return off;
+}
+
+function drawOutline(grid){
+  const off = document.createElement('canvas'); off.width = off.height = N;
+  const o = off.getContext('2d'), im = o.createImageData(N, N), D = im.data;
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++){
+    const i = y*N + x;
+    if (grid[i] * P.scaleM / 255 <= 0.05) continue;
+    const up = y>0 ? grid[i-N] : 0, dn = y<N-1 ? grid[i+N] : 0;
+    const lf = x>0 ? grid[i-1] : 0, rt = x<N-1 ? grid[i+1] : 0;
+    if (up*P.scaleM/255<=0.05 || dn*P.scaleM/255<=0.05 ||
+        lf*P.scaleM/255<=0.05 || rt*P.scaleM/255<=0.05){
+      D[i*4]=255; D[i*4+1]=255; D[i*4+2]=255; D[i*4+3]=255;
+    }
+  }
+  o.putImageData(im, 0, 0);
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(off, 0, 0, W, W);
+  ctx.imageSmoothingEnabled = true;
+}
+
+function star(cx, cy, r){
+  ctx.save(); ctx.beginPath();
+  for (let i = 0; i < 10; i++){
+    const ang = -Math.PI/2 + i*Math.PI/5, rr = i%2 ? r*0.45 : r;
+    ctx[i?'lineTo':'moveTo'](cx + rr*Math.cos(ang), cy + rr*Math.sin(ang));
+  }
+  ctx.closePath();
+  ctx.fillStyle = '#fff'; ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+  ctx.fill(); ctx.stroke(); ctx.restore();
+}
+
+function drawMarks(){
+  const [br, bc] = P.breach;
+  star((bc+0.5)*CELL, (br+0.5)*CELL, 13);
+  if (!showGau) return;
+  ctx.font = 'bold 15px Segoe UI'; ctx.textBaseline = 'middle';
+  P.gauges.forEach(g => {
+    const [km, r, c] = g, x = (c+0.5)*CELL, y = (r+0.5)*CELL;
+    ctx.beginPath(); ctx.arc(x, y, 7, 0, 7);
+    ctx.fillStyle = '#fff'; ctx.fill();
+    ctx.lineWidth = 2.5; ctx.strokeStyle = '#111'; ctx.stroke();
+    const lbl = 'CH' + km;
+    const w = ctx.measureText(lbl).width;
+    ctx.fillStyle = 'rgba(255,255,255,.85)';
+    ctx.fillRect(x+9, y-16, w+10, 20);
+    ctx.fillStyle = '#111'; ctx.fillText(lbl, x+14, y-6);
+  });
+}
+
+function render(){
+  const g = frameGrid(cur);
+  ctx.clearRect(0, 0, W, W);
+  ctx.imageSmoothingEnabled = true;
+  ctx.drawImage(baseImg, 0, 0, W, W);
+  ctx.drawImage(drawOverlayCanvas(g), 0, 0, W, W);
+  if (showOut) drawOutline(g);
+  drawMarks();
+  syncTime();
+}
+
+/* ---------------- charts ---------------- */
+const charts = [];
+function niceMax(v){ if (v <= 0) return 1;
+  const p = Math.pow(10, Math.floor(Math.log10(v)));
+  for (const m of [1,2,2.5,5,10]) if (v <= m*p) return m*p; return 10*p; }
+
+function chart(id, cfg){
+  const cv2 = document.getElementById(id);
+  const obj = {cv: cv2, ctx: cv2.getContext('2d'), cfg: cfg, cursorT: null};
+  charts.push(obj);
+  obj.draw = function(){
+    const dpr = window.devicePixelRatio || 1;
+    const w = cv2.clientWidth, h = cv2.clientHeight;
+    if (cv2.width !== w*dpr){cv2.width = w*dpr; cv2.height = h*dpr;}
+    const c = obj.ctx;
+    c.setTransform(dpr,0,0,dpr,0,0);
+    c.clearRect(0,0,w,h);
+    const L = 58, R = 14, T = 14, B = 40;
+    let xmax = 0, ymax = 0;
+    cfg.series.forEach(s => { s.y.forEach(v => { if (isFinite(v)) ymax = Math.max(ymax, v); });
+      s.x.forEach(v => xmax = Math.max(xmax, v)); });
+    ymax = niceMax(ymax || 1); xmax = xmax || 1;
+    const X = t => L + t/xmax*(w-L-R), Y = v => h-B - v/ymax*(h-T-B);
+    c.font = '11px Segoe UI'; c.lineWidth = 1;
+    c.strokeStyle = '#1d2b40'; c.fillStyle = '#8fa3bd';
+    for (let i = 0; i <= 4; i++){
+      const v = ymax*i/4, y = Y(v);
+      c.beginPath(); c.moveTo(L,y); c.lineTo(w-R,y); c.stroke();
+      c.textAlign = 'right'; c.fillText(fmt(v), L-7, y+4);
+    }
+    for (let i = 0; i <= 5; i++){
+      const v = xmax*i/5, x = X(v);
+      c.beginPath(); c.moveTo(x,T); c.lineTo(x,h-B); c.stroke();
+      c.textAlign = 'center'; c.fillText(fmt(v), x, h-B+16);
+    }
+    c.textAlign = 'center'; c.fillStyle = '#8fa3bd';
+    c.fillText(cfg.xl, (L+w-R)/2, h-6);
+    c.save(); c.translate(13,(T+h-B)/2); c.rotate(-Math.PI/2);
+    c.fillText(cfg.yl, 0, 0); c.restore();
+    cfg.series.forEach(s => {
+      const pts = [];
+      for (let i = 0; i < s.x.length; i++)
+        if (isFinite(s.y[i])) pts.push([X(s.x[i]), Y(s.y[i])]);
+      if (s.fill && pts.length){
+        c.beginPath(); c.moveTo(pts[0][0], Y(0));
+        pts.forEach(p => c.lineTo(p[0], p[1]));
+        c.lineTo(pts[pts.length-1][0], Y(0)); c.closePath();
+        c.fillStyle = s.fill; c.fill();
+      }
+      c.beginPath();
+      pts.forEach((p,i) => i ? c.lineTo(p[0],p[1]) : c.moveTo(p[0],p[1]));
+      c.strokeStyle = s.color; c.lineWidth = 2.2; c.stroke();
+    });
+    if (obj.cursorT !== null && cfg.series.length && cfg.series[0].x.length){
+      const x = X(obj.cursorT);
+      if (x >= L && x <= w-R){
+        c.save(); c.setLineDash([5,4]); c.strokeStyle = '#ffc857'; c.lineWidth = 1.6;
+        c.beginPath(); c.moveTo(x,T); c.lineTo(x,h-B); c.stroke(); c.restore();
+        c.fillStyle = '#ffc857'; c.textAlign = 'center';
+        c.fillText(fmt(obj.cursorT)+'h', Math.min(w-R-16, Math.max(L+16,x)), T+11);
+      }
+    }
+    let lx = L + 8;
+    c.textAlign = 'left'; c.font = '11px Segoe UI';
+    cfg.series.forEach(s => {
+      if (!s.label) return;
+      c.strokeStyle = s.color; c.lineWidth = 3;
+      c.beginPath(); c.moveTo(lx, T+9); c.lineTo(lx+16, T+9); c.stroke();
+      c.fillStyle = '#c6d3e5'; c.fillText(s.label, lx+21, T+13);
+      lx += 21 + c.measureText(s.label).width + 14;
+    });
+    return {X, Y};
+  };
+  return obj;
+}
+function fmt(v){
+  if (v >= 1000) return (v/1000).toFixed(v>=10000?0:1)+'k';
+  if (v >= 10) return v.toFixed(0);
+  if (v >= 1) return v.toFixed(1);
+  return v.toFixed(2);
+}
+
+const cQ = chart('ch_q', {xl:'time after breach (h)', yl:'Q (m³/s)',
+  series:[{x:S.q_t_h, y:S.q_cms, color:'#ff5d5d', fill:'rgba(255,93,93,.18)',
+           label:'breach outflow'}]});
+const cV = chart('ch_v', {xl:'time after breach (h)', yl:'volume (hm³)',
+  series:[{x:S.q_t_h, y:S.vol_hm3, color:'#3fc1ff', fill:'rgba(63,193,255,.16)',
+           label:'released'},
+          {x:S.times_h, y:S.ponded_hm3, color:'#5cf2b5', label:'standing on plain'}]});
+/* stacked bands: painted largest-first so the visible bands read
+   yellow = low (bottom) → orange = moderate → red = high (top) */
+const cumLM = S.area_low.map((v,i) => v + S.area_med[i]);
+const cA = chart('ch_a', {xl:'time after breach (h)', yl:'area (km²)',
+  series:[{x:S.times_h, y:S.area_km2, color:'#e8322d', fill:'rgba(232,50,45,.92)',
+           label:'high >2 m'},
+          {x:S.times_h, y:cumLM, color:'#ff8c1a', fill:'rgba(255,140,26,.92)',
+           label:'moderate 0.5–2 m'},
+          {x:S.times_h, y:S.area_low, color:'#ffd75e', fill:'rgba(255,215,94,.95)',
+           label:'low 0.05–0.5 m'}]});
+const cR = chart('ch_r', {xl:'time after breach (h)', yl:'reach (km)',
+  series:[{x:S.times_h, y:S.reach_km, color:'#b07cff', fill:'rgba(176,124,255,.2)',
+           label:'farthest wet cell'}]});
+const stSeries = Object.keys(S.stations).sort((a,b)=>a-b).map((k,i) => ({
+  x:S.stations[k].t_h, y:S.stations[k].d,
+  color:['#3fc1ff','#ffc857','#5cf2b5'][i%3], label:'CH'+k}));
+const cS = chart('ch_s', {xl:'time after breach (h)', yl:'depth (m)',
+  series: stSeries});
+
+/* ---------------- KPI / live ---------------- */
+const K = [
+  {id:'pk', t:'peak breach discharge', v:()=>fmt(S.peak_q_cms)+' m³/s', s:()=>'at '+
+    (S.peak_q_h*60).toFixed(0)+' min', cls:'warn'},
+  {id:'rel', t:'water released', v:()=>S.released_hm3.toFixed(2)+' hm³', s:()=>'by t = '+
+    (P.durS/60).toFixed(0)+' min'},
+  {id:'ar', t:'area flooded', v:()=>S.final_area_km2.toFixed(2)+' km²', s:()=>
+    'of '+(N*N*P.dx*P.dx/1e6).toFixed(1)+' km² domain', cls:'warn'},
+  {id:'hi', t:'high hazard >2 m', v:()=>S.final_high_km2.toFixed(2)+' km²',
+    s:()=>'worst-case footprint', cls:'warn'},
+  {id:'md', t:'max depth', v:()=>S.max_depth_m.toFixed(2)+' m', s:()=>'somewhere in domain'},
+  {id:'re', t:'farthest reach', v:()=>S.max_reach_km.toFixed(2)+' km',
+    s:()=>'from the breach'},
+  {id:'am', t:'first arrival at gauge', v:()=>S.arrival_min_h===null?'—':
+    (S.arrival_min_h*60).toFixed(0)+' min', s:()=>'fastest CH'},
+  {id:'st', t:'solver steps', v:()=>String(P.meta.steps), s:()=>P.meta.grid+' · '+P.meta.engine},
+  {id:'mb', t:'mass balance error', v:()=>S_mass(), s:()=>'in = out + stored', cls:'ok'},
+];
+function S_mass(){return (P.meta.mass*1).toExponential(1)+' %';}
+document.getElementById('kpis').innerHTML = K.map(k =>
+  `<div class="kpi ${k.cls||''}"><span>${k.t}</span><b id="k_${k.id}">${k.v()}</b>
+   <i>${k.s()}</i></div>`).join('');
+document.getElementById('g_grid').textContent = P.meta.grid;
+document.getElementById('g_dx').textContent = P.meta.cell_m;
+document.getElementById('g_hor').textContent = (P.durS/3600).toFixed(2);
+document.getElementById('g_eng').textContent = P.meta.engine;
+document.getElementById('g_pk').textContent = fmt(S.peak_q_cms);
+document.getElementById('g_rel').textContent = S.released_hm3.toFixed(2);
+document.getElementById('g_ar').textContent = S.final_area_km2.toFixed(2);
+document.getElementById('g_re').textContent = S.max_reach_km.toFixed(2);
+document.getElementById('f_steps').textContent = P.meta.steps;
+
+function at(arr, tarr, t){
+  let best = arr[0];
+  for (let i = 0; i < tarr.length; i++){ if (tarr[i] <= t + 1e-9) best = arr[i]; }
+  return best;
+}
+function syncTime(){
+  const t = S.times_h[cur];
+  document.getElementById('tnow').textContent = (t*60).toFixed(0)+' min';
+  document.getElementById('tfrac').textContent =
+    Math.round(t/(P.durS/3600)*100)+' %';
+  document.getElementById('tslider').value = cur;
+  const qi = at(S.q_cms, S.q_t_h, t), vi = at(S.vol_hm3, S.q_t_h, t);
+  document.getElementById('live').innerHTML = `
+    <div><span>outflow now</span><b>${qi.toFixed(0)} m³/s</b></div>
+    <div><span>released so far</span><b>${vi.toFixed(2)} hm³</b></div>
+    <div><span>area wet</span><b>${S.area_km2[cur].toFixed(2)} km²</b></div>
+    <div><span>high hazard</span><b>${S.area_high[cur].toFixed(2)} km²</b></div>
+    <div><span>max depth so far</span><b>${S.maxdepth_m[cur].toFixed(2)} m</b></div>
+    <div><span>front at</span><b>${S.reach_km[cur].toFixed(2)} km</b></div>`;
+  [cQ,cV,cA,cR,cS].forEach(c => {c.cursorT = t; c.draw();});
+}
+
+/* ---------------- controls ---------------- */
+document.getElementById('tslider').max = NF-1;
+document.getElementById('tslider').oninput = e => {cur = +e.target.value; render();};
+document.getElementById('layers').onclick = e => {
+  const b = e.target.closest('button'); if (!b) return;
+  layer = b.dataset.l;
+  [...e.currentTarget.children].forEach(x => x.classList.toggle('on', x === b));
+  render();
+};
+document.getElementById('c_out').onchange = e => {showOut = e.target.checked; render();};
+document.getElementById('c_gau').onchange = e => {showGau = e.target.checked; render();};
+document.getElementById('play').onclick = e => {
+  if (timer){clearInterval(timer); timer = null; e.target.textContent = '▶ play'; return;}
+  e.target.textContent = '❚❚ pause';
+  timer = setInterval(() => {cur = (cur+1) % NF; render();}, 380);
+};
+document.getElementById('rst').onclick = () => {cur = 0; render();};
+document.getElementById('baS').oninput = e =>
+  document.getElementById('ba').style.setProperty('--x', e.target.value+'%');
+
+cv.addEventListener('mousemove', e => {
+  const r = cv.getBoundingClientRect();
+  const x = Math.floor((e.clientX - r.left)/r.width*N);
+  const y = Math.floor((e.clientY - r.top)/r.height*N);
+  if (x<0||y<0||x>=N||y>=N) return;
+  const i = y*N + x;
+  const z = ZD.getUint16(i*2, true)/1000;
+  const d = frameGrid(cur)[i]*P.scaleM/255;
+  const k = clsOf(frameGrid(cur)[i]);
+  const names = ['dry','LOW','MODERATE','HIGH'];
+  const col = ['#8fa3bd','#ffd75e','#ff8c1a','#e8322d'][k];
+  document.getElementById('ro').innerHTML =
+    `cell (${(x*P.dx/1000).toFixed(2)}, ${(y*P.dx/1000).toFixed(2)}) km · ` +
+    `terrain <b>${z.toFixed(2)} m</b> · ` +
+    `depth <b style="color:${col}">${d.toFixed(3)} m</b> · ` +
+    `water surface <b>${(z+d).toFixed(2)} m</b> · hazard <b style="color:${col}">${names[k]}</b>`;
+});
+cv.addEventListener('mouseleave', () =>
+  document.getElementById('ro').textContent = 'hover the map…');
+
+/* ---------------- after image + table ---------------- */
+function renderAfter(){
+  const g = frameGrid(NF-1);
+  const off = document.createElement('canvas'); off.width = off.height = N;
+  const o = off.getContext('2d');
+  o.drawImage(baseImg, 0, 0);
+  const im = o.createImageData(N, N), D = im.data;
+  const wet = i => g[i]*P.scaleM/255 > 0.05;
+  for (let i = 0; i < N*N; i++){
+    const dm = g[i]*P.scaleM/255;
+    if (dm <= 0.02) continue;
+    const c = turbo(dm/3.5);
+    D[i*4]=c[0]; D[i*4+1]=c[1]; D[i*4+2]=c[2];
+    D[i*4+3]=Math.min(245, 70+dm/3.5*200);
+  }
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++){
+    const i = y*N + x;
+    if (!wet(i)) continue;
+    const edge = (y>0 && !wet(i-N)) || (y<N-1 && !wet(i+N)) ||
+                 (x>0 && !wet(i-1)) || (x<N-1 && !wet(i+1));
+    if (edge){D[i*4]=255; D[i*4+1]=255; D[i*4+2]=255; D[i*4+3]=255;}
+  }
+  const ov = document.createElement('canvas'); ov.width = ov.height = N;
+  ov.getContext('2d').putImageData(im, 0, 0);
+  o.drawImage(ov, 0, 0);
+  document.getElementById('im_after').src = off.toDataURL('image/png');
+}
+
+const rows = [
+  ['peak breach discharge', fmt(S.peak_q_cms)+' m³/s @ '+(S.peak_q_h*60).toFixed(0)+' min'],
+  ['total water released', S.released_hm3.toFixed(2)+' hm³'],
+  ['water standing at end', S.final_ponded_hm3.toFixed(2)+' hm³'],
+  ['area flooded', S.final_area_km2.toFixed(2)+' km²'],
+  ['high-hazard area (>2 m)', S.final_high_km2.toFixed(2)+' km²'],
+  ['maximum depth', S.max_depth_m.toFixed(2)+' m'],
+  ['farthest reach', S.max_reach_km.toFixed(2)+' km'],
+  ['first gauge arrival', S.arrival_min_h===null?'—':(S.arrival_min_h*60).toFixed(0)+' min'],
+  ['solver steps', P.meta.steps],
+  ['mass balance error', P.meta.mass.toExponential(1)+' %'],
+];
+const tb = document.querySelector('#tbl tbody');
+tb.innerHTML = rows.map(r =>
+  `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('') +
+  Object.keys(S.stations).sort((a,b)=>a-b).map(k => {
+    const s = S.stations[k];
+    return `<tr><td>gauge CH${k}</td><td>` +
+      (s.arrival_h===null ? 'dry for whole horizon' :
+       `arrives ${s.arrival_h*60} min · max ${s.max_d.toFixed(2)} m`) + `</td></tr>`;
+  }).join('');
+
+baseImg.onload = () => {render(); renderAfter();};
+render(); renderAfter();
+window.addEventListener('resize', () => [cQ,cV,cA,cR,cS].forEach(c=>c.draw()));
+</script>
+</body>
+</html>

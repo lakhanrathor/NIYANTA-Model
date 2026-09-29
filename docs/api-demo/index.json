@@ -1,0 +1,571 @@
+{
+ "GET /api/health": {
+  "file": "api_health.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/health",
+  "note": "liveness",
+  "bytes": 707,
+  "captured_at": "2026-09-27T22:51:26"
+ },
+ "GET /api/system": {
+  "file": "api_system.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/system",
+  "note": "status bar",
+  "bytes": 580,
+  "captured_at": "2026-09-27T22:51:26"
+ },
+ "GET /api/settings": {
+  "file": "api_settings.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/settings",
+  "note": "app settings",
+  "bytes": 354,
+  "captured_at": "2026-09-27T22:51:26"
+ },
+ "GET /api/layers": {
+  "file": "api_layers.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/layers",
+  "note": "map layer catalog",
+  "bytes": 740,
+  "captured_at": "2026-09-27T22:51:26"
+ },
+ "GET /api/stats/featured-rivers": {
+  "file": "api_stats_featured-rivers.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/stats/featured-rivers?limit=5",
+  "note": "",
+  "trimmed": [
+   "sampled_array:5492->550",
+   "dropped:geometry",
+   "sampled_array:10880->519",
+   "dropped:geometry",
+   "sampled_array:17121->504",
+   "dropped:geometry",
+   "sampled_array:9550->503",
+   "dropped:geometry",
+   "sampled_array:7385->528",
+   "dropped:geometry"
+  ],
+  "bytes": 122415,
+  "captured_at": "2026-09-27T22:51:26"
+ },
+ "GET /api/jobs": {
+  "file": "api_jobs.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/jobs?limit=5",
+  "note": "job list",
+  "bytes": 1825,
+  "captured_at": "2026-09-27T22:51:26"
+ },
+ "GET /api/rivers": {
+  "file": "api_rivers.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/rivers?limit=5",
+  "note": "",
+  "trimmed": [
+   "sampled_array:5492->550",
+   "dropped:geometry",
+   "sampled_array:10880->519",
+   "dropped:geometry",
+   "sampled_array:17121->504",
+   "dropped:geometry",
+   "sampled_array:14565->503",
+   "dropped:geometry",
+   "sampled_array:9550->503",
+   "dropped:geometry"
+  ],
+  "bytes": 121253,
+  "captured_at": "2026-09-27T22:51:27"
+ },
+ "GET /api/rivers/featured": {
+  "file": "api_rivers_featured.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/rivers/featured?limit=5",
+  "note": "",
+  "trimmed": [
+   "sampled_array:5492->550",
+   "dropped:geometry",
+   "sampled_array:10880->519",
+   "dropped:geometry",
+   "sampled_array:17121->504",
+   "dropped:geometry",
+   "sampled_array:9550->503",
+   "dropped:geometry",
+   "sampled_array:7385->528",
+   "dropped:geometry"
+  ],
+  "bytes": 122415,
+  "captured_at": "2026-09-27T22:51:27"
+ },
+ "GET /api/rivers/search": {
+  "file": "api_rivers_search.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/rivers/search?q=ganga&limit=5",
+  "note": "",
+  "bytes": 742,
+  "captured_at": "2026-09-27T22:51:27"
+ },
+ "GET /api/rivers/search/world": {
+  "file": "api_rivers_search_world.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/rivers/search/world?q=nile&limit=3",
+  "note": "world fallback search",
+  "bytes": 316,
+  "captured_at": "2026-09-27T22:51:27"
+ },
+ "GET /api/rivers/{river_id}": {
+  "file": "api_rivers_{river_id}.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/rivers/0ec1ddca-09c7-4b8c-8632-78cbd38dfdd9",
+  "note": "",
+  "bytes": 459488,
+  "captured_at": "2026-09-27T22:51:27"
+ },
+ "GET /api/rivers/{river_id}/availability": {
+  "file": "api_rivers_{river_id}_availability.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/rivers/0ec1ddca-09c7-4b8c-8632-78cbd38dfdd9/availability",
+  "note": "build prerequisite",
+  "bytes": 345,
+  "captured_at": "2026-09-27T22:51:27"
+ },
+ "GET /api/rivers/{river_id}/corridor": {
+  "file": "api_rivers_{river_id}_corridor.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/rivers/0ec1ddca-09c7-4b8c-8632-78cbd38dfdd9/corridor?buffer_km=2",
+  "note": "",
+  "trimmed": [
+   "dropped:geometry"
+  ],
+  "bytes": 162,
+  "captured_at": "2026-09-27T22:51:27"
+ },
+ "GET /api/rivers/{river_id}/dams": {
+  "file": "api_rivers_{river_id}_dams.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/rivers/0ec1ddca-09c7-4b8c-8632-78cbd38dfdd9/dams?buffer_km=2",
+  "note": "",
+  "bytes": 13162,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/corridors": {
+  "file": "api_corridors.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/corridors",
+  "note": "",
+  "bytes": 4474,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/corridors/{corridor_id}/datasets": {
+  "file": "api_corridors_{corridor_id}_datasets.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/corridors/f6700429-d314-456a-94a3-bb53311dc37a/datasets",
+  "note": "",
+  "bytes": 1044,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/dams": {
+  "file": "api_dams.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/dams?limit=5",
+  "note": "",
+  "bytes": 4901,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/dams/{dam_id}": {
+  "file": "api_dams_{dam_id}.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/dams/f4584061-cc0b-47c4-9a49-3f626821a4eb",
+  "note": "",
+  "bytes": 766,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/datasets": {
+  "file": "api_datasets.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/datasets",
+  "note": "",
+  "bytes": 26581,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/datasets/{dataset_id}": {
+  "file": "api_datasets_{dataset_id}.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/datasets/0150f12d-8b80-46df-a2a2-2526b3d94de6",
+  "note": "",
+  "bytes": 655,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/breach/methods": {
+  "file": "api_breach_methods.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/breach/methods",
+  "note": "",
+  "bytes": 206,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/connectors": {
+  "file": "api_connectors.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/connectors",
+  "note": "",
+  "bytes": 1295,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/scenarios": {
+  "file": "api_scenarios.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/scenarios?limit=5",
+  "note": "",
+  "bytes": 67884,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/scenarios/{scenario_id}": {
+  "file": "api_scenarios_{scenario_id}.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/scenarios/8300f9db-1ca6-4e32-be77-b7eef191418d",
+  "note": "",
+  "bytes": 17469,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs": {
+  "file": "api_runs.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs?limit=5",
+  "note": "",
+  "bytes": 95996,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}": {
+  "file": "api_runs_{run_id}.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241",
+  "note": "",
+  "bytes": 27808,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/stages": {
+  "file": "api_runs_{run_id}_stages.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/stages",
+  "note": "",
+  "bytes": 1301,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/frames.json": {
+  "file": "api_runs_{run_id}_frames.json.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/frames.json",
+  "note": "filmstrip; may exceed cap",
+  "bytes": 14569,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/series": {
+  "file": "api_runs_{run_id}_series.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/series",
+  "note": "Compare time machine base",
+  "bytes": 6466,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/stations": {
+  "file": "api_runs_{run_id}_stations.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/stations",
+  "note": "",
+  "bytes": 1125,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/hydrograph": {
+  "file": "api_runs_{run_id}_hydrograph.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/hydrograph",
+  "note": "",
+  "trimmed": [
+   "sampled_array:21601->503",
+   "sampled_array:21601->503",
+   "sampled_array:21601->503"
+  ],
+  "bytes": 26897,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/impact": {
+  "file": "api_runs_{run_id}_impact.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/impact",
+  "note": "",
+  "trimmed": [
+   "sampled_array:21601->503",
+   "sampled_array:21601->503"
+  ],
+  "bytes": 50990,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/metrics": {
+  "file": "api_runs_{run_id}_metrics.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/metrics",
+  "note": "",
+  "bytes": 140,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/outputs": {
+  "file": "api_runs_{run_id}_outputs.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/outputs",
+  "note": "",
+  "bytes": 623,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/params": {
+  "file": "api_runs_{run_id}_params.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/params",
+  "note": "",
+  "bytes": 217,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/summary": {
+  "file": "api_runs_{run_id}_summary.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/summary",
+  "note": "",
+  "bytes": 484,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/log": {
+  "file": "api_runs_{run_id}_log.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/log?tail=20",
+  "note": "",
+  "bytes": 2,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/result": {
+  "file": "api_runs_{run_id}_result.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/result",
+  "note": "",
+  "bytes": 9960,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/runs/{run_id}/terrain.json": {
+  "file": "api_runs_{run_id}_terrain.json.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/terrain.json",
+  "note": "",
+  "bytes": 292015,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/tiles/{run_id}/meta.json": {
+  "file": "api_tiles_{run_id}_meta.json.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/tiles/a4332fb1-29d3-4642-93c7-cc701a9b2241/meta.json",
+  "note": "",
+  "bytes": 710,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/comparisons": {
+  "file": "api_comparisons.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/comparisons?run_a=a4332fb1-29d3-4642-93c7-cc701a9b2241&run_b=ae999c3f-715a-49ee-9bb8-50f19078d502",
+  "note": "run-vs-run matrix",
+  "bytes": 1964,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/compare/{run_id}/{run_b}": {
+  "file": "api_compare_{run_id}_{run_b}.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/compare/a4332fb1-29d3-4642-93c7-cc701a9b2241/ae999c3f-715a-49ee-9bb8-50f19078d502",
+  "note": "run-vs-run matrix (fast alias)",
+  "bytes": 1765,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/probes/{run_id}": {
+  "file": "api_probes_{run_id}.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/probes/a4332fb1-29d3-4642-93c7-cc701a9b2241",
+  "note": "Player depth chart",
+  "bytes": 2,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/validate/{run_id}": {
+  "file": "api_validate_{run_id}.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/validate/a4332fb1-29d3-4642-93c7-cc701a9b2241",
+  "note": "",
+  "bytes": 463,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/exports": {
+  "file": "api_exports.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/exports?limit=3",
+  "note": "",
+  "bytes": 1982,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/exports/{export_id}": {
+  "file": "api_exports_{export_id}.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/exports/8aedf331-b0bd-48d2-8e7c-1ca5312cdad5",
+  "note": "",
+  "bytes": 706,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/watch/overview": {
+  "file": "api_watch_overview.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/watch/overview",
+  "note": "",
+  "bytes": 66,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/watch/boxes": {
+  "file": "api_watch_boxes.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/watch/boxes",
+  "note": "",
+  "bytes": 3946,
+  "captured_at": "2026-09-27T22:51:28"
+ },
+ "GET /api/watch/boxes/{box_id}/timeline": {
+  "file": "api_watch_boxes_{box_id}_timeline.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/watch/boxes/272d85f7-77ff-48bc-b05a-9395a23f1eb1/timeline?days=7",
+  "note": "",
+  "bytes": 65724,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/watch/boxes/{box_id}/beforeafter": {
+  "file": "api_watch_boxes_{box_id}_beforeafter.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/watch/boxes/272d85f7-77ff-48bc-b05a-9395a23f1eb1/beforeafter",
+  "note": "",
+  "bytes": 1382,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/watch/changes": {
+  "file": "api_watch_changes.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/watch/changes?limit=5",
+  "note": "",
+  "bytes": 3522,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/watch/gee-detections": {
+  "file": "api_watch_gee-detections.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/watch/gee-detections?days=7",
+  "note": "",
+  "bytes": 87,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/watch/jobs": {
+  "file": "api_watch_jobs.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/watch/jobs?limit=5",
+  "note": "",
+  "bytes": 2840,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/alerts": {
+  "file": "api_alerts.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/alerts?limit=5",
+  "note": "",
+  "bytes": 11308,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/alerts/rules": {
+  "file": "api_alerts_rules.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/alerts/rules",
+  "note": "",
+  "bytes": 3398,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/risk": {
+  "file": "api_risk.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/risk?limit=5",
+  "note": "",
+  "bytes": 3045,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/risk/events": {
+  "file": "api_risk_events.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/risk/events?limit=5",
+  "note": "",
+  "bytes": 1337,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/risk/{risk_id}": {
+  "file": "api_risk_{risk_id}.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/risk/175f9e9c-87be-4f12-a38d-07553f6726a6",
+  "note": "",
+  "bytes": 657,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/breach/methods/{method}/fixture": {
+  "file": "api_breach_methods_{method}_fixture.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/breach/methods/froehlich1995/fixture",
+  "note": "",
+  "bytes": 401,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/comparisons/{run_id}/longitudinal": {
+  "file": "api_comparisons_{run_id}_longitudinal.json",
+  "status": 200,
+  "url": "http://127.0.0.1:8000/api/comparisons/a4332fb1-29d3-4642-93c7-cc701a9b2241/longitudinal?lonlat=85.92889%2C25.49505",
+  "note": "needs lonlat inside corridor",
+  "bytes": 2986,
+  "captured_at": "2026-09-27T22:51:29"
+ },
+ "GET /api/runs/{run_id}/series/roads": {
+  "file": "api_runs_{run_id}_series-roads.json",
+  "status": "PLANNED",
+  "note": "roadmap §6 phase A — per-frame road/extent series for Compare time machine"
+ },
+ "GET /api/runs/{run_id}/evacuation": {
+  "file": "api_runs_{run_id}_evacuation.json",
+  "status": "PLANNED",
+  "note": "roadmap §7 phase B — evacuation corridor; 409 until run done"
+ },
+ "_meta": {
+  "captured_from": "http://127.0.0.1:8000",
+  "captured_at": "2026-09-27T22:51:29",
+  "real_ids_used": {
+   "river_id": "0ec1ddca-09c7-4b8c-8632-78cbd38dfdd9",
+   "dam_id": "f4584061-cc0b-47c4-9a49-3f626821a4eb",
+   "scenario_id": "8300f9db-1ca6-4e32-be77-b7eef191418d",
+   "run_id": "a4332fb1-29d3-4642-93c7-cc701a9b2241",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "alert_id": "0752144a-3dc1-4800-bb56-ed4dd34028a1",
+   "risk_id": "175f9e9c-87be-4f12-a38d-07553f6726a6",
+   "export_id": "8aedf331-b0bd-48d2-8e7c-1ca5312cdad5",
+   "dataset_id": "0150f12d-8b80-46df-a2a2-2526b3d94de6",
+   "corridor_id": "f6700429-d314-456a-94a3-bb53311dc37a",
+   "method": "froehlich1995",
+   "lonlat": "85.92889,25.49505",
+   "run_b": "ae999c3f-715a-49ee-9bb8-50f19078d502"
+  },
+  "binary_endpoints_no_fixture": [
+   "/api/tiles/*/*.png",
+   "/api/tiles/diff/*",
+   "/api/reports/{run_id} (HTML)",
+   "/api/runs/{run_id}/frames/{idx}/thumb.png",
+   "/api/runs/{run_id}/outputs/{key}/thumb.png",
+   "/api/dams/{dam_id}/image|photo",
+   "/api/watch/boxes/{id}/image",
+   "/api/runs/{run_id}/raster/{kind}",
+   "/api/runs/{id}/export"
+  ],
+  "convention": "filename = path template with / -> _ ; query variants recorded in this index"
+ }
+}

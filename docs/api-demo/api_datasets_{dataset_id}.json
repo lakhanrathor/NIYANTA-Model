@@ -1,0 +1,33 @@
+{
+ "dataset": {
+  "id": "0150f12d-8b80-46df-a2a2-2526b3d94de6",
+  "kind": "dem",
+  "name": "Copernicus DEM-30m aoi_972629df",
+  "path": "dem\\aoi_972629df.tif",
+  "crs": null,
+  "bbox": null,
+  "status": "ready",
+  "meta": {
+   "auto": true,
+   "bbox": [
+    78.071713542235,
+    29.72106291656486,
+    78.34388143664748,
+    30.01582127085879
+   ],
+   "source": "copernicus_dem_30m"
+  },
+  "river_id": null,
+  "dam_id": null,
+  "corridor_id": null,
+  "source_url": null,
+  "bytes": null,
+  "checksum": null,
+  "coverage_pct": null,
+  "fetch_status": "ready",
+  "deleted_at": null,
+  "created": "2026-09-27 12:01:17"
+ },
+ "proc_log": [],
+ "products": []
+}

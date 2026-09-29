@@ -1,0 +1,32 @@
+{
+ "ingest_impact_features": {
+  "boxes": [
+   [
+    77.88,
+    21.88,
+    78.12,
+    22.12
+   ],
+   [
+    76.85,
+    33.05,
+    77.35,
+    33.45
+   ],
+   [
+    74.45,
+    16.25,
+    75.05,
+    16.75
+   ]
+  ],
+  "counts": {
+   "road": 5755,
+   "bridge": 499,
+   "village": 361,
+   "building": 10168,
+   "hospital": 59
+  },
+  "source": "OSM Overpass"
+ }
+}

@@ -1,0 +1,181 @@
+[
+ {
+  "id": "763a6983-b106-44c3-8ddb-a2a4d282a213",
+  "name": "population_exposed",
+  "condition": {
+   "op": ">",
+   "metric": "population_exposed",
+   "threshold": 5000
+  },
+  "active": true,
+  "created": "2026-09-24 22:52:30"
+ },
+ {
+  "id": "186645da-bbed-4fc2-97b9-c1cfdd1ee3ef",
+  "name": "arrival_fast",
+  "condition": {
+   "op": "<",
+   "metric": "arrival_hr",
+   "threshold": 3
+  },
+  "active": true,
+  "created": "2026-09-24 22:52:30"
+ },
+ {
+  "id": "2cd72a6f-4f6d-4945-993f-a1a9ea3f3642",
+  "name": "risk_high",
+  "condition": {
+   "op": "in",
+   "metric": "risk_class",
+   "threshold": [
+    "HIGH",
+    "CRITICAL"
+   ]
+  },
+  "active": true,
+  "created": "2026-09-24 22:52:30"
+ },
+ {
+  "id": "278e84f7-707c-4c18-a9a0-f4339b676b98",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-25 00:08:41"
+ },
+ {
+  "id": "7eac19eb-f69b-4992-aff5-3cebda45be13",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-25 00:10:34"
+ },
+ {
+  "id": "12d6f005-7e17-4760-b5da-4dd6916f4a66",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-25 00:11:21"
+ },
+ {
+  "id": "d6de1cb8-aa1a-4293-a7cf-955af4d3c860",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-25 00:42:33"
+ },
+ {
+  "id": "b1c286e7-e9cb-4576-9faa-9a1f4cf7a20c",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-25 00:46:33"
+ },
+ {
+  "id": "7f3809ee-7aee-46c2-a5a2-6c9de7920392",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-25 06:39:38"
+ },
+ {
+  "id": "60a0c253-4664-4eb6-baf0-f27522b3daed",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-25 07:00:17"
+ },
+ {
+  "id": "792abc60-2fbf-4fd9-9e3a-cfc892e7a904",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-25 07:48:00"
+ },
+ {
+  "id": "f0f940a2-32a3-4c8b-8590-2e70c7277feb",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-25 12:52:41"
+ },
+ {
+  "id": "539867c3-bf52-4118-9b5c-aac2baa72e40",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-25 14:25:51"
+ },
+ {
+  "id": "df728d38-c4fa-42cb-9d4e-51c214c8f3da",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-25 15:05:07"
+ },
+ {
+  "id": "61039a19-2816-4660-9d49-52086af6f845",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-26 04:16:09"
+ },
+ {
+  "id": "ee49ec15-9194-474e-b731-865f247c0ce8",
+  "name": "unit rule",
+  "condition": {
+   "op": ">",
+   "metric": "score",
+   "threshold": 50
+  },
+  "active": true,
+  "created": "2026-09-26 04:21:28"
+ }
+]

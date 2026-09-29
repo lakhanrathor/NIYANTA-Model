@@ -1,0 +1,26 @@
+{
+ "coverage_pct": 0.0,
+ "buffer_km": 20.0,
+ "corridor_buffer_km": 1.0,
+ "stale": true,
+ "dem": {
+  "pct": 100.0,
+  "present": true
+ },
+ "sentinel2": {
+  "pct": 0.0,
+  "present": false
+ },
+ "osm": {
+  "pct": 0.0,
+  "present": false
+ },
+ "worldpop": {
+  "pct": 0.0,
+  "present": false
+ },
+ "dam_registry": {
+  "pct": 100.0,
+  "present": true
+ }
+}

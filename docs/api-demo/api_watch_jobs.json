@@ -1,0 +1,117 @@
+[
+ {
+  "id": "9bd5ff3f-19f9-485a-b08e-3c8b1c6de0f3",
+  "box_id": "010509d9-0045-4438-86ee-7f14fa466636",
+  "kind": "glacier_ice",
+  "status": "done",
+  "params": {
+   "date": "2026-09-27"
+  },
+  "result": {
+   "run_id": null,
+   "source": "gee",
+   "flagged": false,
+   "risk_id": null,
+   "change_id": "147136e4-d063-4261-992e-5a50a580d660",
+   "simulated": false,
+   "scenario_id": null,
+   "observation_id": "e1c1ba29-a3ea-4f70-8bcd-ba7ada46ec26",
+   "water_area_km2": 6.492
+  },
+  "error": null,
+  "started": "2026-09-27 04:44:17",
+  "finished": "2026-09-27 04:45:31",
+  "created": "2026-09-27 04:44:05"
+ },
+ {
+  "id": "6a29b3ad-43fb-4f80-8b73-37b432d3c4a9",
+  "box_id": "010509d9-0045-4438-86ee-7f14fa466636",
+  "kind": "lst_snow",
+  "status": "done",
+  "params": {
+   "date": "2026-09-27"
+  },
+  "result": {
+   "run_id": null,
+   "source": "gee",
+   "flagged": false,
+   "risk_id": null,
+   "change_id": "b724da21-92cc-4e20-9373-a04fd9ca940c",
+   "simulated": false,
+   "scenario_id": null,
+   "observation_id": "93e90a5d-466c-4e46-b1fc-cedf4295b036",
+   "water_area_km2": 0.0
+  },
+  "error": null,
+  "started": "2026-09-27 04:44:06",
+  "finished": "2026-09-27 04:44:17",
+  "created": "2026-09-27 04:44:04"
+ },
+ {
+  "id": "74caae64-573c-46cb-9e42-adf0c5ab1921",
+  "box_id": "010509d9-0045-4438-86ee-7f14fa466636",
+  "kind": "s2_indices",
+  "status": "done",
+  "params": {
+   "date": "2026-09-27"
+  },
+  "result": {
+   "run_id": null,
+   "source": "gee",
+   "flagged": false,
+   "risk_id": null,
+   "change_id": "3f1ef929-3102-48c5-8b9d-cef8b1766af0",
+   "simulated": false,
+   "scenario_id": null,
+   "observation_id": "e23536fd-6eee-400c-bedd-045acf6072e1",
+   "water_area_km2": 15.464
+  },
+  "error": null,
+  "started": "2026-09-27 04:44:06",
+  "finished": "2026-09-27 04:45:32",
+  "created": "2026-09-27 04:44:04"
+ },
+ {
+  "id": "7585b805-6cbd-4ddc-b745-62472ac28dae",
+  "box_id": "010509d9-0045-4438-86ee-7f14fa466636",
+  "kind": "seismic_sync",
+  "status": "done",
+  "params": {
+   "date": "2026-09-27"
+  },
+  "result": {
+   "offline": true,
+   "seismic": {
+    "events_24h": 2
+   }
+  },
+  "error": null,
+  "started": "2026-09-27 04:44:06",
+  "finished": "2026-09-27 04:44:06",
+  "created": "2026-09-27 04:44:04"
+ },
+ {
+  "id": "e57b14fa-bd40-45f1-8ebb-c3fa279c9893",
+  "box_id": "010509d9-0045-4438-86ee-7f14fa466636",
+  "kind": "s1_watermask",
+  "status": "done",
+  "params": {
+   "date": "2026-09-27"
+  },
+  "result": {
+   "run_id": null,
+   "source": "gee",
+   "flagged": false,
+   "risk_id": null,
+   "change_id": "3e6e4e9d-4201-4d5a-b0b5-70afa9b882ce",
+   "simulated": false,
+   "scenario_id": null,
+   "observation_id": "1d989ac4-3324-4d0f-9450-65b9bed00f05",
+   "water_area_km2": 13.486
+  },
+  "error": null,
+  "started": "2026-09-27 04:44:06",
+  "finished": "2026-09-27 04:44:20",
+  "created": "2026-09-27 04:44:04"
+ }
+]

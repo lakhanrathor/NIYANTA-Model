@@ -1,0 +1,19 @@
+{
+ "id": "a4332fb1-29d3-4642-93c7-cc701a9b2241",
+ "scenario_name": "Ganga · Bhimgoda Barrage · case 2",
+ "state": "Uttarakhand",
+ "engine": "sph",
+ "engine_label": "SPH (SWE)",
+ "near_field_only": false,
+ "window_m": null,
+ "breach_width": 222.76154048028957,
+ "breach_depth": 42.9,
+ "breach_method": "froehlich2008",
+ "reservoir_level": 292.5,
+ "sim_hours": 6.0,
+ "run_id": "a4332fb1",
+ "status": "VALIDATED",
+ "photo": null,
+ "created": "2026-09-27 12:01:06",
+ "finished_at": null
+}

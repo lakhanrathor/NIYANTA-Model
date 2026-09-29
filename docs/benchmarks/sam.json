@@ -1,0 +1,52 @@
+{
+  "date": "2026-09-25",
+  "box": "Rishiganga (Uttarakhand)",
+  "image": "2026-09-25_s2.tif",
+  "image_px": 2212448,
+  "jrc_water_frac": 0.0109,
+  "seed_water_frac": 0.01,
+  "device": "cuda",
+  "baseline": {
+    "iou_jrc": 0.557,
+    "precision_jrc": 0.7484,
+    "recall_jrc": 0.6854,
+    "model": "threshold_only"
+  },
+  "models": {
+    "vit_h": {
+      "model": "vit_h",
+      "device": "cuda",
+      "points": 48,
+      "area_px": 35601,
+      "seed_area_px": 22019,
+      "iou_with_seeds": 0.5812,
+      "mean_pred_iou": 0.9168,
+      "ms": 1546.2,
+      "iou_jrc": 0.5481,
+      "precision_jrc": 0.5932,
+      "recall_jrc": 0.8783,
+      "load_s": 16.01,
+      "warm_s": 1.54,
+      "vram_mb": 6018,
+      "params_m": 641.1
+    },
+    "vit_t": {
+      "model": "vit_t",
+      "device": "cuda",
+      "points": 48,
+      "area_px": 1541455,
+      "seed_area_px": 22019,
+      "iou_with_seeds": 0.0138,
+      "mean_pred_iou": 0.8926,
+      "ms": 131.2,
+      "iou_jrc": 0.0137,
+      "precision_jrc": 0.0137,
+      "recall_jrc": 0.8811,
+      "load_s": 1.37,
+      "warm_s": 0.13,
+      "vram_mb": 2944,
+      "params_m": 10.1
+    }
+  },
+  "best": "vit_h"
+}

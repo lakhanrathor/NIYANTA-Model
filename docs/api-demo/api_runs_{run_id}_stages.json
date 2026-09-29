@@ -1,0 +1,65 @@
+[
+ {
+  "n": 1,
+  "key": "stage.terrain",
+  "title": "Terrain Preparation",
+  "status": "done",
+  "pct": 100,
+  "detail": "DEM, river, domain, roughness",
+  "method": "Adaptive unstructured"
+ },
+ {
+  "n": 2,
+  "key": "stage.mesh",
+  "title": "Mesh Generation",
+  "status": "done",
+  "pct": 100,
+  "detail": "Creating computational mesh...",
+  "method": "Refined along channel"
+ },
+ {
+  "n": 3,
+  "key": "stage.breach",
+  "title": "Breach Modelling",
+  "status": "done",
+  "pct": 100,
+  "detail": "Generating breach hydrograph",
+  "method": "Froehlich / manual"
+ },
+ {
+  "n": 4,
+  "key": "stage.solve",
+  "title": "Hydrodynamic Solver",
+  "status": "done",
+  "pct": 100,
+  "detail": "Running 1D solver",
+  "method": "Conservative finite volume"
+ },
+ {
+  "n": 5,
+  "key": "stage.post",
+  "title": "Post-processing",
+  "status": "done",
+  "pct": 100,
+  "detail": "Computing flood metrics",
+  "method": "Depth / arrival / velocity"
+ },
+ {
+  "n": 6,
+  "key": "stage.impact",
+  "title": "Impact Analysis",
+  "status": "done",
+  "pct": 100,
+  "detail": "Population, infrastructure, loss",
+  "method": "WorldPop + OSM overlay"
+ },
+ {
+  "n": 7,
+  "key": "stage.validate",
+  "title": "Validation & Export",
+  "status": "done",
+  "pct": 100,
+  "detail": "Preparing outputs",
+  "method": "GeoTIFF / SHP / KML"
+ }
+]

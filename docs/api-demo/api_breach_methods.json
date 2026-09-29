@@ -1,0 +1,17 @@
+{
+ "methods": [
+  "froehlich1995",
+  "froehlich2008",
+  "macdonald",
+  "vonthun",
+  "xuzhang",
+  "manual"
+ ],
+ "modes": [
+  "overtopping",
+  "piping",
+  "blockage_breach",
+  "breach_height",
+  "manual"
+ ]
+}

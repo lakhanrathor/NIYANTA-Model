@@ -1,0 +1,44 @@
+[
+ {
+  "id": "esri",
+  "group": "base",
+  "label": "Esri World Imagery",
+  "source": "Esri",
+  "enabled": true
+ },
+ {
+  "id": "s2",
+  "group": "base",
+  "label": "Sentinel-2 (Local)",
+  "source": "Copernicus",
+  "enabled": false
+ },
+ {
+  "id": "rivers",
+  "group": "overlay",
+  "label": "Rivers (HydroRIVERS)",
+  "source": "HydroRIVERS",
+  "enabled": true
+ },
+ {
+  "id": "dams",
+  "group": "overlay",
+  "label": "Dams (GeoDAR/GRanD/CWC)",
+  "source": "GeoDAR / GRanD / CWC",
+  "enabled": true
+ },
+ {
+  "id": "state",
+  "group": "overlay",
+  "label": "State Boundary",
+  "source": "Survey of India (OSM)",
+  "enabled": true
+ },
+ {
+  "id": "boxes",
+  "group": "overlay",
+  "label": "Watch Boxes",
+  "source": "NIYANTA",
+  "enabled": true
+ }
+]

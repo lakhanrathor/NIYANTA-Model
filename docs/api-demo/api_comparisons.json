@@ -1,0 +1,131 @@
+{
+ "a": "a4332fb1-29d3-4642-93c7-cc701a9b2241",
+ "b": "ae999c3f-715a-49ee-9bb8-50f19078d502",
+ "mode": "swipe",
+ "metrics": [
+  {
+   "key": "inundated_km2",
+   "label": "Inundated Area (km²)",
+   "unit": "km²",
+   "a": 47.93175804464062,
+   "b": 100.29309289419717,
+   "delta": 52.3613,
+   "pct": 109.2,
+   "dir": "up"
+  },
+  {
+   "key": "peak_depth_m",
+   "label": "Peak Depth (m)",
+   "unit": "m",
+   "a": 6.828275203704834,
+   "b": 6.2004075050354,
+   "delta": -0.6279,
+   "pct": -9.2,
+   "dir": "down"
+  },
+  {
+   "key": "arrival_s",
+   "label": "Arrival Time",
+   "unit": "s",
+   "a": null,
+   "b": null,
+   "delta": null,
+   "pct": null,
+   "dir": null
+  },
+  {
+   "key": "population",
+   "label": "Affected Population",
+   "unit": "people",
+   "a": 500000,
+   "b": 500000,
+   "delta": 0,
+   "pct": 0.0,
+   "dir": "flat"
+  },
+  {
+   "key": "villages",
+   "label": "Affected Villages",
+   "unit": "count",
+   "a": 0,
+   "b": 0,
+   "delta": 0,
+   "pct": null,
+   "dir": "flat"
+  },
+  {
+   "key": "roads_km",
+   "label": "Affected Roads (km)",
+   "unit": "km",
+   "a": 0,
+   "b": 0,
+   "delta": 0,
+   "pct": null,
+   "dir": "flat"
+  },
+  {
+   "key": "facilities",
+   "label": "Critical Facilities",
+   "unit": "count",
+   "a": 0,
+   "b": 0,
+   "delta": 0,
+   "pct": null,
+   "dir": "flat"
+  }
+ ],
+ "ramp": [
+  {
+   "v": 5,
+   "label": ">+5",
+   "color": "#b42318"
+  },
+  {
+   "v": 2,
+   "label": "+2",
+   "color": "#e07a5f"
+  },
+  {
+   "v": 1,
+   "label": "+1",
+   "color": "#f0c9b8"
+  },
+  {
+   "v": 0,
+   "label": "0",
+   "color": "#f4f5f7"
+  },
+  {
+   "v": -1,
+   "label": "−1",
+   "color": "#c3dcf2"
+  },
+  {
+   "v": -2,
+   "label": "−2",
+   "color": "#4a9bd8"
+  },
+  {
+   "v": -5,
+   "label": "<−5",
+   "color": "#0d4a86"
+  }
+ ],
+ "extent_ramp": [
+  {
+   "v": 1,
+   "label": "SPH Extent",
+   "color": "#4a9bd8"
+  },
+  {
+   "v": 2,
+   "label": "Delft3D Extent",
+   "color": "#b42318"
+  },
+  {
+   "v": 3,
+   "label": "Overlap",
+   "color": "#6b3fa0"
+  }
+ ]
+}

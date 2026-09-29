@@ -1,0 +1,73 @@
+[
+ {
+  "id": "23e3e50b-1dad-4dd3-9bf3-ec2118d18189",
+  "name": "dem",
+  "label": null,
+  "icon": null,
+  "mode": "local",
+  "status": "idle",
+  "counts": {},
+  "last_sync": null,
+  "error": null
+ },
+ {
+  "id": "594ddf6e-702b-41c5-83c1-cefb520405f2",
+  "name": "osm",
+  "label": null,
+  "icon": null,
+  "mode": "local",
+  "status": "idle",
+  "counts": {},
+  "last_sync": null,
+  "error": null
+ },
+ {
+  "id": "4ca95de6-876f-4d4a-8e95-8507e9683ffe",
+  "name": "seismic",
+  "label": null,
+  "icon": null,
+  "mode": "local",
+  "status": "ok",
+  "counts": {
+   "events_24h": 2
+  },
+  "last_sync": "2026-09-27 04:44:06",
+  "error": null
+ },
+ {
+  "id": "540104e1-2380-4c3d-bf54-b34a1d18cdd6",
+  "name": "weather",
+  "label": null,
+  "icon": null,
+  "mode": "local",
+  "status": "idle",
+  "counts": {},
+  "last_sync": null,
+  "error": null
+ },
+ {
+  "id": "a10a8698-dbcc-4b63-a6c0-0403553d997e",
+  "name": "worldpop",
+  "label": null,
+  "icon": null,
+  "mode": "local",
+  "status": "idle",
+  "counts": {},
+  "last_sync": null,
+  "error": null
+ },
+ {
+  "id": "4f677c5c-c720-4be7-9f90-63ee52769657",
+  "name": "wris",
+  "label": null,
+  "icon": null,
+  "mode": "local",
+  "status": "ok",
+  "counts": {
+   "dams": 1011,
+   "reservoir_levels": 0
+  },
+  "last_sync": "2026-09-26 04:20:16",
+  "error": null
+ }
+]

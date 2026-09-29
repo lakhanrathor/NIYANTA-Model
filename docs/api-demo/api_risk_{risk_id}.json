@@ -1,0 +1,30 @@
+{
+ "id": "175f9e9c-87be-4f12-a38d-07553f6726a6",
+ "case": "2",
+ "target_id": "d709880e-7730-4c08-94ec-e8523c95eedd",
+ "target_ref": "Phuktal (Ladakh)",
+ "score": 60.0,
+ "class": "HIGH",
+ "factors": {
+  "parts": {
+   "seismic": 0.6,
+   "lake_area_delta": 1.0,
+   "snow_cover_delta": 0.0,
+   "water_mask_delta": 0.027999999999999997
+  },
+  "changes": 57,
+  "weights": {
+   "seismic": 0.05,
+   "rainfall": 0.1,
+   "lst_anomaly": 0.15,
+   "lake_area_delta": 0.35,
+   "snow_cover_delta": 0.1,
+   "water_mask_delta": 0.25
+  },
+  "lake_flagged": true,
+  "lake_delta_pct": 83.5,
+  "water_delta_pct": 1.4,
+  "seismic_events_24h": 3
+ },
+ "ts": "2026-09-26 21:58:56"
+}

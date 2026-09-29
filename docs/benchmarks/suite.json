@@ -1,0 +1,172 @@
+{
+  "hardware": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+    "cores": 16,
+    "numpy": "2.4.4",
+    "torch": "2.7.1+cu118",
+    "cuda_available": true,
+    "benchmarked_at": "2026-09-25T14:26:10",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "gpu_vram_gb": 8.6
+  },
+  "engines": [
+    {
+      "engine": "fast",
+      "wall_s": 8.07,
+      "metrics": {
+        "peak_discharge_cms": 29164.911681027934,
+        "max_depth_m": 14.66436767578125,
+        "inundation_km2": 35.02,
+        "mass_balance_error_pct": 4.655647296760592e-07
+      },
+      "grade": "B",
+      "stages_s": {
+        "stage.terrain": 0.76,
+        "stage.mesh": 0.09,
+        "stage.solve": 4.14,
+        "stage.post": 1.01,
+        "stage.impact": 0.16,
+        "stage.validate": 0.05,
+        "stage.export": 1.18
+      },
+      "run_id": "fdcaa06f-5b58-42f1-b45b-68843bb4b110"
+    },
+    {
+      "engine": "sph",
+      "wall_s": 228.58,
+      "metrics": {
+        "peak_discharge_cms": 29164.911681027934,
+        "max_depth_m": 9.109994888305664,
+        "inundation_km2": 9.61,
+        "mass_balance_error_pct": 0.007141411467614808
+      },
+      "grade": "B",
+      "stages_s": {
+        "stage.terrain": 0.35,
+        "stage.mesh": 0.09,
+        "stage.solve": 226.36,
+        "stage.post": 0.78,
+        "stage.impact": 0.14,
+        "stage.validate": 0.06,
+        "stage.export": 0.28
+      },
+      "run_id": "050670a4-3cc3-4886-bc58-adf2499c0537"
+    },
+    {
+      "engine": "delft3d",
+      "wall_s": 15.07,
+      "metrics": {
+        "peak_discharge_cms": 29164.911681027934,
+        "max_depth_m": 0.9999317526817322,
+        "inundation_km2": 0.09,
+        "mass_balance_error_pct": 2.0160203453821356e-11
+      },
+      "grade": "B",
+      "stages_s": {
+        "stage.terrain": 0.37,
+        "stage.mesh": 0.08,
+        "stage.solve": 13.25,
+        "stage.post": 0.72,
+        "stage.impact": 0.15,
+        "stage.validate": 0.06,
+        "stage.export": 0.36
+      },
+      "run_id": "7befbf8d-c3df-49c9-aa74-fc4e0b5f610a"
+    }
+  ],
+  "gpu": {
+    "threshold_cells": 90000,
+    "rows": [
+      {
+        "grid": "128x128",
+        "cells": 16384,
+        "cpu_s": 0.426,
+        "cuda_s": 2.741,
+        "speedup": 0.16,
+        "parity_maxdiff_m": 5e-06,
+        "wet_mask_agreement": 1.0,
+        "cpu_steps": 474,
+        "cuda_steps": 474,
+        "auto_device": "cpu"
+      },
+      {
+        "grid": "256x256",
+        "cells": 65536,
+        "cpu_s": 1.214,
+        "cuda_s": 2.655,
+        "speedup": 0.46,
+        "parity_maxdiff_m": 5e-06,
+        "wet_mask_agreement": 1.0,
+        "cpu_steps": 474,
+        "cuda_steps": 474,
+        "auto_device": "cpu"
+      },
+      {
+        "grid": "512x512",
+        "cells": 262144,
+        "cpu_s": 13.282,
+        "cuda_s": 2.645,
+        "speedup": 5.02,
+        "parity_maxdiff_m": 5e-06,
+        "wet_mask_agreement": 1.0,
+        "cpu_steps": 474,
+        "cuda_steps": 474,
+        "auto_device": "cuda"
+      },
+      {
+        "grid": "1024x1024",
+        "cells": 1048576,
+        "cpu_s": 47.194,
+        "cuda_s": 2.662,
+        "speedup": 17.73,
+        "parity_maxdiff_m": 5e-06,
+        "wet_mask_agreement": 1.0,
+        "cpu_steps": 474,
+        "cuda_steps": 474,
+        "auto_device": "cuda"
+      }
+    ]
+  },
+  "gee": {
+    "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+    "s2_water_quicklook": {
+      "elapsed_ms": 109722.7,
+      "cache_hit": false,
+      "source": "live"
+    },
+    "s1_water_90d": {
+      "elapsed_ms": 11561.9,
+      "cache_hit": false,
+      "source": "live"
+    },
+    "jrc_permanent": {
+      "elapsed_ms": 619.2,
+      "cache_hit": false,
+      "source": "live"
+    },
+    "lst_yearly": {
+      "elapsed_ms": 2132.7,
+      "cache_hit": false,
+      "source": "live"
+    },
+    "glacier_quicklook": {
+      "elapsed_ms": 65260.8,
+      "cache_hit": false,
+      "source": "live"
+    }
+  },
+  "sam": {
+    "best": "vit_h",
+    "iou_vs_jrc": {
+      "vit_h": 0.5481,
+      "vit_t": 0.0137
+    },
+    "warm_s": {
+      "vit_h": 1.54,
+      "vit_t": 0.13
+    },
+    "source": "benchmarks/sam.json"
+  }
+}

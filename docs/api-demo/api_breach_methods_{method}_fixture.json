@@ -1,0 +1,15 @@
+{
+ "method": "froehlich1995",
+ "fixture": "HEC-RAS HRM example",
+ "result": {
+  "method": "froehlich1995",
+  "avg_width_m": 281.5305004315136,
+  "bottom_width_m": 221.47050043151359,
+  "side_slope": 1.4,
+  "depth_m": 42.9,
+  "t_form_hr": 2.9455560989835434,
+  "volume_eroded_m3": null,
+  "top_width_m": null,
+  "notes": "Froehlich (1995a), 63-case regression; Z per Froehlich side-slope guidance"
+ }
+}

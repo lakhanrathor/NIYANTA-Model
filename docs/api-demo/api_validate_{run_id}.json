@@ -1,0 +1,18 @@
+{
+ "run_id": "a4332fb1-29d3-4642-93c7-cc701a9b2241",
+ "validation": {
+  "run_id": "a4332fb1-29d3-4642-93c7-cc701a9b2241",
+  "benchmark": null,
+  "error_peak_pct": null,
+  "error_arrival_pct": null,
+  "extent_error_pct": null,
+  "extent_iou": null,
+  "grade": "B",
+  "detail": {
+   "note": "no reference available; internal consistency only",
+   "mass_balance_error_pct": 2.1371852454408957e-06
+  },
+  "created": "2026-09-27 12:02:02"
+ },
+ "run_validation": null
+}

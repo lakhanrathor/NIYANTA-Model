@@ -1,0 +1,56 @@
+[
+ {
+  "kind": "dem",
+  "label": "DEM (30m)",
+  "source": "Copernicus GLO-90/DLR",
+  "coverage_pct": 0.0,
+  "status": "missing",
+  "size_bytes": 0,
+  "job": null
+ },
+ {
+  "kind": "dams",
+  "label": "Dam Registry",
+  "source": "OSM / CWC / GeoDAR",
+  "coverage_pct": 0.0,
+  "status": "missing",
+  "size_bytes": 0,
+  "job": null
+ },
+ {
+  "kind": "osm",
+  "label": "OSM Infrastructure",
+  "source": "OpenStreetMap",
+  "coverage_pct": 0.0,
+  "status": "missing",
+  "size_bytes": 0,
+  "job": null
+ },
+ {
+  "kind": "sar_s1",
+  "label": "SAR (Sentinel-1)",
+  "source": "ESA Copernicus / GEE",
+  "coverage_pct": 0.0,
+  "status": "missing",
+  "size_bytes": 0,
+  "job": null
+ },
+ {
+  "kind": "imagery_s2",
+  "label": "Sentinel-2 Imagery",
+  "source": "ESA Copernicus / GEE",
+  "coverage_pct": 0.0,
+  "status": "missing",
+  "size_bytes": 0,
+  "job": null
+ },
+ {
+  "kind": "worldpop",
+  "label": "WorldPop (Population)",
+  "source": "WorldPop / University of Southampton",
+  "coverage_pct": 0.0,
+  "status": "missing",
+  "size_bytes": 0,
+  "job": null
+ }
+]

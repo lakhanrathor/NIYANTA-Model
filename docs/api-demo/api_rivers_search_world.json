@@ -1,0 +1,18 @@
+[
+ {
+  "id": "2f958a94-8d09-4a4a-9e68-0f06253da073",
+  "name": "Nile River",
+  "state": null,
+  "states": [],
+  "basin": null,
+  "kind": null,
+  "source": "osm",
+  "length_km": 831.7529164336981,
+  "major_dam_count": 0,
+  "prepared_at": null,
+  "path": null,
+  "geometry": null,
+  "bbox": null,
+  "cached": true
+ }
+]

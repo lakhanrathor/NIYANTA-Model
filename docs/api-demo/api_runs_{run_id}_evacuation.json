@@ -1,0 +1,245 @@
+{
+ "_fixture": "planned — endpoint not yet implemented; 409 until run state=done; contract from docs/API_ROUTES.md",
+ "run_id": "a4332fb1-29d3-4642-93c7-cc701a9b2241",
+ "state": "done",
+ "stats": {
+  "corridors": 4,
+  "people_to_move": 41200,
+  "assembly_sites": 3,
+  "mean_margin_h": 5.4,
+  "min_margin_h": 1.9
+ },
+ "corridors": [
+  {
+   "id": 1,
+   "name": "NH-71B → Sector-12 high ground",
+   "class": "trunk",
+   "margin_h": 6.2,
+   "people": 18400,
+   "length_km": 9.7,
+   "geom": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      78.1,
+      24.31
+     ],
+     [
+      78.18,
+      24.37
+     ],
+     [
+      78.26,
+      24.44
+     ]
+    ]
+   }
+  },
+  {
+   "id": 2,
+   "name": "SH-12 → Sector-12 high ground",
+   "class": "secondary",
+   "margin_h": 4.1,
+   "people": 12600,
+   "length_km": 6.3,
+   "geom": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      78.14,
+      24.29
+     ],
+     [
+      78.21,
+      24.35
+     ],
+     [
+      78.26,
+      24.44
+     ]
+    ]
+   }
+  },
+  {
+   "id": 3,
+   "name": "Village Rd → Assembly A",
+   "class": "residential",
+   "margin_h": 2.4,
+   "people": 7100,
+   "length_km": 4.1,
+   "geom": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      78.07,
+      24.24
+     ],
+     [
+      78.11,
+      24.27
+     ],
+     [
+      78.15,
+      24.3
+     ]
+    ]
+   }
+  },
+  {
+   "id": 4,
+   "name": "NH-71B spur → Assembly B",
+   "class": "primary",
+   "margin_h": 1.9,
+   "people": 3100,
+   "length_km": 3.6,
+   "geom": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      78.22,
+      24.36
+     ],
+     [
+      78.24,
+      24.4
+     ],
+     [
+      78.27,
+      24.43
+     ]
+    ]
+   }
+  }
+ ],
+ "assembly": [
+  {
+   "id": "A",
+   "name": "Sector-12 high ground",
+   "people": 24400,
+   "capacity": 30000,
+   "geom": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       78.24,
+       24.42
+      ],
+      [
+       78.28,
+       24.42
+      ],
+      [
+       78.28,
+       24.46
+      ],
+      [
+       78.24,
+       24.46
+      ],
+      [
+       78.24,
+       24.42
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "id": "B",
+   "name": "District stadium",
+   "people": 14200,
+   "capacity": 20000,
+   "geom": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       78.25,
+       24.4
+      ],
+      [
+       78.27,
+       24.4
+      ],
+      [
+       78.27,
+       24.42
+      ],
+      [
+       78.25,
+       24.42
+      ],
+      [
+       78.25,
+       24.4
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "id": "C",
+   "name": "Civil hospital terrace",
+   "people": 2600,
+   "capacity": 4000,
+   "geom": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       78.13,
+       24.28
+      ],
+      [
+       78.14,
+       24.28
+      ],
+      [
+       78.14,
+       24.29
+      ],
+      [
+       78.13,
+       24.29
+      ],
+      [
+       78.13,
+       24.28
+      ]
+     ]
+    ]
+   }
+  }
+ ],
+ "origins": [
+  {
+   "id": "oh-1",
+   "name": "Sector-15 quarter",
+   "people": 18400,
+   "margin_h": 6.2,
+   "corridor_id": 1,
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     78.1,
+     24.31
+    ]
+   }
+  },
+  {
+   "id": "oh-2",
+   "name": "Riverside colony",
+   "people": 12600,
+   "margin_h": 4.1,
+   "corridor_id": 2,
+   "geom": {
+    "type": "Point",
+    "coordinates": [
+     78.14,
+     24.29
+    ]
+   }
+  }
+ ]
+}

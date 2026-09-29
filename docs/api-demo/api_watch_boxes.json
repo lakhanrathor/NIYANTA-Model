@@ -1,0 +1,108 @@
+[
+ {
+  "id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+  "name": "Rishiganga (Uttarakhand)",
+  "preset": "rishiganga",
+  "kind": null,
+  "state": null,
+  "bbox": "{\"type\":\"Polygon\",\"coordinates\":[[[78.05,30.1],[78.05,30.55],[78.55,30.55],[78.55,30.1],[78.05,30.1]]]}",
+  "meta": {
+   "note": "2021 disaster corridor",
+   "river": "Rishiganga",
+   "state": "Uttarakhand"
+  },
+  "active": true,
+  "created": "2026-09-24 22:52:30",
+  "bbox_geojson": "{\"type\":\"Polygon\",\"coordinates\":[[[78.05,30.1],[78.05,30.55],[78.55,30.55],[78.55,30.1],[78.05,30.1]]]}"
+ },
+ {
+  "id": "0fe407d1-a0aa-4315-85a4-20bcec172adf",
+  "name": "Kosi Barrage (Bihar/Nepal)",
+  "preset": "kosi",
+  "kind": null,
+  "state": null,
+  "bbox": "{\"type\":\"Polygon\",\"coordinates\":[[[86.6,26.35],[86.6,26.85],[87.2,26.85],[87.2,26.35],[86.6,26.35]]]}",
+  "meta": {
+   "note": "proximal settlement set",
+   "river": "Kosi",
+   "state": "Bihar"
+  },
+  "active": true,
+  "created": "2026-09-24 22:52:30",
+  "bbox_geojson": "{\"type\":\"Polygon\",\"coordinates\":[[[86.6,26.35],[86.6,26.85],[87.2,26.85],[87.2,26.35],[86.6,26.35]]]}"
+ },
+ {
+  "id": "d709880e-7730-4c08-94ec-e8523c95eedd",
+  "name": "Phuktal (Ladakh)",
+  "preset": "phuktal",
+  "kind": null,
+  "state": null,
+  "bbox": "{\"type\":\"Polygon\",\"coordinates\":[[[76.85,33.05],[76.85,33.45],[77.35,33.45],[77.35,33.05],[76.85,33.05]]]}",
+  "meta": {
+   "note": "natural blockage risk",
+   "river": "Zanskar",
+   "state": "Ladakh"
+  },
+  "active": true,
+  "created": "2026-09-24 22:52:30",
+  "bbox_geojson": "{\"type\":\"Polygon\",\"coordinates\":[[[76.85,33.05],[76.85,33.45],[77.35,33.45],[77.35,33.05],[76.85,33.05]]]}"
+ },
+ {
+  "id": "6c00acd2-5350-44bd-a751-69964717ea84",
+  "name": "Hidkal Dam (Karnataka)",
+  "preset": "hidkal",
+  "kind": null,
+  "state": null,
+  "bbox": "{\"type\":\"Polygon\",\"coordinates\":[[[74.45,16.25],[74.45,16.75],[75.05,16.75],[75.05,16.25],[74.45,16.25]]]}",
+  "meta": {
+   "note": "SIH benchmark dam",
+   "river": "Bhima",
+   "state": "Karnataka"
+  },
+  "active": true,
+  "created": "2026-09-24 22:52:30",
+  "bbox_geojson": "{\"type\":\"Polygon\",\"coordinates\":[[[74.45,16.25],[74.45,16.75],[75.05,16.75],[75.05,16.25],[74.45,16.25]]]}"
+ },
+ {
+  "id": "7082735d-5334-4dc3-bae5-bf5808e743cd",
+  "name": "Auto - Rishi Ganga Flash Flood (2021)",
+  "preset": "auto",
+  "kind": null,
+  "state": null,
+  "bbox": "{\"type\":\"Polygon\",\"coordinates\":[[[77.88,21.88],[77.88,22.12],[78.12,22.12],[78.12,21.88],[77.88,21.88]]]}",
+  "meta": {
+   "scenario_id": "75df3185-c3b5-4baa-b641-28540415ae7d"
+  },
+  "active": true,
+  "created": "2026-09-25 15:37:06",
+  "bbox_geojson": "{\"type\":\"Polygon\",\"coordinates\":[[[77.88,21.88],[77.88,22.12],[78.12,22.12],[78.12,21.88],[77.88,21.88]]]}"
+ },
+ {
+  "id": "21214611-6821-42f9-8bd6-dad03f15165b",
+  "name": "Auto - Smoke · Adavinainar · case 2",
+  "preset": "auto",
+  "kind": null,
+  "state": null,
+  "bbox": "{\"type\":\"Polygon\",\"coordinates\":[[[77.15,9.01],[77.15,9.13],[77.31,9.13],[77.31,9.01],[77.15,9.01]]]}",
+  "meta": {
+   "scenario_id": "97e40af3-ff9a-46d1-9d38-21164fbbf997"
+  },
+  "active": true,
+  "created": "2026-09-26 21:57:04",
+  "bbox_geojson": "{\"type\":\"Polygon\",\"coordinates\":[[[77.15,9.01],[77.15,9.13],[77.31,9.13],[77.31,9.01],[77.15,9.01]]]}"
+ },
+ {
+  "id": "010509d9-0045-4438-86ee-7f14fa466636",
+  "name": "Auto - Ganga · Bhimgoda Barrage · case 2",
+  "preset": "auto",
+  "kind": null,
+  "state": null,
+  "bbox": "{\"type\":\"Polygon\",\"coordinates\":[[[78.1005807,29.8968696],[78.1005807,30.0168696],[78.2605807,30.0168696],[78.2605807,29.8968696],[78.1005807,29.8968696]]]}",
+  "meta": {
+   "scenario_id": "e2ac27c1-df50-4086-b430-3c883eb72f18"
+  },
+  "active": true,
+  "created": "2026-09-27 04:44:04",
+  "bbox_geojson": "{\"type\":\"Polygon\",\"coordinates\":[[[78.1005807,29.8968696],[78.1005807,30.0168696],[78.2605807,30.0168696],[78.2605807,29.8968696],[78.1005807,29.8968696]]]}"
+ }
+]

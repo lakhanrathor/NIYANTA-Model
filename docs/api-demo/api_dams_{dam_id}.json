@@ -1,0 +1,39 @@
+{
+ "id": "f4584061-cc0b-47c4-9a49-3f626821a4eb",
+ "name": "+",
+ "river": null,
+ "river_id": null,
+ "state": "မန္တလေးတိုင်း",
+ "country": "IN",
+ "dam_type": "earth",
+ "photo": null,
+ "crest_m": 250.0,
+ "height_m": 25.0,
+ "fsl_m": 248.5,
+ "storage_mcm": 85.0,
+ "crest_length_m": 420.0,
+ "river_km": null,
+ "purpose": null,
+ "registry_source": "osm",
+ "ingest_status": "default",
+ "dem_status": "none",
+ "imagery_status": "none",
+ "dataset_id": null,
+ "meta": {
+  "tags": {
+   "waterway": "dam"
+  },
+  "osm_id": 1373679546,
+  "osm_type": "way",
+  "height_tagged": false
+ },
+ "created": "2026-09-25 22:26:03",
+ "lon": 95.59408215,
+ "lat": 21.5164641,
+ "river_name": null,
+ "capacity_mcm": 85.0,
+ "length_m": 420.0,
+ "status": "in_db",
+ "cwc_id": null,
+ "source": "osm"
+}

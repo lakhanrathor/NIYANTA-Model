@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>NIYANTA Flood Report — {{ run.id[:8] }}</title>
+<style>
+  @page { size: A4; margin: 14mm; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: #16202b; margin: 0; font-size: 12.5px; }
+  header { border-bottom: 3px solid #0b3d66; padding-bottom: 8px; margin-bottom: 14px; }
+  h1 { font-size: 21px; margin: 0 0 3px; color: #0b3d66; letter-spacing: .5px; }
+  h2 { font-size: 14.5px; color: #0b3d66; border-bottom: 1px solid #ccd8e3; padding-bottom: 3px; margin: 18px 0 8px; }
+  .meta { color: #51616f; font-size: 11.5px; }
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge.ok { background: #dff3e4; color: #1c6b36; }
+  .badge.warn { background: #fdeaea; color: #98222a; }
+  .badge.gradeA { background: #dff3e4; color: #1c6b36; }
+  .badge.gradeB { background: #fff4d6; color: #8a6100; }
+  .badge.gradeC, .badge.gradeD { background: #fdeaea; color: #98222a; }
+  table { border-collapse: collapse; width: 100%; margin: 6px 0 10px; }
+  th, td { border: 1px solid #ccd8e3; padding: 4px 7px; text-align: left; }
+  th { background: #eef3f8; font-weight: 600; }
+  td.num, th.num { text-align: right; }
+  .grid { display: flex; gap: 14px; }
+  .grid > div { flex: 1; }
+  .kpi { background: #f4f8fb; border: 1px solid #ccd8e3; border-radius: 6px; padding: 8px 10px; margin: 4px 0; }
+  .kpi .v { font-size: 19px; font-weight: 700; color: #0b3d66; }
+  .kpi .l { color: #51616f; font-size: 11px; }
+  img.map { width: 100%; border: 1px solid #ccd8e3; border-radius: 4px; }
+  footer { margin-top: 16px; color: #7b8a97; font-size: 10.5px; border-top: 1px solid #ccd8e3; padding-top: 6px; }
+  @media print { .noprint { display: none; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>NIYANTA — Post-Breach Inundation Report</h1>
+  <div class="meta">
+    Run <strong>{{ run.id[:8] }}</strong> · Scenario “{{ scenario.name or scenario.id[:8] }}” · Case {{ scenario.case }} ·
+    Engine <strong>{{ run.engine }}</strong> ·
+    State <span class="badge ok">{{ run.state }}</span>
+    {% if validation.grade %} · Grade <span class="badge grade{{ validation.grade }}">{{ validation.grade }}</span>{% endif %}
+    · {{ generated }}
+  </div>
+</header>
+
+<h2>1 · Breach &amp; Flood Summary</h2>
+<div class="grid">
+  <div>
+    <div class="kpi"><div class="v">{{ "%.0f"|format(metrics.peak_discharge_cms or 0) }} m³/s</div>
+      <div class="l">Peak breach discharge (t+{{ "%.2f"|format(metrics.peak_at_hr or 0) }} h)</div></div>
+    <div class="kpi"><div class="v">{{ "%.1f"|format(metrics.max_depth_m or 0) }} m</div>
+      <div class="l">Maximum flood depth</div></div>
+  </div>
+  <div>
+    <div class="kpi"><div class="v">{{ "%.1f"|format(metrics.inundation_km2 or 0) }} km²</div>
+      <div class="l">Inundation extent (&gt;0.1 m)</div></div>
+    <div class="kpi"><div class="v">{{ "%.1f"|format(metrics.volume_hm3 or 0) }} hm³</div>
+      <div class="l">Released volume · MB err {{ "%.3f"|format(metrics.mass_balance_error_pct or 0) }}%</div></div>
+  </div>
+  <div>
+    <div class="kpi"><div class="v">{{ "%.0f"|format(impact.population_exposed or 0) }}</div>
+      <div class="l">Population exposed · {{ impact.villages_affected or 0 }} villages</div></div>
+    <div class="kpi"><div class="v">{{ "%.1f"|format(impact.infra.roads_km or 0) }} km</div>
+      <div class="l">Roads flooded · {{ impact.infra.bridges_closed or 0 }}/{{ impact.infra.bridges or 0 }} bridges closed</div></div>
+  </div>
+</div>
+
+<h2>2 · Inundation Map</h2>
+<img class="map" src="{{ thumbnail }}" alt="inundation map">
+<div class="meta">Colour scale 0–{{ depth_scale }} m (turbo). Raster: <code>max_depth.tif</code> (EPSG:4326).</div>
+
+<h2>3 · Breach Parameters ({{ breach.method }})</h2>
+<table>
+  <tr><th>Bottom width</th><th>Depth</th><th>Side slope</th><th>Formation time</th><th>Mode</th></tr>
+  <tr>
+    <td class="num">{{ "%.1f"|format(breach.width_m or 0) }} m</td>
+    <td class="num">{{ "%.1f"|format(breach.depth_m or 0) }} m</td>
+    <td class="num">{{ "%.2f"|format(breach.side_slope or 0) }}</td>
+    <td class="num">{{ "%.2f"|format(breach.t_form_hr or 0) }} h</td>
+    <td>{{ breach.mode }}</td>
+  </tr>
+</table>
+
+<h2>4 · Station Hydrographs</h2>
+<table>
+  <tr><th>Chainage</th><th class="num">Peak Q (m³/s)</th><th class="num">Arrival (h)</th>
+      <th class="num">Max depth (m)</th><th class="num">Max stage (m)</th></tr>
+  {% for s in stations %}
+  <tr>
+    <td>{{ s.name or s.km }}</td>
+    <td class="num">{{ "%.0f"|format(s.peak_cms or 0) }}</td>
+    <td class="num">{{ "%.2f"|format(s.arrival_hr) if s.arrival_hr is not none else "—" }}</td>
+    <td class="num">{{ "%.2f"|format(s.max_depth_m or 0) }}</td>
+    <td class="num">{{ "%.1f"|format(s.max_stage_m or 0) }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h2>5 · Village Impact</h2>
+<table>
+  <tr><th>Village</th><th class="num">Population</th><th class="num">Depth (m)</th>
+      <th class="num">Velocity (m/s)</th><th class="num">Lead time (h)</th><th>Hazard</th></tr>
+  {% for v in impact_rows %}
+  <tr>
+    <td>{{ v.name }}</td>
+    <td class="num">{{ v.population }}</td>
+    <td class="num">{{ "%.2f"|format(v.depth_m or 0) }}</td>
+    <td class="num">{{ "%.1f"|format(v.velocity_ms or 0) }}</td>
+    <td class="num">{{ "%.2f"|format(v.arrival_hr) if v.arrival_hr is not none else "—" }}</td>
+    <td>{{ v.hazard }}</td>
+  </tr>
+  {% else %}
+  <tr><td colspan="6">No villages affected.</td></tr>
+  {% endfor %}
+</table>
+
+<h2>6 · Validation</h2>
+<table>
+  <tr><th>Benchmark</th><th class="num">Peak error</th><th class="num">Extent IoU</th><th>Grade</th></tr>
+  <tr>
+    <td>{{ validation.benchmark or "internal consistency" }}</td>
+    <td class="num">{{ "%.1f"|format(validation.error_peak_pct) ~ " %" if validation.error_peak_pct is not none else "—" }}</td>
+    <td class="num">{{ "%.2f"|format(validation.extent_iou) if validation.extent_iou is not none else "—" }}</td>
+    <td><span class="badge grade{{ validation.grade }}">{{ validation.grade or "—" }}</span></td>
+  </tr>
+</table>
+
+<footer>
+  Generated by NIYANTA (SIH26161) · {{ generated }} · data provenance: {{ provenance }}
+  · print this page or use browser → Save as PDF.
+</footer>
+</body>
+</html>

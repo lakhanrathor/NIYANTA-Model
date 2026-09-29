@@ -1,0 +1,11 @@
+{
+ "target_resolution_m": 30.0,
+ "domain_km": 953.8,
+ "expected_cells": 1059777,
+ "method": "Adaptive unstructured",
+ "dt_s": 1.0,
+ "duration_hr": 6.0,
+ "engine_label": null,
+ "particles": null,
+ "storage_mcm": 17.0
+}

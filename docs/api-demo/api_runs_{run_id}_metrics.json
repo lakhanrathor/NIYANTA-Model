@@ -1,0 +1,8 @@
+{
+ "mesh_cells": 115758,
+ "domain_km2": 856.29,
+ "dt_s": null,
+ "sim_time_s": 21600,
+ "iterations": null,
+ "hardware": "GPU (NVIDIA CUDA)"
+}

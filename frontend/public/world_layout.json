@@ -1,0 +1,1591 @@
+{
+  "metadata": {
+    "name": "Niyanta Digital Twin \u2014 Real Copernicus DEM Nepal Valley",
+    "source": "Copernicus DSM COG 10 (N27 E085)",
+    "object_count": 131
+  },
+  "asset_library": {
+    "hospital": "assets/structures/hospital.obj",
+    "bridge_concrete": "assets/structures/bridge_concrete.obj",
+    "house_small": "assets/structures/house_small.obj",
+    "house_medium": "assets/structures/house_medium.obj",
+    "shed_farm": "assets/structures/shed_farm.obj",
+    "tree_pine": "assets/vegetation/tree_pine.obj",
+    "road_segment": "assets/infrastructure/road_segment.obj",
+    "dam_concrete": "assets/structures/dam_concrete.obj"
+  },
+  "objects": [
+    {
+      "id": "dam_main_01",
+      "asset": "dam_concrete",
+      "position": {
+        "x": 750,
+        "y": 45.56231498718262,
+        "z": 480
+      },
+      "rotation_y": 0,
+      "scale": 1.0,
+      "material_id": "4"
+    },
+    {
+      "id": "bridge_main_01",
+      "asset": "bridge_concrete",
+      "position": {
+        "x": 850,
+        "y": 80.71098709106445,
+        "z": 950
+      },
+      "rotation_y": 15,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "hospital_01",
+      "asset": "hospital",
+      "position": {
+        "x": 550,
+        "y": 90.26519393920898,
+        "z": 800
+      },
+      "rotation_y": -10,
+      "scale": 1.0,
+      "material_id": "4"
+    },
+    {
+      "id": "house_001",
+      "asset": "house_medium",
+      "position": {
+        "x": 265.0,
+        "y": 88.1,
+        "z": 791.8
+      },
+      "rotation_y": -24.9,
+      "scale": 1.05,
+      "material_id": "5"
+    },
+    {
+      "id": "house_002",
+      "asset": "house_small",
+      "position": {
+        "x": 785.3,
+        "y": 73.1,
+        "z": 803.0
+      },
+      "rotation_y": -7.0,
+      "scale": 0.91,
+      "material_id": "3"
+    },
+    {
+      "id": "house_003",
+      "asset": "house_small",
+      "position": {
+        "x": 553.2,
+        "y": 83.5,
+        "z": 665.6
+      },
+      "rotation_y": -27.1,
+      "scale": 1.03,
+      "material_id": "3"
+    },
+    {
+      "id": "house_004",
+      "asset": "shed_farm",
+      "position": {
+        "x": 382.3,
+        "y": 88.8,
+        "z": 763.5
+      },
+      "rotation_y": 27.8,
+      "scale": 0.9,
+      "material_id": "4"
+    },
+    {
+      "id": "house_005",
+      "asset": "house_medium",
+      "position": {
+        "x": 668.9,
+        "y": 88.3,
+        "z": 841.7
+      },
+      "rotation_y": -31.0,
+      "scale": 1.09,
+      "material_id": "4"
+    },
+    {
+      "id": "house_006",
+      "asset": "house_small",
+      "position": {
+        "x": 305.6,
+        "y": 73.0,
+        "z": 701.0
+      },
+      "rotation_y": 31.3,
+      "scale": 1.02,
+      "material_id": "4"
+    },
+    {
+      "id": "house_007",
+      "asset": "shed_farm",
+      "position": {
+        "x": 687.8,
+        "y": 85.8,
+        "z": 842.1
+      },
+      "rotation_y": 42.6,
+      "scale": 0.98,
+      "material_id": "5"
+    },
+    {
+      "id": "house_008",
+      "asset": "shed_farm",
+      "position": {
+        "x": 747.6,
+        "y": 76.1,
+        "z": 765.6
+      },
+      "rotation_y": 7.0,
+      "scale": 1.04,
+      "material_id": "4"
+    },
+    {
+      "id": "house_009",
+      "asset": "house_medium",
+      "position": {
+        "x": 386.7,
+        "y": 75.9,
+        "z": 613.7
+      },
+      "rotation_y": 32.0,
+      "scale": 1.07,
+      "material_id": "5"
+    },
+    {
+      "id": "house_010",
+      "asset": "house_medium",
+      "position": {
+        "x": 522.0,
+        "y": 91.9,
+        "z": 714.0
+      },
+      "rotation_y": -11.7,
+      "scale": 0.94,
+      "material_id": "5"
+    },
+    {
+      "id": "house_011",
+      "asset": "shed_farm",
+      "position": {
+        "x": 812.0,
+        "y": 65.7,
+        "z": 680.1
+      },
+      "rotation_y": 9.8,
+      "scale": 0.93,
+      "material_id": "5"
+    },
+    {
+      "id": "house_012",
+      "asset": "house_medium",
+      "position": {
+        "x": 348.0,
+        "y": 94.5,
+        "z": 818.7
+      },
+      "rotation_y": 44.1,
+      "scale": 1.03,
+      "material_id": "4"
+    },
+    {
+      "id": "house_013",
+      "asset": "house_small",
+      "position": {
+        "x": 660.8,
+        "y": 78.6,
+        "z": 767.1
+      },
+      "rotation_y": 29.0,
+      "scale": 1.06,
+      "material_id": "5"
+    },
+    {
+      "id": "house_014",
+      "asset": "shed_farm",
+      "position": {
+        "x": 289.7,
+        "y": 75.2,
+        "z": 720.3
+      },
+      "rotation_y": -16.7,
+      "scale": 1.03,
+      "material_id": "3"
+    },
+    {
+      "id": "house_015",
+      "asset": "house_medium",
+      "position": {
+        "x": 798.7,
+        "y": 64.3,
+        "z": 718.7
+      },
+      "rotation_y": -21.2,
+      "scale": 0.95,
+      "material_id": "5"
+    },
+    {
+      "id": "house_016",
+      "asset": "shed_farm",
+      "position": {
+        "x": 407.6,
+        "y": 94.6,
+        "z": 768.4
+      },
+      "rotation_y": 35.8,
+      "scale": 0.98,
+      "material_id": "4"
+    },
+    {
+      "id": "house_017",
+      "asset": "shed_farm",
+      "position": {
+        "x": 848.5,
+        "y": 62.3,
+        "z": 1087.7
+      },
+      "rotation_y": -36.8,
+      "scale": 0.91,
+      "material_id": "4"
+    },
+    {
+      "id": "house_018",
+      "asset": "shed_farm",
+      "position": {
+        "x": 626.5,
+        "y": 93.0,
+        "z": 1043.9
+      },
+      "rotation_y": 8.7,
+      "scale": 0.98,
+      "material_id": "4"
+    },
+    {
+      "id": "house_019",
+      "asset": "house_medium",
+      "position": {
+        "x": 530.8,
+        "y": 86.3,
+        "z": 1238.4
+      },
+      "rotation_y": 32.5,
+      "scale": 0.9,
+      "material_id": "3"
+    },
+    {
+      "id": "house_020",
+      "asset": "shed_farm",
+      "position": {
+        "x": 659.0,
+        "y": 68.6,
+        "z": 1288.3
+      },
+      "rotation_y": 24.2,
+      "scale": 0.97,
+      "material_id": "4"
+    },
+    {
+      "id": "house_021",
+      "asset": "shed_farm",
+      "position": {
+        "x": 683.3,
+        "y": 88.8,
+        "z": 1001.3
+      },
+      "rotation_y": 42.5,
+      "scale": 1.05,
+      "material_id": "4"
+    },
+    {
+      "id": "house_022",
+      "asset": "shed_farm",
+      "position": {
+        "x": 313.8,
+        "y": 109.5,
+        "z": 1203.1
+      },
+      "rotation_y": 30.8,
+      "scale": 1.0,
+      "material_id": "4"
+    },
+    {
+      "id": "house_023",
+      "asset": "house_small",
+      "position": {
+        "x": 474.3,
+        "y": 107.3,
+        "z": 1079.6
+      },
+      "rotation_y": 40.8,
+      "scale": 1.08,
+      "material_id": "3"
+    },
+    {
+      "id": "house_024",
+      "asset": "house_medium",
+      "position": {
+        "x": 609.4,
+        "y": 67.1,
+        "z": 1367.4
+      },
+      "rotation_y": -34.9,
+      "scale": 0.97,
+      "material_id": "5"
+    },
+    {
+      "id": "house_025",
+      "asset": "house_small",
+      "position": {
+        "x": 734.1,
+        "y": 49.9,
+        "z": 1394.1
+      },
+      "rotation_y": -23.3,
+      "scale": 1.01,
+      "material_id": "5"
+    },
+    {
+      "id": "house_026",
+      "asset": "house_small",
+      "position": {
+        "x": 689.1,
+        "y": 86.8,
+        "z": 1031.5
+      },
+      "rotation_y": 23.9,
+      "scale": 0.93,
+      "material_id": "3"
+    },
+    {
+      "id": "house_027",
+      "asset": "house_medium",
+      "position": {
+        "x": 579.9,
+        "y": 87.9,
+        "z": 1190.1
+      },
+      "rotation_y": 33.5,
+      "scale": 0.98,
+      "material_id": "3"
+    },
+    {
+      "id": "house_028",
+      "asset": "shed_farm",
+      "position": {
+        "x": 573.6,
+        "y": 100.3,
+        "z": 1084.7
+      },
+      "rotation_y": -26.9,
+      "scale": 0.96,
+      "material_id": "3"
+    },
+    {
+      "id": "house_029",
+      "asset": "house_medium",
+      "position": {
+        "x": 639.9,
+        "y": 62.0,
+        "z": 1398.1
+      },
+      "rotation_y": -4.4,
+      "scale": 0.95,
+      "material_id": "3"
+    },
+    {
+      "id": "house_030",
+      "asset": "house_small",
+      "position": {
+        "x": 603.1,
+        "y": 82.5,
+        "z": 1221.6
+      },
+      "rotation_y": 18.7,
+      "scale": 0.91,
+      "material_id": "5"
+    },
+    {
+      "id": "house_031",
+      "asset": "house_medium",
+      "position": {
+        "x": 558.5,
+        "y": 98.4,
+        "z": 1132.2
+      },
+      "rotation_y": -1.3,
+      "scale": 1.01,
+      "material_id": "3"
+    },
+    {
+      "id": "house_032",
+      "asset": "shed_farm",
+      "position": {
+        "x": 779.4,
+        "y": 66.0,
+        "z": 1289.3
+      },
+      "rotation_y": -23.1,
+      "scale": 0.99,
+      "material_id": "4"
+    },
+    {
+      "id": "house_033",
+      "asset": "house_medium",
+      "position": {
+        "x": 462.6,
+        "y": 91.2,
+        "z": 1263.6
+      },
+      "rotation_y": 32.7,
+      "scale": 0.91,
+      "material_id": "4"
+    },
+    {
+      "id": "house_034",
+      "asset": "house_small",
+      "position": {
+        "x": 637.7,
+        "y": 73.8,
+        "z": 1261.4
+      },
+      "rotation_y": 20.5,
+      "scale": 1.06,
+      "material_id": "4"
+    },
+    {
+      "id": "house_035",
+      "asset": "house_small",
+      "position": {
+        "x": 334.1,
+        "y": 107.0,
+        "z": 1214.5
+      },
+      "rotation_y": -3.4,
+      "scale": 1.07,
+      "material_id": "4"
+    },
+    {
+      "id": "house_036",
+      "asset": "shed_farm",
+      "position": {
+        "x": 734.8,
+        "y": 80.6,
+        "z": 1030.2
+      },
+      "rotation_y": -40.4,
+      "scale": 1.1,
+      "material_id": "5"
+    },
+    {
+      "id": "house_037",
+      "asset": "house_small",
+      "position": {
+        "x": 831.4,
+        "y": 61.1,
+        "z": 1334.4
+      },
+      "rotation_y": -8.4,
+      "scale": 1.0,
+      "material_id": "5"
+    },
+    {
+      "id": "house_038",
+      "asset": "house_small",
+      "position": {
+        "x": 791.5,
+        "y": 58.1,
+        "z": 1345.9
+      },
+      "rotation_y": -44.8,
+      "scale": 0.98,
+      "material_id": "4"
+    },
+    {
+      "id": "house_039",
+      "asset": "house_medium",
+      "position": {
+        "x": 721.1,
+        "y": 58.7,
+        "z": 1824.3
+      },
+      "rotation_y": 17.7,
+      "scale": 1.05,
+      "material_id": "4"
+    },
+    {
+      "id": "house_040",
+      "asset": "house_medium",
+      "position": {
+        "x": 647.1,
+        "y": 51.1,
+        "z": 1774.2
+      },
+      "rotation_y": -27.9,
+      "scale": 0.94,
+      "material_id": "5"
+    },
+    {
+      "id": "house_041",
+      "asset": "house_small",
+      "position": {
+        "x": 691.4,
+        "y": 66.8,
+        "z": 1520.5
+      },
+      "rotation_y": -16.8,
+      "scale": 0.91,
+      "material_id": "3"
+    },
+    {
+      "id": "house_042",
+      "asset": "shed_farm",
+      "position": {
+        "x": 801.6,
+        "y": 55.9,
+        "z": 1666.9
+      },
+      "rotation_y": -39.9,
+      "scale": 1.0,
+      "material_id": "5"
+    },
+    {
+      "id": "house_043",
+      "asset": "house_small",
+      "position": {
+        "x": 291.1,
+        "y": 85.9,
+        "z": 1798.0
+      },
+      "rotation_y": 32.6,
+      "scale": 0.98,
+      "material_id": "3"
+    },
+    {
+      "id": "house_044",
+      "asset": "shed_farm",
+      "position": {
+        "x": 591.8,
+        "y": 54.4,
+        "z": 1829.6
+      },
+      "rotation_y": -41.4,
+      "scale": 0.92,
+      "material_id": "3"
+    },
+    {
+      "id": "house_045",
+      "asset": "house_medium",
+      "position": {
+        "x": 589.1,
+        "y": 66.9,
+        "z": 1730.1
+      },
+      "rotation_y": -26.6,
+      "scale": 1.04,
+      "material_id": "4"
+    },
+    {
+      "id": "house_046",
+      "asset": "shed_farm",
+      "position": {
+        "x": 487.5,
+        "y": 104.6,
+        "z": 1583.5
+      },
+      "rotation_y": -18.0,
+      "scale": 0.96,
+      "material_id": "3"
+    },
+    {
+      "id": "house_047",
+      "asset": "house_medium",
+      "position": {
+        "x": 293.5,
+        "y": 93.9,
+        "z": 1763.2
+      },
+      "rotation_y": 44.9,
+      "scale": 1.1,
+      "material_id": "3"
+    },
+    {
+      "id": "house_048",
+      "asset": "house_small",
+      "position": {
+        "x": 810.0,
+        "y": 65.0,
+        "z": 1592.8
+      },
+      "rotation_y": -11.7,
+      "scale": 0.93,
+      "material_id": "5"
+    },
+    {
+      "id": "house_049",
+      "asset": "shed_farm",
+      "position": {
+        "x": 672.1,
+        "y": 46.7,
+        "z": 1791.8
+      },
+      "rotation_y": 2.6,
+      "scale": 1.03,
+      "material_id": "3"
+    },
+    {
+      "id": "house_050",
+      "asset": "house_small",
+      "position": {
+        "x": 809.1,
+        "y": 47.3,
+        "z": 1694.1
+      },
+      "rotation_y": -21.2,
+      "scale": 1.08,
+      "material_id": "5"
+    },
+    {
+      "id": "house_051",
+      "asset": "house_medium",
+      "position": {
+        "x": 343.3,
+        "y": 91.9,
+        "z": 1759.8
+      },
+      "rotation_y": -26.0,
+      "scale": 0.97,
+      "material_id": "3"
+    },
+    {
+      "id": "house_052",
+      "asset": "shed_farm",
+      "position": {
+        "x": 761.7,
+        "y": 40.5,
+        "z": 1740.6
+      },
+      "rotation_y": -22.4,
+      "scale": 1.08,
+      "material_id": "4"
+    },
+    {
+      "id": "house_053",
+      "asset": "house_medium",
+      "position": {
+        "x": 630.6,
+        "y": 74.0,
+        "z": 1517.8
+      },
+      "rotation_y": -44.7,
+      "scale": 1.05,
+      "material_id": "5"
+    },
+    {
+      "id": "house_054",
+      "asset": "shed_farm",
+      "position": {
+        "x": 407.2,
+        "y": 92.2,
+        "z": 1723.0
+      },
+      "rotation_y": 4.7,
+      "scale": 0.99,
+      "material_id": "4"
+    },
+    {
+      "id": "house_055",
+      "asset": "shed_farm",
+      "position": {
+        "x": 792.4,
+        "y": 55.7,
+        "z": 1809.1
+      },
+      "rotation_y": 30.1,
+      "scale": 1.02,
+      "material_id": "5"
+    },
+    {
+      "id": "house_056",
+      "asset": "house_small",
+      "position": {
+        "x": 789.4,
+        "y": 70.6,
+        "z": 1607.9
+      },
+      "rotation_y": -26.1,
+      "scale": 0.95,
+      "material_id": "4"
+    },
+    {
+      "id": "tree_001",
+      "asset": "tree_pine",
+      "position": {
+        "x": 763.1,
+        "y": 47.1,
+        "z": 285.0
+      },
+      "rotation_y": 318.3,
+      "scale": 1.04,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_002",
+      "asset": "tree_pine",
+      "position": {
+        "x": 231.4,
+        "y": 111.6,
+        "z": 1217.2
+      },
+      "rotation_y": 334.8,
+      "scale": 1.32,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_003",
+      "asset": "tree_pine",
+      "position": {
+        "x": 789.2,
+        "y": 60.7,
+        "z": 1857.2
+      },
+      "rotation_y": 317.3,
+      "scale": 0.81,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_004",
+      "asset": "tree_pine",
+      "position": {
+        "x": 382.4,
+        "y": 101.8,
+        "z": 1425.8
+      },
+      "rotation_y": 335.1,
+      "scale": 1.28,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_005",
+      "asset": "tree_pine",
+      "position": {
+        "x": 789.1,
+        "y": 60.1,
+        "z": 1655.3
+      },
+      "rotation_y": 96.1,
+      "scale": 1.27,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_006",
+      "asset": "tree_pine",
+      "position": {
+        "x": 289.1,
+        "y": 118.0,
+        "z": 1645.5
+      },
+      "rotation_y": 294.0,
+      "scale": 1.08,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_007",
+      "asset": "tree_pine",
+      "position": {
+        "x": 776.0,
+        "y": 66.5,
+        "z": 649.3
+      },
+      "rotation_y": 81.9,
+      "scale": 0.81,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_008",
+      "asset": "tree_pine",
+      "position": {
+        "x": 379.0,
+        "y": 64.7,
+        "z": 447.6
+      },
+      "rotation_y": 311.2,
+      "scale": 1.38,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_009",
+      "asset": "tree_pine",
+      "position": {
+        "x": 645.3,
+        "y": 68.6,
+        "z": 602.4
+      },
+      "rotation_y": 143.9,
+      "scale": 1.39,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_010",
+      "asset": "tree_pine",
+      "position": {
+        "x": 898.4,
+        "y": 61.1,
+        "z": 1065.2
+      },
+      "rotation_y": 41.5,
+      "scale": 1.38,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_011",
+      "asset": "tree_pine",
+      "position": {
+        "x": 918.2,
+        "y": 49.5,
+        "z": 421.4
+      },
+      "rotation_y": 95.6,
+      "scale": 0.87,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_012",
+      "asset": "tree_pine",
+      "position": {
+        "x": 719.3,
+        "y": 73.8,
+        "z": 882.2
+      },
+      "rotation_y": 112.9,
+      "scale": 1.16,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_013",
+      "asset": "tree_pine",
+      "position": {
+        "x": 427.4,
+        "y": 107.0,
+        "z": 1020.6
+      },
+      "rotation_y": 207.6,
+      "scale": 0.95,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_014",
+      "asset": "tree_pine",
+      "position": {
+        "x": 101.4,
+        "y": 135.9,
+        "z": 1375.8
+      },
+      "rotation_y": 333.2,
+      "scale": 1.12,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_015",
+      "asset": "tree_pine",
+      "position": {
+        "x": 730.7,
+        "y": 50.1,
+        "z": 1395.0
+      },
+      "rotation_y": 241.4,
+      "scale": 1.02,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_016",
+      "asset": "tree_pine",
+      "position": {
+        "x": 664.6,
+        "y": 59.4,
+        "z": 226.0
+      },
+      "rotation_y": 118.9,
+      "scale": 0.99,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_017",
+      "asset": "tree_pine",
+      "position": {
+        "x": 711.8,
+        "y": 74.4,
+        "z": 1626.4
+      },
+      "rotation_y": 108.1,
+      "scale": 0.99,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_018",
+      "asset": "tree_pine",
+      "position": {
+        "x": 442.0,
+        "y": 101.8,
+        "z": 835.1
+      },
+      "rotation_y": 106.4,
+      "scale": 0.88,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_019",
+      "asset": "tree_pine",
+      "position": {
+        "x": 899.3,
+        "y": 65.9,
+        "z": 856.8
+      },
+      "rotation_y": 243.8,
+      "scale": 1.34,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_020",
+      "asset": "tree_pine",
+      "position": {
+        "x": 355.8,
+        "y": 106.6,
+        "z": 1207.9
+      },
+      "rotation_y": 197.3,
+      "scale": 0.8,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_021",
+      "asset": "tree_pine",
+      "position": {
+        "x": 465.4,
+        "y": 68.9,
+        "z": 616.4
+      },
+      "rotation_y": 208.8,
+      "scale": 1.19,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_022",
+      "asset": "tree_pine",
+      "position": {
+        "x": 475.8,
+        "y": 100.9,
+        "z": 937.0
+      },
+      "rotation_y": 76.9,
+      "scale": 1.08,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_023",
+      "asset": "tree_pine",
+      "position": {
+        "x": 776.6,
+        "y": 40.9,
+        "z": 1722.1
+      },
+      "rotation_y": 61.1,
+      "scale": 0.85,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_024",
+      "asset": "tree_pine",
+      "position": {
+        "x": 638.0,
+        "y": 91.7,
+        "z": 1027.8
+      },
+      "rotation_y": 120.7,
+      "scale": 1.29,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_025",
+      "asset": "tree_pine",
+      "position": {
+        "x": 671.9,
+        "y": 61.6,
+        "z": 1452.0
+      },
+      "rotation_y": 80.9,
+      "scale": 0.92,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_026",
+      "asset": "tree_pine",
+      "position": {
+        "x": 308.1,
+        "y": 66.4,
+        "z": 144.0
+      },
+      "rotation_y": 171.0,
+      "scale": 1.31,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_027",
+      "asset": "tree_pine",
+      "position": {
+        "x": 452.3,
+        "y": 52.1,
+        "z": 231.1
+      },
+      "rotation_y": 226.7,
+      "scale": 0.92,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_028",
+      "asset": "tree_pine",
+      "position": {
+        "x": 520.2,
+        "y": 78.9,
+        "z": 1353.4
+      },
+      "rotation_y": 87.8,
+      "scale": 1.19,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_029",
+      "asset": "tree_pine",
+      "position": {
+        "x": 190.6,
+        "y": 138.9,
+        "z": 1486.1
+      },
+      "rotation_y": 153.1,
+      "scale": 0.91,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_030",
+      "asset": "tree_pine",
+      "position": {
+        "x": 540.3,
+        "y": 61.2,
+        "z": 1824.3
+      },
+      "rotation_y": 18.1,
+      "scale": 0.95,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_031",
+      "asset": "tree_pine",
+      "position": {
+        "x": 488.0,
+        "y": 95.8,
+        "z": 1627.0
+      },
+      "rotation_y": 288.5,
+      "scale": 1.2,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_032",
+      "asset": "tree_pine",
+      "position": {
+        "x": 606.1,
+        "y": 60.6,
+        "z": 1878.2
+      },
+      "rotation_y": 342.0,
+      "scale": 1.33,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_033",
+      "asset": "tree_pine",
+      "position": {
+        "x": 711.4,
+        "y": 72.4,
+        "z": 1202.8
+      },
+      "rotation_y": 181.7,
+      "scale": 1.3,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_034",
+      "asset": "tree_pine",
+      "position": {
+        "x": 862.6,
+        "y": 61.8,
+        "z": 1086.2
+      },
+      "rotation_y": 267.7,
+      "scale": 1.08,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_035",
+      "asset": "tree_pine",
+      "position": {
+        "x": 310.2,
+        "y": 85.7,
+        "z": 566.5
+      },
+      "rotation_y": 229.6,
+      "scale": 1.26,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_036",
+      "asset": "tree_pine",
+      "position": {
+        "x": 632.7,
+        "y": 92.4,
+        "z": 1038.3
+      },
+      "rotation_y": 98.9,
+      "scale": 0.85,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_037",
+      "asset": "tree_pine",
+      "position": {
+        "x": 331.0,
+        "y": 82.4,
+        "z": 614.3
+      },
+      "rotation_y": 115.1,
+      "scale": 1.12,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_038",
+      "asset": "tree_pine",
+      "position": {
+        "x": 296.6,
+        "y": 57.5,
+        "z": 349.1
+      },
+      "rotation_y": 249.8,
+      "scale": 1.22,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_039",
+      "asset": "tree_pine",
+      "position": {
+        "x": 446.5,
+        "y": 56.0,
+        "z": 215.6
+      },
+      "rotation_y": 195.3,
+      "scale": 1.05,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_040",
+      "asset": "tree_pine",
+      "position": {
+        "x": 457.1,
+        "y": 57.0,
+        "z": 472.3
+      },
+      "rotation_y": 325.7,
+      "scale": 1.15,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_041",
+      "asset": "tree_pine",
+      "position": {
+        "x": 828.2,
+        "y": 58.1,
+        "z": 1351.9
+      },
+      "rotation_y": 275.6,
+      "scale": 1.03,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_042",
+      "asset": "tree_pine",
+      "position": {
+        "x": 399.0,
+        "y": 76.1,
+        "z": 110.6
+      },
+      "rotation_y": 271.3,
+      "scale": 1.31,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_043",
+      "asset": "tree_pine",
+      "position": {
+        "x": 456.2,
+        "y": 71.4,
+        "z": 1816.2
+      },
+      "rotation_y": 269.1,
+      "scale": 1.13,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_044",
+      "asset": "tree_pine",
+      "position": {
+        "x": 287.5,
+        "y": 113.2,
+        "z": 1185.9
+      },
+      "rotation_y": 79.0,
+      "scale": 1.06,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_045",
+      "asset": "tree_pine",
+      "position": {
+        "x": 385.7,
+        "y": 69.9,
+        "z": 152.2
+      },
+      "rotation_y": 244.5,
+      "scale": 1.04,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_046",
+      "asset": "tree_pine",
+      "position": {
+        "x": 497.3,
+        "y": 59.3,
+        "z": 397.1
+      },
+      "rotation_y": 45.9,
+      "scale": 1.17,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_047",
+      "asset": "tree_pine",
+      "position": {
+        "x": 434.9,
+        "y": 73.7,
+        "z": 148.5
+      },
+      "rotation_y": 203.2,
+      "scale": 0.82,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_048",
+      "asset": "tree_pine",
+      "position": {
+        "x": 215.3,
+        "y": 105.3,
+        "z": 1256.9
+      },
+      "rotation_y": 166.2,
+      "scale": 0.83,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_049",
+      "asset": "tree_pine",
+      "position": {
+        "x": 279.9,
+        "y": 87.3,
+        "z": 782.4
+      },
+      "rotation_y": 117.7,
+      "scale": 1.26,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_050",
+      "asset": "tree_pine",
+      "position": {
+        "x": 739.2,
+        "y": 79.2,
+        "z": 782.4
+      },
+      "rotation_y": 299.5,
+      "scale": 0.95,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_051",
+      "asset": "tree_pine",
+      "position": {
+        "x": 116.5,
+        "y": 74.5,
+        "z": 247.4
+      },
+      "rotation_y": 194.2,
+      "scale": 1.4,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_052",
+      "asset": "tree_pine",
+      "position": {
+        "x": 652.6,
+        "y": 81.6,
+        "z": 729.9
+      },
+      "rotation_y": 281.2,
+      "scale": 1.19,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_053",
+      "asset": "tree_pine",
+      "position": {
+        "x": 907.2,
+        "y": 38.5,
+        "z": 1457.6
+      },
+      "rotation_y": 71.8,
+      "scale": 0.81,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_054",
+      "asset": "tree_pine",
+      "position": {
+        "x": 207.3,
+        "y": 74.7,
+        "z": 374.3
+      },
+      "rotation_y": 241.0,
+      "scale": 1.14,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_055",
+      "asset": "tree_pine",
+      "position": {
+        "x": 694.5,
+        "y": 47.7,
+        "z": 492.3
+      },
+      "rotation_y": 276.1,
+      "scale": 0.9,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_056",
+      "asset": "tree_pine",
+      "position": {
+        "x": 735.7,
+        "y": 70.7,
+        "z": 1193.0
+      },
+      "rotation_y": 41.2,
+      "scale": 1.29,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_057",
+      "asset": "tree_pine",
+      "position": {
+        "x": 191.9,
+        "y": 76.5,
+        "z": 1836.5
+      },
+      "rotation_y": 9.2,
+      "scale": 0.99,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_058",
+      "asset": "tree_pine",
+      "position": {
+        "x": 914.4,
+        "y": 49.4,
+        "z": 1319.2
+      },
+      "rotation_y": 142.8,
+      "scale": 1.23,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_059",
+      "asset": "tree_pine",
+      "position": {
+        "x": 687.0,
+        "y": 57.8,
+        "z": 236.8
+      },
+      "rotation_y": 225.8,
+      "scale": 0.86,
+      "material_id": "6"
+    },
+    {
+      "id": "tree_060",
+      "asset": "tree_pine",
+      "position": {
+        "x": 822.7,
+        "y": 45.4,
+        "z": 1490.5
+      },
+      "rotation_y": 216.1,
+      "scale": 0.87,
+      "material_id": "6"
+    },
+    {
+      "id": "road_01",
+      "asset": "road_segment",
+      "position": {
+        "x": 620.0,
+        "y": 61.4,
+        "z": 550
+      },
+      "rotation_y": 0.0,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "road_02",
+      "asset": "road_segment",
+      "position": {
+        "x": 639.5,
+        "y": 79.9,
+        "z": 660
+      },
+      "rotation_y": 7.8,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "road_03",
+      "asset": "road_segment",
+      "position": {
+        "x": 655.9,
+        "y": 79.2,
+        "z": 770
+      },
+      "rotation_y": 14.3,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "road_04",
+      "asset": "road_segment",
+      "position": {
+        "x": 666.6,
+        "y": 82.6,
+        "z": 880
+      },
+      "rotation_y": 18.6,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "road_05",
+      "asset": "road_segment",
+      "position": {
+        "x": 670.0,
+        "y": 88.1,
+        "z": 990
+      },
+      "rotation_y": 20.0,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "road_06",
+      "asset": "road_segment",
+      "position": {
+        "x": 665.5,
+        "y": 88.0,
+        "z": 1100
+      },
+      "rotation_y": 18.2,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "road_07",
+      "asset": "road_segment",
+      "position": {
+        "x": 653.8,
+        "y": 79.1,
+        "z": 1210
+      },
+      "rotation_y": 13.5,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "road_08",
+      "asset": "road_segment",
+      "position": {
+        "x": 636.7,
+        "y": 66.1,
+        "z": 1320
+      },
+      "rotation_y": 6.7,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "road_09",
+      "asset": "road_segment",
+      "position": {
+        "x": 617.1,
+        "y": 68.2,
+        "z": 1430
+      },
+      "rotation_y": -1.2,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "road_10",
+      "asset": "road_segment",
+      "position": {
+        "x": 597.9,
+        "y": 84.2,
+        "z": 1540
+      },
+      "rotation_y": -8.9,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "road_11",
+      "asset": "road_segment",
+      "position": {
+        "x": 582.2,
+        "y": 89.6,
+        "z": 1650
+      },
+      "rotation_y": -15.1,
+      "scale": 1.0,
+      "material_id": "3"
+    },
+    {
+      "id": "road_12",
+      "asset": "road_segment",
+      "position": {
+        "x": 572.4,
+        "y": 63.0,
+        "z": 1760
+      },
+      "rotation_y": -19.0,
+      "scale": 1.0,
+      "material_id": "3"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+# Render Blueprint — NIYANTA (SIH26161)
+#   niyanta-api : FastAPI + job workers, SQLite + storage on a persistent disk
+#   niyanta-web : the built React app; /api/* is rewritten to niyanta-api so the
+#                 browser sees one origin (no CORS); WebSockets go straight to
+#                 the API host via VITE_API_BASE_URL (static rewrites can't carry them)
+#
+# If Render gives the API a different URL than https://niyanta-api.onrender.com
+# (name already taken), replace it in the three places marked «API URL».
+services:
+  - type: web
+    name: niyanta-api
+    runtime: python
+    # A persistent disk needs a paid instance. starter = 512 MB RAM: enough to
+    # serve and replay runs; choose standard (2 GB) to run new simulations.
+    plan: starter
+    region: singapore
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    disk:
+      name: niyanta-data
+      mountPath: /var/data
+      sizeGB: 10
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.2
+      - key: NIYANTA_DB
+        value: /var/data/niyanta.sqlite
+      - key: NIYANTA_STORAGE
+        value: /var/data/storage
+      - key: NIYANTA_WORKERS
+        value: "1"
+      # Earth Engine needs your Google login, which a server doesn't have
+      - key: NIYANTA_GEE_MODE
+        value: offline
+      - key: NIYANTA_SCHEDULER
+        value: "0"
+      - key: NIYANTA_CORS
+        value: https://niyanta-web.onrender.com
+
+  - type: web
+    name: niyanta-web
+    runtime: static
+    rootDir: frontend/app
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://niyanta-api.onrender.com # «API URL»
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://niyanta-api.onrender.com/api/* # «API URL»
+      - type: rewrite
+        source: /*
+        destination: /index.html

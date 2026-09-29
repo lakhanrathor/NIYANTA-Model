@@ -1,0 +1,113 @@
+{
+  "hardware": {
+    "torch": "2.7.1+cu118",
+    "cuda_available": true,
+    "cuda_runtime": "11.8",
+    "cudnn": 90100,
+    "device_name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "device_index": 0,
+    "vram_bytes": 8585216000,
+    "vram_gib": 8.0,
+    "compute_capability": "8.9",
+    "sm_count": 24,
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cpu": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD",
+    "cores_physical": 16,
+    "numpy": "2.4.4",
+    "torch_cpu_threads": 8,
+    "benchmarked_at": "2026-09-27T14:28:45",
+    "blas_pools": [
+      {
+        "internal_api": "openblas",
+        "num_threads": 16,
+        "prefix": "libscipy_openblas",
+        "filepath": "C:\\Users\\ankitkumar\\Desktop\\work\\1\\runtime\\python\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-63c857e738469261263c764a36be9436.dll"
+      },
+      {
+        "internal_api": "openmp",
+        "num_threads": 8,
+        "prefix": "libiomp",
+        "filepath": "C:\\Users\\ankitkumar\\Desktop\\work\\1\\runtime\\python\\Lib\\site-packages\\torch\\lib\\libiomp5md.dll"
+      },
+      {
+        "internal_api": "openmp",
+        "num_threads": 1,
+        "prefix": "libiomp",
+        "filepath": "C:\\Users\\ankitkumar\\Desktop\\work\\1\\runtime\\python\\Lib\\site-packages\\torch\\lib\\libiompstubs5md.dll"
+      }
+    ],
+    "blas": "libscipy_openblas 0.3.31.188.0",
+    "blas_threads": 16
+  },
+  "config": {
+    "grids": [
+      256,
+      512
+    ],
+    "duration_s": 1800.0,
+    "frames": 24,
+    "cell_m": 30.0,
+    "wet_threshold_m": 0.05
+  },
+  "results": [
+    {
+      "grid": "256x256",
+      "cells": 65536,
+      "cpu_s": 4.88,
+      "cpu_rtf": 368.8,
+      "cpu_steps": 1722,
+      "cuda_s": 10.838,
+      "cuda_rtf": 166.1,
+      "cuda_steps": 1722,
+      "speedup_x": 0.45,
+      "peak_vram_alloc_mib": 7.6,
+      "peak_vram_reserved_mib": 10.0,
+      "auto_device": "cpu",
+      "max_depth_absdiff_m": 7.271766662597656e-06,
+      "max_vel_absdiff_ms": 8.106231689453125e-06,
+      "flood_footprint_agreement": 1.0,
+      "flooded_area_fraction": 0.0901641845703125,
+      "frame_depth_absdiff_m": 0.0009765625,
+      "arrival_mask_agreement": 1.0,
+      "arrival_max_gap_s": 0.0,
+      "rel_volume_diff": 0.0,
+      "cpu_mass_balance_pct": 1.1746635126195963e-06,
+      "cuda_mass_balance_pct": 1.174415173643823e-06,
+      "cpu_injected_hm3": 3.3404969578307138,
+      "cuda_injected_hm3": 3.3404969578390094,
+      "cpu_stored_hm3": 3.3404969970703124,
+      "cuda_stored_hm3": 3.3404969970703124,
+      "parity_ok": true
+    },
+    {
+      "grid": "512x512",
+      "cells": 262144,
+      "cpu_s": 62.171,
+      "cpu_rtf": 29.0,
+      "cpu_steps": 1722,
+      "cuda_s": 10.6,
+      "cuda_rtf": 169.8,
+      "cuda_steps": 1722,
+      "speedup_x": 5.86,
+      "peak_vram_alloc_mib": 30.5,
+      "peak_vram_reserved_mib": 52.0,
+      "auto_device": "cuda",
+      "max_depth_absdiff_m": 7.271766662597656e-06,
+      "max_vel_absdiff_ms": 8.106231689453125e-06,
+      "flood_footprint_agreement": 1.0,
+      "flooded_area_fraction": 0.022541046142578125,
+      "frame_depth_absdiff_m": 0.0009765625,
+      "arrival_mask_agreement": 1.0,
+      "arrival_max_gap_s": 0.0,
+      "rel_volume_diff": 6.577660836549316e-08,
+      "cpu_mass_balance_pct": 1.1746635126195963e-06,
+      "cuda_mass_balance_pct": 7.752076080784496e-06,
+      "cpu_injected_hm3": 3.3404969578307138,
+      "cuda_injected_hm3": 3.3404969578390094,
+      "cpu_stored_hm3": 3.3404969970703124,
+      "cuda_stored_hm3": 3.340497216796875,
+      "parity_ok": true
+    }
+  ]
+}

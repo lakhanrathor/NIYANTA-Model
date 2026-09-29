@@ -1,0 +1,29 @@
+[
+ {
+  "key": "dem",
+  "status": "ready",
+  "thumb": "/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/outputs/dem/thumb.png",
+  "elevation": [
+   233.9,
+   1335.3
+  ]
+ },
+ {
+  "key": "mesh",
+  "status": "ready",
+  "thumb": "/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/outputs/mesh/thumb.png",
+  "elevation": null
+ },
+ {
+  "key": "breach",
+  "status": "ready",
+  "thumb": "/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/outputs/breach/thumb.png",
+  "elevation": null
+ },
+ {
+  "key": "water",
+  "status": "ready",
+  "thumb": "/api/runs/a4332fb1-29d3-4642-93c7-cc701a9b2241/outputs/water/thumb.png",
+  "elevation": null
+ }
+]

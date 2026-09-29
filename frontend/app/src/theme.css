@@ -1,0 +1,123 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------
+   NIYANTA light theme — officers read light UIs.
+   Every measurement renders in --mono with its unit.
+   No dark mode anywhere in this app.
+---------------------------------------------------------------- */
+:root {
+  --bg: #fbfbfd;
+  --panel: #ffffff;
+  --line: #e4e7ec;
+  --line-strong: #d0d5dd;
+  --text: #1a2029;
+  --muted: #667085;
+  --faint: #98a2b3;
+  --accent: #0b6bcb;
+  --accent-soft: #e8f1fb;
+  --ok: #12805c;
+  --warn: #b25e09;
+  --bad: #b42318;
+  --shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 1px 3px rgb(16 24 40 / 10%);
+  --mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial,
+    sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* measurements are monospace so columns align down the panel */
+.num {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.hairline {
+  border-color: var(--line);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* In the base layer: unlayered CSS outranks every Tailwind utility, which made
+   `text-white` (and any colour class) on a link silently lose to the accent. */
+@layer base {
+  a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Context-top motion system — pure CSS, no libraries.
+   Staggered entrances replay every time the menu mounts.
+---------------------------------------------------------------- */
+@keyframes ct-menu-in {
+  from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes ct-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes ct-ping-soft {
+  0% { box-shadow: 0 0 0 0 rgb(18 128 92 / 0.45); }
+  70% { box-shadow: 0 0 0 7px rgb(18 128 92 / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(18 128 92 / 0); }
+}
+@keyframes ct-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+@keyframes ct-pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.12); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes ct-flow {
+  to { stroke-dashoffset: -16; }
+}
+@keyframes ct-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ct-menu-in { animation: ct-menu-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both; transform-origin: top right; }
+.ct-rise { animation: ct-rise 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.ct-ping { animation: ct-ping-soft 2.2s ease-out infinite; }
+.ct-blink { animation: ct-blink 1.1s ease-in-out infinite; }
+.ct-pop { animation: ct-pop 0.24s cubic-bezier(0.16, 1, 0.3, 1) both; display: inline-flex; }
+.ct-spin { animation: ct-spin 0.9s linear infinite; }
+/* Animated dashes inside the river glyph — water that never sits still. */
+.ct-flow { stroke-dasharray: 4 4; animation: ct-flow 1.1s linear infinite; }

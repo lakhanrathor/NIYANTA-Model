@@ -1,0 +1,9 @@
+{
+ "river_id": "0ec1ddca-09c7-4b8c-8632-78cbd38dfdd9",
+ "buffer_km": 2.0,
+ "area_km2": 7500.6,
+ "geometry": null,
+ "_fixture_trimmed": [
+  "dropped:geometry"
+ ]
+}

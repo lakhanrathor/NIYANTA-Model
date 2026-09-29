@@ -1,0 +1,135 @@
+[
+ {
+  "id": "175f9e9c-87be-4f12-a38d-07553f6726a6",
+  "case": "2",
+  "target_id": "d709880e-7730-4c08-94ec-e8523c95eedd",
+  "target_ref": "Phuktal (Ladakh)",
+  "score": 60.0,
+  "class": "HIGH",
+  "factors": {
+   "parts": {
+    "seismic": 0.6,
+    "lake_area_delta": 1.0,
+    "snow_cover_delta": 0.0,
+    "water_mask_delta": 0.027999999999999997
+   },
+   "changes": 57,
+   "weights": {
+    "seismic": 0.05,
+    "rainfall": 0.1,
+    "lst_anomaly": 0.15,
+    "lake_area_delta": 0.35,
+    "snow_cover_delta": 0.1,
+    "water_mask_delta": 0.25
+   },
+   "lake_flagged": true,
+   "lake_delta_pct": 83.5,
+   "water_delta_pct": 1.4,
+   "seismic_events_24h": 3
+  },
+  "ts": "2026-09-26 21:58:56"
+ },
+ {
+  "id": "622b620b-4f72-44b3-bfe9-ebdbc8897056",
+  "case": "2",
+  "target_id": "d709880e-7730-4c08-94ec-e8523c95eedd",
+  "target_ref": "Phuktal (Ladakh)",
+  "score": 60.0,
+  "class": "HIGH",
+  "factors": {
+   "parts": {
+    "seismic": 0.6,
+    "lake_area_delta": 1.0,
+    "snow_cover_delta": 0.0,
+    "water_mask_delta": 0.027999999999999997
+   },
+   "changes": 56,
+   "weights": {
+    "seismic": 0.05,
+    "rainfall": 0.1,
+    "lst_anomaly": 0.15,
+    "lake_area_delta": 0.35,
+    "snow_cover_delta": 0.1,
+    "water_mask_delta": 0.25
+   },
+   "lake_flagged": true,
+   "lake_delta_pct": 83.5,
+   "water_delta_pct": 1.4,
+   "seismic_events_24h": 3
+  },
+  "ts": "2026-09-26 21:58:51"
+ },
+ {
+  "id": "a5b78833-d478-4667-8c3b-c6a519b3a64d",
+  "case": "2",
+  "target_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+  "target_ref": "Rishiganga (Uttarakhand)",
+  "score": 19.3,
+  "class": "LOW",
+  "factors": {
+   "parts": {
+    "seismic": 0.6,
+    "lake_area_delta": 0.0,
+    "snow_cover_delta": 1.0,
+    "water_mask_delta": 0.057999999999999996
+   },
+   "changes": 64,
+   "weights": {
+    "seismic": 0.05,
+    "rainfall": 0.1,
+    "lst_anomaly": 0.15,
+    "lake_area_delta": 0.35,
+    "snow_cover_delta": 0.1,
+    "water_mask_delta": 0.25
+   },
+   "lake_flagged": false,
+   "lake_delta_pct": 0.0,
+   "water_delta_pct": 2.9,
+   "seismic_events_24h": 3
+  },
+  "ts": "2026-09-26 21:57:33"
+ },
+ {
+  "id": "497a00e4-1d18-4be5-a0ca-53f1b786989a",
+  "case": "2",
+  "target_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+  "target_ref": "Rishiganga (Uttarakhand)",
+  "score": 17.5,
+  "class": "LOW",
+  "factors": {
+   "parts": {
+    "seismic": 0.6,
+    "lake_area_delta": 0.0,
+    "snow_cover_delta": 1.0,
+    "water_mask_delta": 0.004
+   },
+   "changes": 62,
+   "weights": {
+    "seismic": 0.05,
+    "rainfall": 0.1,
+    "lst_anomaly": 0.15,
+    "lake_area_delta": 0.35,
+    "snow_cover_delta": 0.1,
+    "water_mask_delta": 0.25
+   },
+   "lake_flagged": false,
+   "lake_delta_pct": 0.0,
+   "water_delta_pct": 0.2,
+   "seismic_events_24h": 3
+  },
+  "ts": "2026-09-26 21:57:23"
+ },
+ {
+  "id": "b598ec07-f9f7-4c83-aa2e-97f7bdce7852",
+  "case": "1",
+  "target_id": "a73bc76a-5eb6-446c-b400-882e4bc3c1a8",
+  "target_ref": "Naganad Demo Dam",
+  "score": 0.0,
+  "class": "LOW",
+  "factors": {
+   "note": "no telemetry",
+   "samples": 0
+  },
+  "ts": "2026-09-26 04:21:25"
+ }
+]

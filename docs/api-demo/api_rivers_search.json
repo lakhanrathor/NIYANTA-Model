@@ -1,0 +1,42 @@
+[
+ {
+  "id": "0ec1ddca-09c7-4b8c-8632-78cbd38dfdd9",
+  "name": "Ganga",
+  "state": null,
+  "states": [
+   "Uttarakhand",
+   "Uttar Pradesh",
+   "Bihar",
+   "Jharkhand",
+   "West Bengal"
+  ],
+  "basin": "Ganga",
+  "kind": "river",
+  "source": "osm",
+  "length_km": 1908.3,
+  "major_dam_count": 43,
+  "prepared_at": "2026-09-27 06:18:42",
+  "path": null,
+  "geometry": null,
+  "bbox": null
+ },
+ {
+  "id": "46596d36-3531-46d5-91b9-03c42a0069ec",
+  "name": "Godavari",
+  "state": null,
+  "states": [
+   "Maharashtra",
+   "Telangana",
+   "Andhra Pradesh"
+  ],
+  "basin": "Godavari",
+  "kind": "river",
+  "source": "osm",
+  "length_km": 1472.2,
+  "major_dam_count": 90,
+  "prepared_at": null,
+  "path": null,
+  "geometry": null,
+  "bbox": null
+ }
+]

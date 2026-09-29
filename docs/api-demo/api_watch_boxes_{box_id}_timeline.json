@@ -1,0 +1,2547 @@
+{
+ "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+ "changes": [
+  {
+   "id": "8091294d-84cf-4c0c-b496-3c88409f5310",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 0.0
+   },
+   "baseline_id": null,
+   "observation_id": "8a7c0286-93d3-41a6-ad49-75c73a902760",
+   "ts": "2026-09-25 00:08:36"
+  },
+  {
+   "id": "d9716c73-bda5-4f77-ac29-7966d52c335d",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 20.248,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 0.0
+   },
+   "baseline_id": null,
+   "observation_id": "90d90c66-d20e-43f0-a3a9-7724a84ef8a5",
+   "ts": "2026-09-25 00:08:36"
+  },
+  {
+   "id": "31fbe61a-bd01-4f80-ad0b-9cbe8c5ec2fc",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "area_km2": 17.091,
+    "delta_pct": 0.0,
+    "ndwi_mean": 0.164,
+    "simulated": true,
+    "baseline_area_km2": 0.0
+   },
+   "baseline_id": null,
+   "observation_id": "ccae247c-426e-400a-889b-47459101c637",
+   "ts": "2026-09-25 00:08:36"
+  },
+  {
+   "id": "5ec1a0f4-f7d7-487f-b464-77618f4d0514",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": true,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 26.193,
+    "delta_pct": 29.4,
+    "simulated": true,
+    "baseline_area_km2": 20.248
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "d145be5e-7b39-4286-b0d9-a2511487debf",
+   "ts": "2026-09-25 00:10:28"
+  },
+  {
+   "id": "29ed63b3-17da-42e2-947a-3d2d951706dd",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "2a07a93c-7fc1-4dc1-add6-8920df4bbaf4",
+   "observation_id": "f276fbde-5221-4724-81a4-45c761bb23db",
+   "ts": "2026-09-25 00:10:28"
+  },
+  {
+   "id": "606f18c5-4814-4bd6-8776-dbe214a0bb29",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 20.248,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 20.248
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "b8f14e08-2da8-4e9d-97c1-ef6fb8bbca0f",
+   "ts": "2026-09-25 00:10:28"
+  },
+  {
+   "id": "a4da07ce-ab25-4058-b503-984a76c846d4",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "area_km2": 17.091,
+    "delta_pct": 0.0,
+    "ndwi_mean": 0.164,
+    "simulated": true,
+    "baseline_area_km2": 17.091
+   },
+   "baseline_id": "10481b1c-50be-4168-a78b-90fd7aba10bf",
+   "observation_id": "0366ff80-56f4-492b-9a60-b71675e22998",
+   "ts": "2026-09-25 00:10:28"
+  },
+  {
+   "id": "2f71a8ce-39b6-4a22-a174-8374bd56133e",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": true,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 26.193,
+    "delta_pct": 20.5,
+    "simulated": true,
+    "baseline_area_km2": 21.735
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "8a6e003b-43ae-445f-93fc-9e129e32b12e",
+   "ts": "2026-09-25 00:10:53"
+  },
+  {
+   "id": "f61db163-f7df-4d9c-89b8-9771a881d6c7",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "2a07a93c-7fc1-4dc1-add6-8920df4bbaf4",
+   "observation_id": "bfca6d04-ce58-4057-8d91-e313dd5c7180",
+   "ts": "2026-09-25 00:10:53"
+  },
+  {
+   "id": "44b72d9c-4701-489e-bf14-72daf3e52e87",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 20.248,
+    "delta_pct": -12.8,
+    "simulated": true,
+    "baseline_area_km2": 23.221
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "73e57d25-ac99-4b26-a80e-0f02ca981e15",
+   "ts": "2026-09-25 00:10:53"
+  },
+  {
+   "id": "5fdcde82-e2ea-4cf9-afff-522521372839",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "area_km2": 17.091,
+    "delta_pct": 0.0,
+    "ndwi_mean": 0.164,
+    "simulated": true,
+    "baseline_area_km2": 17.091
+   },
+   "baseline_id": "10481b1c-50be-4168-a78b-90fd7aba10bf",
+   "observation_id": "fc630695-562e-4232-aa3b-30734ada7227",
+   "ts": "2026-09-25 00:10:53"
+  },
+  {
+   "id": "acde7141-30a8-4a7a-8815-24ee708d6f3a",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 26.193,
+    "delta_pct": 18.5,
+    "simulated": true,
+    "baseline_area_km2": 22.106
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "6c446706-05bd-43f7-a994-fe7e585de56f",
+   "ts": "2026-09-25 00:11:16"
+  },
+  {
+   "id": "ef84d9e3-d168-4f23-ae1c-62e470290319",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "2a07a93c-7fc1-4dc1-add6-8920df4bbaf4",
+   "observation_id": "dc007384-6372-4222-b9e0-08eba5e835ad",
+   "ts": "2026-09-25 00:11:16"
+  },
+  {
+   "id": "e3c35f9a-d9bb-4674-a3e0-6d47714dceb9",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 20.248,
+    "delta_pct": -15.5,
+    "simulated": true,
+    "baseline_area_km2": 23.964
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "991081be-8d05-40fc-b8c1-2a5dd0526b82",
+   "ts": "2026-09-25 00:11:16"
+  },
+  {
+   "id": "7018f384-7b77-4d0c-bcee-7a67ba345b7a",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "area_km2": 17.091,
+    "delta_pct": 0.0,
+    "ndwi_mean": 0.164,
+    "simulated": true,
+    "baseline_area_km2": 17.091
+   },
+   "baseline_id": "10481b1c-50be-4168-a78b-90fd7aba10bf",
+   "observation_id": "62cd345b-f016-4706-b85b-5f43ca8f99f2",
+   "ts": "2026-09-25 00:11:16"
+  },
+  {
+   "id": "054d1394-4d54-40bb-bbe6-536863920a1a",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 26.193,
+    "delta_pct": 18.0,
+    "simulated": true,
+    "baseline_area_km2": 22.199
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "4235212d-7fe4-4775-b830-4e8023ad0405",
+   "ts": "2026-09-25 00:42:28"
+  },
+  {
+   "id": "7f25ade1-c9e8-4072-938f-a303ca483bcd",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "2a07a93c-7fc1-4dc1-add6-8920df4bbaf4",
+   "observation_id": "cfdc9e6f-d260-449b-befc-c1c9d8c7328c",
+   "ts": "2026-09-25 00:42:28"
+  },
+  {
+   "id": "36e8b733-8cfa-4bb3-bae1-78425f62c7a5",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 20.248,
+    "delta_pct": -16.2,
+    "simulated": true,
+    "baseline_area_km2": 24.15
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "0797e56a-1ed9-4365-a157-7c602d43fab6",
+   "ts": "2026-09-25 00:42:28"
+  },
+  {
+   "id": "e732a323-37ee-4e8e-b9c9-48f201c997fe",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "area_km2": 17.091,
+    "delta_pct": 0.0,
+    "ndwi_mean": 0.164,
+    "simulated": true,
+    "baseline_area_km2": 17.091
+   },
+   "baseline_id": "10481b1c-50be-4168-a78b-90fd7aba10bf",
+   "observation_id": "3f4f7ca3-88f2-42ac-b8c5-ab35550228ba",
+   "ts": "2026-09-25 00:42:28"
+  },
+  {
+   "id": "aa0107d3-a8c0-4c7f-bbb2-46a94766ae11",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 26.193,
+    "delta_pct": 17.9,
+    "simulated": true,
+    "baseline_area_km2": 22.222
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "84c1a081-7122-4448-8d73-ea115a944899",
+   "ts": "2026-09-25 00:46:29"
+  },
+  {
+   "id": "54e1abbc-ba72-4d78-8b53-fd6aa24ed66a",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "2a07a93c-7fc1-4dc1-add6-8920df4bbaf4",
+   "observation_id": "8a00ed54-9651-4de5-a547-e8c48e47fcfb",
+   "ts": "2026-09-25 00:46:29"
+  },
+  {
+   "id": "201a1380-5fdf-4aff-924f-6caebc5955b1",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 20.248,
+    "delta_pct": -16.3,
+    "simulated": true,
+    "baseline_area_km2": 24.196
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "e04afcee-7552-45ed-bcb0-f7ccddce6df5",
+   "ts": "2026-09-25 00:46:29"
+  },
+  {
+   "id": "84fbe942-6b89-435d-ba8d-e5331bec747b",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "area_km2": 17.091,
+    "delta_pct": 0.0,
+    "ndwi_mean": 0.164,
+    "simulated": true,
+    "baseline_area_km2": 17.091
+   },
+   "baseline_id": "10481b1c-50be-4168-a78b-90fd7aba10bf",
+   "observation_id": "becfdb30-92c7-4ab7-ac08-82ad32d3e965",
+   "ts": "2026-09-25 00:46:29"
+  },
+  {
+   "id": "f3d4900d-aa5c-4b67-b5c6-b14b1809b9ce",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 26.193,
+    "delta_pct": 17.8,
+    "simulated": true,
+    "baseline_area_km2": 22.228
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "53a2cef1-7182-4c14-abf7-47c97e9bae7d",
+   "ts": "2026-09-25 06:39:32"
+  },
+  {
+   "id": "d150f159-d1c4-43ad-a687-ae903b87c393",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "2a07a93c-7fc1-4dc1-add6-8920df4bbaf4",
+   "observation_id": "ffe02d52-99d1-40ab-bf03-1f04b4b8f1cc",
+   "ts": "2026-09-25 06:39:32"
+  },
+  {
+   "id": "dc02a7f6-2195-49ae-9ce1-f9564f52e009",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 20.248,
+    "delta_pct": -16.4,
+    "simulated": true,
+    "baseline_area_km2": 24.208
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "7d49ce18-308d-4e80-833a-543f16841e86",
+   "ts": "2026-09-25 06:39:32"
+  },
+  {
+   "id": "fe9b3284-db02-485a-b122-ed47230b6b53",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "area_km2": 17.091,
+    "delta_pct": 0.0,
+    "ndwi_mean": 0.164,
+    "simulated": true,
+    "baseline_area_km2": 17.091
+   },
+   "baseline_id": "10481b1c-50be-4168-a78b-90fd7aba10bf",
+   "observation_id": "72e4b96a-d023-4882-994a-a6fc88d1b266",
+   "ts": "2026-09-25 06:39:32"
+  },
+  {
+   "id": "02102a4d-9ad0-4a79-968a-c4c4d0631ef7",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 26.193,
+    "delta_pct": 17.8,
+    "simulated": true,
+    "baseline_area_km2": 22.23
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "5b3f5764-a0a6-4b67-beec-7b39507da4cb",
+   "ts": "2026-09-25 07:00:00"
+  },
+  {
+   "id": "1f5dcf9e-a6ce-4a67-a1c0-0de3d05cfe54",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "2a07a93c-7fc1-4dc1-add6-8920df4bbaf4",
+   "observation_id": "a00370c6-4675-4731-8e77-47036a2fed64",
+   "ts": "2026-09-25 07:00:00"
+  },
+  {
+   "id": "2115d880-0165-4333-b00c-3a065801c049",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 20.248,
+    "delta_pct": -16.4,
+    "simulated": true,
+    "baseline_area_km2": 24.211
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "2a1880d5-84b9-473d-8f42-0f9804606f7a",
+   "ts": "2026-09-25 07:00:00"
+  },
+  {
+   "id": "23936d47-de73-4a17-ba93-304c3cf10eee",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "area_km2": 17.091,
+    "delta_pct": 0.0,
+    "ndwi_mean": 0.164,
+    "simulated": true,
+    "baseline_area_km2": 17.091
+   },
+   "baseline_id": "10481b1c-50be-4168-a78b-90fd7aba10bf",
+   "observation_id": "24570449-eb7a-44f7-b171-a7eb37562a77",
+   "ts": "2026-09-25 07:00:00"
+  },
+  {
+   "id": "9908dd3d-1522-4aa5-a1a7-c2fa053a8104",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 26.193,
+    "delta_pct": 17.8,
+    "simulated": true,
+    "baseline_area_km2": 22.23
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "b634a34d-4427-482e-b4a1-72dd2aa9d03e",
+   "ts": "2026-09-25 07:00:11"
+  },
+  {
+   "id": "f5486e2f-1fd7-4dfd-a39d-9587afcdaf4d",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "2a07a93c-7fc1-4dc1-add6-8920df4bbaf4",
+   "observation_id": "9315856a-4cf5-40b9-a095-a6656e60fd44",
+   "ts": "2026-09-25 07:00:11"
+  },
+  {
+   "id": "f76d2e85-1045-45f7-8f68-80d6f79a940f",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "area_km2": 20.248,
+    "delta_pct": -16.4,
+    "simulated": true,
+    "baseline_area_km2": 24.212
+   },
+   "baseline_id": "b83dafe6-3cf2-4b67-8045-d2fa48f09439",
+   "observation_id": "46e2a5ae-e316-4465-ab88-0a9582084cc6",
+   "ts": "2026-09-25 07:00:11"
+  },
+  {
+   "id": "811ab650-f97e-4714-a6e9-a5de90a8fa42",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "area_km2": 17.091,
+    "delta_pct": 0.0,
+    "ndwi_mean": 0.164,
+    "simulated": true,
+    "baseline_area_km2": 17.091
+   },
+   "baseline_id": "10481b1c-50be-4168-a78b-90fd7aba10bf",
+   "observation_id": "76ce5fc3-e627-4d71-8f29-b361d086bf80",
+   "ts": "2026-09-25 07:00:11"
+  },
+  {
+   "id": "ab8ba90b-9e72-411d-9dec-f918224b5ba6",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "source": "simulation",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 0.0
+   },
+   "baseline_id": null,
+   "observation_id": "948f2b06-7d9b-4cf3-aad9-499f7e79c806",
+   "ts": "2026-09-25 07:37:11"
+  },
+  {
+   "id": "1b510b57-0cb5-4a49-b5fe-0527b77eefd4",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "index": "MNDWI",
+    "sensor": "sentinel2",
+    "source": "gee",
+    "area_km2": 120.418,
+    "scene_id": "S2C_MSIL2A_20260920T052651_N0512_R105_T43RGP_20260920T102311",
+    "cache_hit": false,
+    "cloud_pct": 2.162743,
+    "delta_pct": 0.0,
+    "simulated": false,
+    "threshold": -0.213,
+    "elapsed_ms": 22933.6,
+    "mndwi_mean": -0.4885457363000877,
+    "scene_date": "2026-09-20",
+    "scenes_available": 4,
+    "baseline_area_km2": 0.0
+   },
+   "baseline_id": null,
+   "observation_id": "ed6e453b-c5d7-4ee2-8e60-2568e082e17b",
+   "ts": "2026-09-25 07:38:16"
+  },
+  {
+   "id": "bbd8d7dd-38c6-488c-abc9-12033442475a",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "source": "gee",
+    "area_km2": 19.577,
+    "cache_hit": false,
+    "delta_pct": 0.0,
+    "simulated": false,
+    "elapsed_ms": 2342.8,
+    "vv_mean_db": -7.993505551709765,
+    "threshold_db": -13.51,
+    "scenes_available": 32,
+    "baseline_area_km2": 0.0
+   },
+   "baseline_id": null,
+   "observation_id": "853c4dd5-1876-4bbe-bcf8-15ae8fdb2a1a",
+   "ts": "2026-09-25 07:38:18"
+  },
+  {
+   "id": "75d05500-7d0b-4ccc-be70-cc2d8b574610",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": true,
+   "delta_pct": null,
+   "metrics": {
+    "lst_c": 21.8,
+    "sensor": "lst",
+    "source": "gee",
+    "area_km2": 0.0,
+    "anomaly_c": -2.38,
+    "cache_hit": false,
+    "delta_pct": -100.0,
+    "simulated": false,
+    "elapsed_ms": 2031.6,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "d755dc45-2448-4fb6-9ecd-bf5da0477a62",
+   "observation_id": "ff576393-d354-49cc-a7ae-f1f7104e87c6",
+   "ts": "2026-09-25 07:38:20"
+  },
+  {
+   "id": "f2c2cae9-0409-4146-8390-a26722f93f30",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "flood",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "source": "gee",
+    "area_km2": 0.377,
+    "cache_hit": false,
+    "delta_pct": 0.0,
+    "simulated": false,
+    "elapsed_ms": 3126.7000000000003,
+    "threshold_db": -13.51,
+    "permanent_km2": 19.1998,
+    "open_water_km2": 19.5772,
+    "scenes_available": 32,
+    "baseline_area_km2": 0.0
+   },
+   "baseline_id": null,
+   "observation_id": "c94bac60-aed7-4d81-91e1-906e8c1f5633",
+   "ts": "2026-09-25 07:38:21"
+  },
+  {
+   "id": "4d21e4b2-3d36-499e-99a5-94bbb77f69e0",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "glacier",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "source": "gee",
+    "area_km2": 37.492,
+    "cache_hit": false,
+    "delta_pct": 0.0,
+    "ndsi_mean": -0.48854573630008763,
+    "simulated": false,
+    "threshold": 0.2,
+    "elapsed_ms": 2943.1,
+    "baseline_area_km2": 0.0
+   },
+   "baseline_id": null,
+   "observation_id": "cefd7176-a346-405d-8173-bb93b588229a",
+   "ts": "2026-09-25 07:38:24"
+  },
+  {
+   "id": "b6cb88b0-c642-4650-beb9-a09a485ccb82",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "glacier",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "source": "gee",
+    "area_km2": 37.492,
+    "cache_hit": true,
+    "delta_pct": 0.0,
+    "ndsi_mean": -0.48854573630008763,
+    "simulated": false,
+    "threshold": 0.2,
+    "elapsed_ms": 2943.1,
+    "baseline_area_km2": 37.492
+   },
+   "baseline_id": "b128b455-cf96-4bf3-9f91-3c9dd6220446",
+   "observation_id": "5bd79ad6-7b0f-48c6-a779-0c909c3b61a4",
+   "ts": "2026-09-25 07:42:46"
+  },
+  {
+   "id": "4e1b5829-fa87-4b6f-bc9e-98def4f60f3a",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "flood",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "source": "gee",
+    "area_km2": 0.377,
+    "cache_hit": true,
+    "delta_pct": 0.0,
+    "simulated": false,
+    "elapsed_ms": 3126.7000000000003,
+    "threshold_db": -13.51,
+    "permanent_km2": 19.1998,
+    "open_water_km2": 19.5772,
+    "scenes_available": 32,
+    "baseline_area_km2": 0.377
+   },
+   "baseline_id": "47a392cc-93ef-4e80-85b8-044d784f7fb9",
+   "observation_id": "99ac50c4-55a1-4da3-9015-5290120961d2",
+   "ts": "2026-09-25 07:42:46"
+  },
+  {
+   "id": "f72bc4a4-e0b3-4529-84c0-c24ebdc5db7f",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": true,
+   "delta_pct": null,
+   "metrics": {
+    "lst_c": 21.8,
+    "sensor": "lst",
+    "source": "gee",
+    "area_km2": 0.0,
+    "anomaly_c": -2.38,
+    "cache_hit": true,
+    "delta_pct": -100.0,
+    "simulated": false,
+    "elapsed_ms": 2031.6,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "d755dc45-2448-4fb6-9ecd-bf5da0477a62",
+   "observation_id": "df61d0b1-562b-4336-8469-be552992f67c",
+   "ts": "2026-09-25 07:42:46"
+  },
+  {
+   "id": "31ce39bc-faa9-4720-a1f4-376489e75998",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "source": "gee",
+    "area_km2": 19.577,
+    "cache_hit": true,
+    "delta_pct": 0.0,
+    "simulated": false,
+    "elapsed_ms": 2342.8,
+    "vv_mean_db": -7.993505551709765,
+    "threshold_db": -13.51,
+    "scenes_available": 32,
+    "baseline_area_km2": 19.577
+   },
+   "baseline_id": "6d7cc388-7bb6-4eac-977c-9b86a1114175",
+   "observation_id": "c827899e-74a3-4650-94ca-b587bdf78750",
+   "ts": "2026-09-25 07:42:46"
+  },
+  {
+   "id": "4128ef9d-aea7-4dd1-9ade-1009832147c7",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "index": "MNDWI",
+    "sensor": "sentinel2",
+    "source": "gee",
+    "area_km2": 120.418,
+    "scene_id": "S2C_MSIL2A_20260920T052651_N0512_R105_T43RGP_20260920T102311",
+    "cache_hit": true,
+    "cloud_pct": 2.162743,
+    "delta_pct": 0.0,
+    "simulated": false,
+    "threshold": -0.213,
+    "elapsed_ms": 22933.6,
+    "mndwi_mean": -0.4885457363000877,
+    "scene_date": "2026-09-20",
+    "scenes_available": 4,
+    "baseline_area_km2": 120.418
+   },
+   "baseline_id": "c5c32e68-8d7f-4da8-884d-74b6261de116",
+   "observation_id": "84a649a0-24c9-4380-95f0-00f622324809",
+   "ts": "2026-09-25 07:42:46"
+  },
+  {
+   "id": "1c669af6-3d22-463f-936b-07cbc6595f82",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "glacier",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel2",
+    "source": "gee",
+    "area_km2": 37.492,
+    "cache_hit": true,
+    "delta_pct": 0.0,
+    "ndsi_mean": -0.48854573630008763,
+    "simulated": false,
+    "threshold": 0.2,
+    "elapsed_ms": 2943.1,
+    "baseline_area_km2": 37.492
+   },
+   "baseline_id": "b128b455-cf96-4bf3-9f91-3c9dd6220446",
+   "observation_id": "681d5445-064c-4cda-adc9-5c5ccd75e87a",
+   "ts": "2026-09-25 07:47:53"
+  },
+  {
+   "id": "e99d628b-f0a3-48fe-917c-e1041c4ab513",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "flood",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "source": "gee",
+    "area_km2": 0.377,
+    "cache_hit": true,
+    "delta_pct": 0.0,
+    "simulated": false,
+    "elapsed_ms": 3126.7000000000003,
+    "threshold_db": -13.51,
+    "permanent_km2": 19.1998,
+    "open_water_km2": 19.5772,
+    "scenes_available": 32,
+    "baseline_area_km2": 0.377
+   },
+   "baseline_id": "47a392cc-93ef-4e80-85b8-044d784f7fb9",
+   "observation_id": "af213bec-bae3-4d21-aee3-24b022672389",
+   "ts": "2026-09-25 07:47:53"
+  },
+  {
+   "id": "cc72943e-06ca-4918-ab2f-4dea518c6ac7",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": true,
+   "delta_pct": null,
+   "metrics": {
+    "lst_c": 21.8,
+    "sensor": "lst",
+    "source": "gee",
+    "area_km2": 0.0,
+    "anomaly_c": -2.38,
+    "cache_hit": true,
+    "delta_pct": -100.0,
+    "simulated": false,
+    "elapsed_ms": 2031.6,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "d755dc45-2448-4fb6-9ecd-bf5da0477a62",
+   "observation_id": "bbf1d829-e61b-4624-8bc2-0f7e274b557c",
+   "ts": "2026-09-25 07:47:53"
+  },
+  {
+   "id": "b7314f58-8805-4591-bfee-6c41cd7e3d7d",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "source": "gee",
+    "area_km2": 19.577,
+    "cache_hit": true,
+    "delta_pct": 0.0,
+    "simulated": false,
+    "elapsed_ms": 2342.8,
+    "vv_mean_db": -7.993505551709765,
+    "threshold_db": -13.51,
+    "scenes_available": 32,
+    "baseline_area_km2": 19.577
+   },
+   "baseline_id": "6d7cc388-7bb6-4eac-977c-9b86a1114175",
+   "observation_id": "32107506-a0ce-48da-96c6-5e3c18fd9a16",
+   "ts": "2026-09-25 07:47:53"
+  },
+  {
+   "id": "31b143fb-74d3-4a44-b1ba-0de554b4fad3",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "index": "MNDWI",
+    "sensor": "sentinel2",
+    "source": "gee",
+    "area_km2": 120.418,
+    "scene_id": "S2C_MSIL2A_20260920T052651_N0512_R105_T43RGP_20260920T102311",
+    "cache_hit": true,
+    "cloud_pct": 2.162743,
+    "delta_pct": 0.0,
+    "simulated": false,
+    "threshold": -0.213,
+    "elapsed_ms": 22933.6,
+    "mndwi_mean": -0.4885457363000877,
+    "scene_date": "2026-09-20",
+    "scenes_available": 4,
+    "baseline_area_km2": 120.418
+   },
+   "baseline_id": "c5c32e68-8d7f-4da8-884d-74b6261de116",
+   "observation_id": "eb298f71-c6fb-41e2-9b6b-4733c1d9e2ff",
+   "ts": "2026-09-25 07:47:53"
+  },
+  {
+   "id": "e1a679b9-8555-49fc-b51f-effcce16e386",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "source": "simulation",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "d755dc45-2448-4fb6-9ecd-bf5da0477a62",
+   "observation_id": "ffeec1c0-b937-4389-9724-63e0ee7137b8",
+   "ts": "2026-09-25 08:24:01"
+  },
+  {
+   "id": "3c7c32b8-3c3f-4dbd-a1ed-39629262b84a",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "source": "simulation",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "d755dc45-2448-4fb6-9ecd-bf5da0477a62",
+   "observation_id": "4dd4cb1b-46c7-4a89-944a-e5935cc62887",
+   "ts": "2026-09-25 12:47:39"
+  },
+  {
+   "id": "5d433b18-516a-4285-bab1-845f90ebeb47",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "source": "simulation",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "d755dc45-2448-4fb6-9ecd-bf5da0477a62",
+   "observation_id": "dd41af61-99be-4b27-80d5-0a91c6f9591b",
+   "ts": "2026-09-25 14:24:35"
+  },
+  {
+   "id": "70a957cb-1f18-40ef-b011-5525c7a95cf8",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "source": "simulation",
+    "area_km2": 44.132,
+    "anomaly_c": 2.5,
+    "delta_pct": 0.0,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "d755dc45-2448-4fb6-9ecd-bf5da0477a62",
+   "observation_id": "a52058e9-29c7-4fe7-80e0-92c8f04a6b81",
+   "ts": "2026-09-25 15:04:01"
+  },
+  {
+   "id": "1c63e457-64f9-489e-ba96-4a61e1699118",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": true,
+   "delta_pct": null,
+   "metrics": {
+    "lst_c": 21.8,
+    "sensor": "lst",
+    "source": "gee",
+    "area_km2": 0.0,
+    "anomaly_c": -2.38,
+    "cache_hit": false,
+    "delta_pct": -100.0,
+    "simulated": false,
+    "elapsed_ms": 2047.4,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "d755dc45-2448-4fb6-9ecd-bf5da0477a62",
+   "observation_id": "f04c6992-14d5-45fa-8837-b5dea6685418",
+   "ts": "2026-09-25 22:44:30"
+  },
+  {
+   "id": "3f20f88a-e070-4298-a33f-2fbce2baa411",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "flood",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "source": "gee",
+    "area_km2": 0.416,
+    "cache_hit": false,
+    "delta_pct": 10.3,
+    "simulated": false,
+    "elapsed_ms": 16097.5,
+    "threshold_db": -13.51,
+    "permanent_km2": 19.1998,
+    "open_water_km2": 19.6157,
+    "scenes_available": 33,
+    "baseline_area_km2": 0.377
+   },
+   "baseline_id": "47a392cc-93ef-4e80-85b8-044d784f7fb9",
+   "observation_id": "d28042ae-4b2f-4f8c-b9a3-0fcb981b85dc",
+   "ts": "2026-09-25 22:44:44"
+  },
+  {
+   "id": "f734547b-2ac4-4d96-8f88-9838ead6edf5",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "source": "gee",
+    "area_km2": 19.616,
+    "cache_hit": false,
+    "delta_pct": 0.2,
+    "simulated": false,
+    "elapsed_ms": 16877.8,
+    "vv_mean_db": -7.986255000442776,
+    "threshold_db": -13.51,
+    "scenes_available": 33,
+    "baseline_area_km2": 19.577
+   },
+   "baseline_id": "6d7cc388-7bb6-4eac-977c-9b86a1114175",
+   "observation_id": "ecdfd1cb-69d4-4689-b4cd-e95244f8cd92",
+   "ts": "2026-09-25 22:44:45"
+  },
+  {
+   "id": "ad3bf881-667e-48bf-8507-8b981f33ca4e",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sam": {
+     "ms": 25701.5,
+     "model": "vit_h",
+     "device": "cuda",
+     "points": 48,
+     "area_px": 35601,
+     "seed_area_px": 22019,
+     "mean_pred_iou": 0.9168,
+     "iou_with_seeds": 0.5812
+    },
+    "index": "MNDWI",
+    "sensor": "sentinel2",
+    "source": "gee",
+    "area_km2": 120.418,
+    "scene_id": "S2C_MSIL2A_20260920T052651_N0512_R105_T43RGP_20260920T102311",
+    "cache_hit": false,
+    "cloud_pct": 2.162743,
+    "delta_pct": 0.0,
+    "simulated": false,
+    "threshold": -0.213,
+    "elapsed_ms": 26711.3,
+    "mndwi_mean": -0.4885457363000877,
+    "scene_date": "2026-09-20",
+    "scenes_available": 4,
+    "baseline_area_km2": 120.418
+   },
+   "baseline_id": "c5c32e68-8d7f-4da8-884d-74b6261de116",
+   "observation_id": "fb15f342-ca36-49d2-b958-febbedbc9895",
+   "ts": "2026-09-25 22:45:21"
+  },
+  {
+   "id": "09e84695-d069-46e0-9c78-ba2c4ffff3c7",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "glacier",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sam": {
+     "ms": 24293.1,
+     "model": "vit_h",
+     "device": "cuda",
+     "points": 48,
+     "area_px": 44248,
+     "seed_area_px": 21882,
+     "mean_pred_iou": 0.9067,
+     "iou_with_seeds": 0.4792
+    },
+    "sensor": "sentinel2",
+    "source": "gee",
+    "area_km2": 37.492,
+    "cache_hit": false,
+    "delta_pct": 0.0,
+    "ndsi_mean": -0.4885457363000877,
+    "simulated": false,
+    "threshold": 0.2,
+    "elapsed_ms": 27172.0,
+    "baseline_area_km2": 37.492
+   },
+   "baseline_id": "b128b455-cf96-4bf3-9f91-3c9dd6220446",
+   "observation_id": "b575c64a-d5ba-4244-8865-db5b28966110",
+   "ts": "2026-09-25 22:45:22"
+  },
+  {
+   "id": "48c5bc0d-5964-478b-a5d2-8ef91ea3c051",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": true,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "lst",
+    "source": "simulation",
+    "area_km2": 13.554,
+    "anomaly_c": 2.5,
+    "delta_pct": -69.3,
+    "simulated": true,
+    "baseline_area_km2": 44.132
+   },
+   "baseline_id": "d755dc45-2448-4fb6-9ecd-bf5da0477a62",
+   "observation_id": "5769f07c-3c02-459d-a8f6-6362cdb140c2",
+   "ts": "2026-09-26 04:20:07"
+  },
+  {
+   "id": "4182e499-667d-4407-a23c-0b5a26196723",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "snow",
+   "flagged": true,
+   "delta_pct": null,
+   "metrics": {
+    "lst_c": 21.8,
+    "sensor": "lst",
+    "source": "gee",
+    "area_km2": 0.0,
+    "anomaly_c": -2.38,
+    "cache_hit": false,
+    "delta_pct": -100.0,
+    "simulated": false,
+    "elapsed_ms": 1227.7,
+    "baseline_area_km2": 28.843
+   },
+   "baseline_id": "d755dc45-2448-4fb6-9ecd-bf5da0477a62",
+   "observation_id": "ea77c4ce-0420-4170-95d5-7ab417954d92",
+   "ts": "2026-09-26 21:57:23"
+  },
+  {
+   "id": "7d709569-7f22-4ac9-8146-ca76d793b52b",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "flood",
+   "flagged": true,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "source": "gee",
+    "area_km2": 0.964,
+    "cache_hit": false,
+    "delta_pct": 143.4,
+    "simulated": false,
+    "elapsed_ms": 11172.0,
+    "threshold_db": -13.51,
+    "permanent_km2": 19.1998,
+    "open_water_km2": 20.1638,
+    "scenes_available": 31,
+    "baseline_area_km2": 0.396
+   },
+   "baseline_id": "47a392cc-93ef-4e80-85b8-044d784f7fb9",
+   "observation_id": "17c3f398-2b61-4ca2-84d4-007cb2490ef0",
+   "ts": "2026-09-26 21:57:32"
+  },
+  {
+   "id": "1290058d-30af-451f-a1a4-d9669bcac9e9",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "water_mask",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sensor": "sentinel1",
+    "source": "gee",
+    "area_km2": 20.164,
+    "cache_hit": false,
+    "delta_pct": 2.9,
+    "simulated": false,
+    "elapsed_ms": 10699.4,
+    "vv_mean_db": -7.910069390107939,
+    "threshold_db": -13.51,
+    "scenes_available": 31,
+    "baseline_area_km2": 19.596
+   },
+   "baseline_id": "6d7cc388-7bb6-4eac-977c-9b86a1114175",
+   "observation_id": "1c82b3ba-c1cb-4128-9410-9e1a0ef3d9d5",
+   "ts": "2026-09-26 21:57:32"
+  },
+  {
+   "id": "8d3e3aaf-8ccf-4b16-acb2-042e699db1cd",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "glacier",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sam": {
+     "ms": 33390.2,
+     "model": "vit_h",
+     "device": "cuda",
+     "points": 48,
+     "area_px": 44248,
+     "seed_area_px": 21882,
+     "mean_pred_iou": 0.9067,
+     "iou_with_seeds": 0.4792
+    },
+    "sensor": "sentinel2",
+    "source": "gee",
+    "area_km2": 37.492,
+    "cache_hit": false,
+    "delta_pct": 0.0,
+    "ndsi_mean": -0.48854573630008763,
+    "simulated": false,
+    "threshold": 0.2,
+    "elapsed_ms": 26964.9,
+    "baseline_area_km2": 37.492
+   },
+   "baseline_id": "b128b455-cf96-4bf3-9f91-3c9dd6220446",
+   "observation_id": "286bfb8c-5905-481b-984d-a729211c4d7c",
+   "ts": "2026-09-26 21:58:23"
+  },
+  {
+   "id": "369d9fe9-279d-49a6-8646-55a31e7f29e0",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "kind": "lake_area",
+   "flagged": false,
+   "delta_pct": null,
+   "metrics": {
+    "sam": {
+     "ms": 30271.7,
+     "model": "vit_h",
+     "device": "cuda",
+     "points": 48,
+     "area_px": 35601,
+     "seed_area_px": 22019,
+     "mean_pred_iou": 0.9168,
+     "iou_with_seeds": 0.5812
+    },
+    "index": "MNDWI",
+    "sensor": "sentinel2",
+    "source": "gee",
+    "area_km2": 120.418,
+    "scene_id": "S2C_MSIL2A_20260920T052651_N0512_R105_T43RGP_20260920T102311",
+    "cache_hit": false,
+    "cloud_pct": 2.162743,
+    "delta_pct": 0.0,
+    "simulated": false,
+    "threshold": -0.213,
+    "elapsed_ms": 34646.7,
+    "mndwi_mean": -0.4885457363000877,
+    "scene_date": "2026-09-20",
+    "scenes_available": 4,
+    "baseline_area_km2": 120.418
+   },
+   "baseline_id": "c5c32e68-8d7f-4da8-884d-74b6261de116",
+   "observation_id": "cd5118f0-9023-4854-a179-ddb4e9ba29d2",
+   "ts": "2026-09-26 21:58:26"
+  }
+ ],
+ "observations": [
+  {
+   "id": "a52058e9-29c7-4fe7-80e0-92c8f04a6b81",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "lst",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "source": "simulation",
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 15:04:01"
+  },
+  {
+   "id": "dd41af61-99be-4b27-80d5-0a91c6f9591b",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "lst",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "source": "simulation",
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 14:24:35"
+  },
+  {
+   "id": "4dd4cb1b-46c7-4a89-944a-e5935cc62887",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "lst",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "source": "simulation",
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 12:47:39"
+  },
+  {
+   "id": "ffeec1c0-b937-4389-9724-63e0ee7137b8",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "lst",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "source": "simulation",
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 08:24:01"
+  },
+  {
+   "id": "681d5445-064c-4cda-adc9-5c5ccd75e87a",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "glacier_ice",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 37.4924
+   },
+   "created": "2026-09-25 07:47:53"
+  },
+  {
+   "id": "af213bec-bae3-4d21-aee3-24b022672389",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 0.3774
+   },
+   "created": "2026-09-25 07:47:53"
+  },
+  {
+   "id": "bbf1d829-e61b-4624-8bc2-0f7e274b557c",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "lst",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 0.0
+   },
+   "created": "2026-09-25 07:47:53"
+  },
+  {
+   "id": "32107506-a0ce-48da-96c6-5e3c18fd9a16",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 19.5772
+   },
+   "created": "2026-09-25 07:47:53"
+  },
+  {
+   "id": "eb298f71-c6fb-41e2-9b6b-4733c1d9e2ff",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": "gee\\272d85f7-77ff-48bc-b05a-9395a23f1eb1\\2026-09-25_s2.tif",
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 120.4178
+   },
+   "created": "2026-09-25 07:47:53"
+  },
+  {
+   "id": "5bd79ad6-7b0f-48c6-a779-0c909c3b61a4",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "glacier_ice",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 37.4924
+   },
+   "created": "2026-09-25 07:42:46"
+  },
+  {
+   "id": "99ac50c4-55a1-4da3-9015-5290120961d2",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 0.3774
+   },
+   "created": "2026-09-25 07:42:46"
+  },
+  {
+   "id": "df61d0b1-562b-4336-8469-be552992f67c",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "lst",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 0.0
+   },
+   "created": "2026-09-25 07:42:46"
+  },
+  {
+   "id": "c827899e-74a3-4650-94ca-b587bdf78750",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 19.5772
+   },
+   "created": "2026-09-25 07:42:46"
+  },
+  {
+   "id": "84a649a0-24c9-4380-95f0-00f622324809",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": "gee\\272d85f7-77ff-48bc-b05a-9395a23f1eb1\\2026-09-25_s2.tif",
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 120.4178
+   },
+   "created": "2026-09-25 07:42:46"
+  },
+  {
+   "id": "cefd7176-a346-405d-8173-bb93b588229a",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "glacier_ice",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 37.4924
+   },
+   "created": "2026-09-25 07:38:24"
+  },
+  {
+   "id": "c94bac60-aed7-4d81-91e1-906e8c1f5633",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 0.3774
+   },
+   "created": "2026-09-25 07:38:21"
+  },
+  {
+   "id": "ff576393-d354-49cc-a7ae-f1f7104e87c6",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "lst",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 0.0
+   },
+   "created": "2026-09-25 07:38:20"
+  },
+  {
+   "id": "853c4dd5-1876-4bbe-bcf8-15ae8fdb2a1a",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 19.5772
+   },
+   "created": "2026-09-25 07:38:18"
+  },
+  {
+   "id": "ed6e453b-c5d7-4ee2-8e60-2568e082e17b",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": "gee\\272d85f7-77ff-48bc-b05a-9395a23f1eb1\\2026-09-25_s2.tif",
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 120.4178
+   },
+   "created": "2026-09-25 07:38:16"
+  },
+  {
+   "id": "948f2b06-7d9b-4cf3-aad9-499f7e79c806",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "lst",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "source": "simulation",
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 07:37:11"
+  },
+  {
+   "id": "b634a34d-4427-482e-b4a1-72dd2aa9d03e",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 26.193
+   },
+   "created": "2026-09-25 07:00:11"
+  },
+  {
+   "id": "9315856a-4cf5-40b9-a095-a6656e60fd44",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 07:00:11"
+  },
+  {
+   "id": "46e2a5ae-e316-4465-ab88-0a9582084cc6",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 20.248
+   },
+   "created": "2026-09-25 07:00:11"
+  },
+  {
+   "id": "76ce5fc3-e627-4d71-8f29-b361d086bf80",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 17.091
+   },
+   "created": "2026-09-25 07:00:11"
+  },
+  {
+   "id": "5b3f5764-a0a6-4b67-beec-7b39507da4cb",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 26.193
+   },
+   "created": "2026-09-25 07:00:00"
+  },
+  {
+   "id": "a00370c6-4675-4731-8e77-47036a2fed64",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 07:00:00"
+  },
+  {
+   "id": "2a1880d5-84b9-473d-8f42-0f9804606f7a",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 20.248
+   },
+   "created": "2026-09-25 07:00:00"
+  },
+  {
+   "id": "24570449-eb7a-44f7-b171-a7eb37562a77",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 17.091
+   },
+   "created": "2026-09-25 07:00:00"
+  },
+  {
+   "id": "53a2cef1-7182-4c14-abf7-47c97e9bae7d",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 26.193
+   },
+   "created": "2026-09-25 06:39:32"
+  },
+  {
+   "id": "ffe02d52-99d1-40ab-bf03-1f04b4b8f1cc",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 06:39:32"
+  },
+  {
+   "id": "7d49ce18-308d-4e80-833a-543f16841e86",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 20.248
+   },
+   "created": "2026-09-25 06:39:32"
+  },
+  {
+   "id": "72e4b96a-d023-4882-994a-a6fc88d1b266",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 17.091
+   },
+   "created": "2026-09-25 06:39:32"
+  },
+  {
+   "id": "84c1a081-7122-4448-8d73-ea115a944899",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 26.193
+   },
+   "created": "2026-09-25 00:46:29"
+  },
+  {
+   "id": "8a00ed54-9651-4de5-a547-e8c48e47fcfb",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 00:46:29"
+  },
+  {
+   "id": "e04afcee-7552-45ed-bcb0-f7ccddce6df5",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 20.248
+   },
+   "created": "2026-09-25 00:46:29"
+  },
+  {
+   "id": "becfdb30-92c7-4ab7-ac08-82ad32d3e965",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 17.091
+   },
+   "created": "2026-09-25 00:46:29"
+  },
+  {
+   "id": "4235212d-7fe4-4775-b830-4e8023ad0405",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 26.193
+   },
+   "created": "2026-09-25 00:42:28"
+  },
+  {
+   "id": "cfdc9e6f-d260-449b-befc-c1c9d8c7328c",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 00:42:28"
+  },
+  {
+   "id": "0797e56a-1ed9-4365-a157-7c602d43fab6",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 20.248
+   },
+   "created": "2026-09-25 00:42:28"
+  },
+  {
+   "id": "3f4f7ca3-88f2-42ac-b8c5-ab35550228ba",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 17.091
+   },
+   "created": "2026-09-25 00:42:28"
+  },
+  {
+   "id": "6c446706-05bd-43f7-a994-fe7e585de56f",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 26.193
+   },
+   "created": "2026-09-25 00:11:16"
+  },
+  {
+   "id": "dc007384-6372-4222-b9e0-08eba5e835ad",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 00:11:16"
+  },
+  {
+   "id": "991081be-8d05-40fc-b8c1-2a5dd0526b82",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 20.248
+   },
+   "created": "2026-09-25 00:11:16"
+  },
+  {
+   "id": "62cd345b-f016-4706-b85b-5f43ca8f99f2",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 17.091
+   },
+   "created": "2026-09-25 00:11:16"
+  },
+  {
+   "id": "8a6e003b-43ae-445f-93fc-9e129e32b12e",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 26.193
+   },
+   "created": "2026-09-25 00:10:53"
+  },
+  {
+   "id": "bfca6d04-ce58-4057-8d91-e313dd5c7180",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 00:10:53"
+  },
+  {
+   "id": "73e57d25-ac99-4b26-a80e-0f02ca981e15",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 20.248
+   },
+   "created": "2026-09-25 00:10:53"
+  },
+  {
+   "id": "fc630695-562e-4232-aa3b-30734ada7227",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 17.091
+   },
+   "created": "2026-09-25 00:10:53"
+  },
+  {
+   "id": "d145be5e-7b39-4286-b0d9-a2511487debf",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 26.193
+   },
+   "created": "2026-09-25 00:10:28"
+  },
+  {
+   "id": "f276fbde-5221-4724-81a4-45c761bb23db",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 00:10:28"
+  },
+  {
+   "id": "b8f14e08-2da8-4e9d-97c1-ef6fb8bbca0f",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 20.248
+   },
+   "created": "2026-09-25 00:10:28"
+  },
+  {
+   "id": "0366ff80-56f4-492b-9a60-b71675e22998",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 17.091
+   },
+   "created": "2026-09-25 00:10:28"
+  },
+  {
+   "id": "8a7c0286-93d3-41a6-ad49-75c73a902760",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 44.132
+   },
+   "created": "2026-09-25 00:08:36"
+  },
+  {
+   "id": "90d90c66-d20e-43f0-a3a9-7724a84ef8a5",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 20.248
+   },
+   "created": "2026-09-25 00:08:36"
+  },
+  {
+   "id": "ccae247c-426e-400a-889b-47459101c637",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-25",
+   "meta": {
+    "kind": "s2_indices",
+    "path": null,
+    "simulated": true,
+    "water_area_km2": 17.091
+   },
+   "created": "2026-09-25 00:08:36"
+  },
+  {
+   "id": "5769f07c-3c02-459d-a8f6-6362cdb140c2",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "lst",
+   "path": null,
+   "acquired": "2026-09-26",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "source": "simulation",
+    "simulated": true,
+    "water_area_km2": 13.554
+   },
+   "created": "2026-09-26 04:20:07"
+  },
+  {
+   "id": "b575c64a-d5ba-4244-8865-db5b28966110",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-26",
+   "meta": {
+    "kind": "glacier_ice",
+    "path": "gee\\272d85f7-77ff-48bc-b05a-9395a23f1eb1\\2026-09-26_glacier.tif",
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 37.4924
+   },
+   "created": "2026-09-25 22:44:57"
+  },
+  {
+   "id": "fb15f342-ca36-49d2-b958-febbedbc9895",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-26",
+   "meta": {
+    "kind": "s2_indices",
+    "path": "gee\\272d85f7-77ff-48bc-b05a-9395a23f1eb1\\2026-09-26_s2.tif",
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 120.4178
+   },
+   "created": "2026-09-25 22:44:55"
+  },
+  {
+   "id": "ecdfd1cb-69d4-4689-b4cd-e95244f8cd92",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-26",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 19.6157
+   },
+   "created": "2026-09-25 22:44:45"
+  },
+  {
+   "id": "d28042ae-4b2f-4f8c-b9a3-0fcb981b85dc",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-26",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 0.4159
+   },
+   "created": "2026-09-25 22:44:44"
+  },
+  {
+   "id": "f04c6992-14d5-45fa-8837-b5dea6685418",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "lst",
+   "path": null,
+   "acquired": "2026-09-26",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 0.0
+   },
+   "created": "2026-09-25 22:44:30"
+  },
+  {
+   "id": "cd5118f0-9023-4854-a179-ddb4e9ba29d2",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-27",
+   "meta": {
+    "kind": "s2_indices",
+    "path": "gee\\272d85f7-77ff-48bc-b05a-9395a23f1eb1\\2026-09-27_s2.tif",
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 120.4178
+   },
+   "created": "2026-09-26 21:57:56"
+  },
+  {
+   "id": "286bfb8c-5905-481b-984d-a729211c4d7c",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel2",
+   "kind": "indices",
+   "path": null,
+   "acquired": "2026-09-27",
+   "meta": {
+    "kind": "glacier_ice",
+    "path": "gee\\272d85f7-77ff-48bc-b05a-9395a23f1eb1\\2026-09-27_glacier.tif",
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 37.4924
+   },
+   "created": "2026-09-26 21:57:50"
+  },
+  {
+   "id": "17c3f398-2b61-4ca2-84d4-007cb2490ef0",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-27",
+   "meta": {
+    "kind": "flood_extent",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 0.964
+   },
+   "created": "2026-09-26 21:57:32"
+  },
+  {
+   "id": "1c82b3ba-c1cb-4128-9410-9e1a0ef3d9d5",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "sentinel1",
+   "kind": "water_mask",
+   "path": null,
+   "acquired": "2026-09-27",
+   "meta": {
+    "kind": "s1_watermask",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 20.1638
+   },
+   "created": "2026-09-26 21:57:32"
+  },
+  {
+   "id": "ea77c4ce-0420-4170-95d5-7ab417954d92",
+   "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+   "glacier_id": null,
+   "sensor": "lst",
+   "kind": "lst",
+   "path": null,
+   "acquired": "2026-09-27",
+   "meta": {
+    "kind": "lst_snow",
+    "path": null,
+    "source": "gee",
+    "simulated": false,
+    "water_area_km2": 0.0
+   },
+   "created": "2026-09-26 21:57:23"
+  }
+ ],
+ "latest_risk": {
+  "id": "a5b78833-d478-4667-8c3b-c6a519b3a64d",
+  "case": "2",
+  "target_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+  "target_ref": "Rishiganga (Uttarakhand)",
+  "score": 19.3,
+  "class": "LOW",
+  "factors": {
+   "parts": {
+    "seismic": 0.6,
+    "lake_area_delta": 0.0,
+    "snow_cover_delta": 1.0,
+    "water_mask_delta": 0.057999999999999996
+   },
+   "changes": 64,
+   "weights": {
+    "seismic": 0.05,
+    "rainfall": 0.1,
+    "lst_anomaly": 0.15,
+    "lake_area_delta": 0.35,
+    "snow_cover_delta": 0.1,
+    "water_mask_delta": 0.25
+   },
+   "lake_flagged": false,
+   "lake_delta_pct": 0.0,
+   "water_delta_pct": 2.9,
+   "seismic_events_24h": 3
+  },
+  "ts": "2026-09-26 21:57:33"
+ }
+}

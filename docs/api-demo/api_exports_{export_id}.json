@@ -1,0 +1,32 @@
+{
+ "id": "8aedf331-b0bd-48d2-8e7c-1ca5312cdad5",
+ "run_id": "a4332fb1-29d3-4642-93c7-cc701a9b2241",
+ "formats": [
+  "shp",
+  "kml",
+  "geojson",
+  "geotiff",
+  "csv",
+  "pdf"
+ ],
+ "status": "done",
+ "progress": 100,
+ "path": "exports\\a4332fb1-29d3-4642-93c7-cc701a9b2241\\package.zip",
+ "files": [
+  "niyanta_bundle.geojson",
+  "shapefiles.zip",
+  "niyanta_flood.kml",
+  "max_depth.tif",
+  "arrival_time.tif",
+  "inundation_extent.tif",
+  "stations.csv",
+  "sensitivity.csv",
+  "breach_hydrograph.csv",
+  "report.html",
+  "package.zip"
+ ],
+ "error": null,
+ "created": "2026-09-27 12:02:04",
+ "updated": "2026-09-27 12:02:04",
+ "download_url": "/api/exports/8aedf331-b0bd-48d2-8e7c-1ca5312cdad5/download"
+}

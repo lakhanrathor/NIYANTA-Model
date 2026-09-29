@@ -1,0 +1,429 @@
+
+--- Slide 1 ---
+
+
+[Picture: Google Shape;207;p38]
+
+TITLE PAGE
+SMART INDIA HACKATHON 2026
+
+Problem Statement ID – SIH26161
+Problem Statement Title- 
+Dam Break Inundation Modelling using Hydrodynamic Modelling of any River
+
+Theme- Disaster Management
+PS Category- Software
+Team ID- 
+Team Name - NIYANTA
+[Picture: Google Shape;211;p38]
+
+--- Slide 2 ---
+
+
+
+
+
+
+
+                                    PROBLEM
+WHY IT MATTERS
+      MULTIPLE USE CASES 
+
+
+1
+Flash flooddue to naturaldam/lake.
+[Picture: Google Shape;231;p39]
+
+
+2
+Water releaseissue from dam ofmajor river.
+[Picture: Google Shape;236;p39]
+
+
+3
+In crisis situation, dam breaks howwill it impact lowerencroachment.
+[Picture: Google Shape;241;p39]
+
+Potential Impact Flow 
+[Picture: Google Shape;244;p39]
+Dam / LakeBreach
+→
+[Picture: Google Shape;247;p39]
+Sudden WaterRelease
+→
+[Picture: Google Shape;250;p39]
+Downstream      Flow
+→
+[Picture: Google Shape;253;p39]
+Lower AreaImpact
+→
+[Picture: Google Shape;256;p39]
+Disaster & Loss
+[Picture: Google Shape;258;p39]
+Handle large volumesof water released.
+[Picture: Google Shape;261;p39]
+Need to know wherewater would go / flow.
+[Picture: Google Shape;264;p39]
+Know how dangerousit will be.
+[Picture: Google Shape;267;p39]
+Know what will beaffected before andduring disaster.
+
+
+1
+Nepal flood→ Glacial lake.
+
+
+2
+RishiGanga
+ → Natural lake.
+
+
+3
+Waprayag. riverNov 2021.
+
+[Picture: Google Shape;282;p39]
+
+4
+Kosi river2008, etc.
+
+
+OBJECTIVE
+[Picture: Google Shape;289;p39]
+We need to build a software which can analyse the dam structure of natural dam/lake,which would cause natural disaster using our model pipeline and give the ministry regarding that in advance stimulus.
+[Picture: Google Shape;292;p39]
+Data Input
+→
+[Picture: Google Shape;295;p39]
+Model Pipeline
+→
+[Picture: Google Shape;298;p39]
+Analysis &Simulation
+→
+[Picture: Google Shape;301;p39]
+Ministry(Advance Stimulus)
+SMART INDIA HACKATHON 2025   •   IDEA SUBMISSION   |
+4
+
+
+                                                                                                                                             @SIH Idea Submission- Template                                                                                                                         2
+
+IDEA TITLE
+[Picture: Google Shape;307;p39]
+NIYANTA
+[Picture: Google Shape;309;p39]
+[Picture: Google Shape;310;p39]
+[Picture: Google Shape;311;p39]
+NIYANTA
+
+--- Slide 3 ---
+
+
+
+1. METHODOLOGY PIPELINE
+
+2. TOOLS & TECHNOLOGY 
+
+
+
+
+
+
+
+
+1
+Data Ingestion
+
+2
+DEM & MeshPreparation
+
+3
+3D Breach Simulation(DualSPHysics
+
+4
+Downstream Routing(Delft3D FM)
+
+5
+GIS Processing &Post-Processing
+
+6
+Dashboard &Visualization
+
+7
+Validation withGEE & Field Data
+➜
+➜
+➜
+➜
+➜
+➜
+
+• DEM (CartoDEM)• Satellite Imagery• River Network (WRIS)• Dam & Reservoir Data• Land Use / Soil / LULC
+• DEM Pre-processing• Terrain Conditioning• Mesh Generation• Boundary Conditions
+• 3D Breach Modeling• Non-field Flow• Outputs: Depth,Velocity, Hydrograph
+• Flood Wave Propagation• Depth, Velocity, Discharge• Arrival Time at KeyLocations
+• Depth / Velocity /• Inundation Delineation• Hazard Classification• Raster to Vector (
+• Interactive Web Dashboard• Cross-sections, Hydrographs& Time Series• Downloadable Reports
+•  Satellite-based Flood   Extent Extraction•  Observed vs Model   Comparison•  Accuracy Metrics
+[Picture: Google Shape;365;p40]
+DualSPHysics (SPH / GPU)3D breach & near-fieldhydrodynamics
+[Picture: Google Shape;368;p40]
+Delft3D FMDownstream flood routing(open-source kernels)
+[Picture: Google Shape;371;p40]
+HEC-RAS 2DRouting cross-check& fallback
+[Picture: Google Shape;374;p40]
+Python / GDAL / QGISData processing, geospatialanalysis & automation
+[Picture: Google Shape;377;p40]
+PostGIS / GeoServerSpatial database &OGC services
+[Picture: Google Shape;380;p40]
+FastAPI + LeafletBackend APIs & interactiveweb mapping
+[Picture: Google Shape;383;p40]
+Google Earth EngineSatellite analysis &independent validation
+
+3. MODEL COUPLING SCHEMATIC
+Reservoir & Dam
+DualSPHysics(SPH 3D)
+Outflow Hydrograph
+Delft3D FM(Downstream Routing)
+Flood Maps & Metrics
+➜
+➜
+➜
+➜
+
+●
+Depth (m)
+
+↝
+Velocity (m/s)
+
+■
+Extent (Max)
+
+◷
+Arrival Time (hr)
+
+                                                                                                                                                                                               3
+@SIH Idea Submission- Template
+[Picture: Google Shape;411;p40]
+TECHNICAL APPROACH
+
+
+NIYANTA
+[Picture: Google Shape;415;p40]
+[Picture: Google Shape;416;p40]
+[Picture: Google Shape;417;p40]
+[Picture: Google Shape;418;p40]
+[Picture: Google Shape;419;p40]
+[Picture: Google Shape;420;p40]
+[Picture: Google Shape;421;p40]
+[Picture: Google Shape;422;p40]
+[Picture: Google Shape;423;p40]
+[Picture: Google Shape;424;p40]
+[Picture: Google Shape;425;p40]
+NIYANTA
+
+--- Slide 4 ---
+
+IMPACT AND BENEFITS
+
+@SIH Idea submission- Template                                                                                                                                                                                                                                                
+[Picture: Google Shape;436;p41]
+
+[Picture: Google Shape;438;p41]
+[Picture: Google Shape;439;p41]
+[Picture: Google Shape;440;p41]
+[Picture: Google Shape;441;p41]
+                     SOCIAL IMPACT
+             ECONOMIC IMPACT
+        ENVIRONMENTAL IMPACT
+1.Millions of people in potential    
+   flood zones.
+2.Hospitals, shelters and relief 
+   center readiness
+3. District level alerting 
+4.Reduced loss of life & injuries
+5. Earlier & accurate evacuation 
+1.Safeguards hydropower projects
+2. Minimizes damages to roads,
+   bridges & railways.
+3.Protects agriculture, homes etc.
+4.Secures industrial & commercial
+   assets.
+5.Reduces downtime  repair costs
+
+1.Protects river ecosystem
+2.Supports biodiversity
+    conservation
+3.Enables climate resilient planning
+4.Monitors sediment movements.
+5.Maintaining  water quality
+KEY IMPACT NUMBERS
+120+
+Million people
+is potentially flood
+affected in riverside
+200+
+Major Dams
+in Himalayan &
+Transboundary basin
+5k+ km
+Strategic Roads 
+& Highways
+in potentially impact zones 
+50k+ MW
+Hydropower 
+Capacity
+in Himalayan states
+1.5 M ha
+Agricultural Land
+in potential downstream area
+ 
+300+
+DistrictsWith riverine flash 
+flood risk
+MINISTRY OF DISASTER MANAGEMENT
+[Picture: Google Shape;456;p41]
+[Picture: Google Shape;457;p41]
+[Picture: Google Shape;458;p41]
+[Picture: Google Shape;459;p41]
+[Picture: Google Shape;460;p41]
+[Picture: Google Shape;461;p41]
+      NOTIFY 
+    DISTRICTS
+[Picture: Google Shape;463;p41]
+[Picture: Google Shape;464;p41]
+       RECEIVED 
+           ALERT
+[Picture: Google Shape;466;p41]
+DISPATCH RESPONSE
+[Picture: Google Shape;468;p41]
+RANK AFFECTED 
+      PLACES
+[Picture: Google Shape;470;p41]
+3
+   44  
+NIYANTA
+4
+Monitor
+
+--- Slide 5 ---
+
+
+                                   3. IMPORTANT CALCULATIONS
+
+
+FEASIBILITY AND VIABILITY
+
+@SIH Idea submission- Template
+[Picture: Google Shape;489;p42]
+NIYANTA
+[Picture: Google Shape;491;p42]
+CartoDEM (30m/10m)
+Satellite Imagery
+Thematic Layers
+
+River Network
+Reservoirs/Dams
+Hydrological Data
+ 
+Dam & Reservoir
+          Data
+Rule Curves
+Historical Records
+ Multispectral Imagery Flood Extent Change Detection
+
+Global DEM
+Land Use / Land Cover
+Soil & Sociology
+
+
+
+
+
+Risks / Challenges
+
+
+
+Mitigation Strategy
+
+30 m DEM mayunder resolve steep Himalayan terrain.
+Delft3D GUI requiresDeltares registration.
+Large simulation outputscan stress browserdashboard.
+Live dem breach datais sensitive.
+Refine terrain locally near 
+Dam using high-res DEM(Stereo/SRTM.
+Use open-source Delft3D
+FM kernels directlyvia scripting / API.
+Serve tiled Cloud-OptimizedGeoTIFFs, paginate data &use vector tiles.
+  Use only publicly availabledata and follow datasharing policies.
+                                          1. DATA AVAILABILITY (OPEN SOURCES)
+[Picture: Google Shape;516;p42]
+[Picture: Google Shape;517;p42]
+[Picture: Google Shape;518;p42]
+[Picture: Google Shape;519;p42]
+[Picture: Google Shape;520;p42]
+
+India- WRIS
+
+[Picture: Google Shape;523;p42]
+                     2. RISKS AND MITIGATIONS
+[Picture: Google Shape;525;p42]
+[Picture: Google Shape;526;p42]
+[Picture: Google Shape;527;p42]
+[Picture: Google Shape;528;p42]
+5
+[Picture: Google Shape;530;p42]
+
+--- Slide 6 ---
+
+
+
+
+DATASETS & TOOLS — SOURCE LINKS
+
+
+CartoDEM  ISRO Cartosat-1 DEM (10–30 m), via Bhuvan
+bhuvan.nrsc.gov.in
+
+India-WRIS  River network & hydrological data
+indiawris.gov.in
+
+Sentinel-1 / Sentinel-2  Satellite imagery, via Google Earth Engine
+earthengine.google.com
+
+DualSPHysics  GPU SPH breach solver (primary)
+dual.sphysics.org
+
+Delft3D Flexible Mesh  Downstream routing (primary)
+deltares.nl → Delft3D FM
+
+WhiteboxTools  DEM conditioning — pit-filling & stream burning
+github.com/jblindsay/whitebox-tools
+
+KEY RESEARCH REFERENCES — DOI LINKS
+
+
+Crespo et al. (2015)  DualSPHysics solver methodology
+doi.org/10.1016/j.cpc.2014.10.004
+
+Novak et al. (2017)  GPU feasibility — ~70× CPU speedup
+actahydrotechnica.fgg.uni-lj.si
+
+Froehlich (2008)  Empirical breach-parameter equations
+doi.org/10.1061/(ASCE)0733-9429
+
+Tiwari et al. (2020)  SAR + Otsu flood validation — Kerala 2018
+doi.org/10.1371/journal.pone.0237324
+
+HEC-RAS Reference Manual  USACE — routing cross-check & fallback
+hec.usace.army.mil/software/hec-ras
+
+Stevens et al. (2015)  WorldPop gridded-population methodology
+doi.org/10.1371/journal.pone.0107042
+
+7
+[Picture: Google Shape;571;p43]
+NIYANTA
+RESEARCH  AND REFERENCES
+@SIH Idea submission- Template
+6

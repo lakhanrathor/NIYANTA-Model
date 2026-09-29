@@ -1,0 +1,437 @@
+[
+ {
+  "id": "0752144a-3dc1-4800-bb56-ed4dd34028a1",
+  "level": "WARNING",
+  "category": null,
+  "title": "Run a4332fb1 triggered rule 'population_exposed'",
+  "body": "metrics={'population_exposed': 500000, 'peak_discharge_cms': 7269.852981731704, 'inundation_km2': 47.93175804464062}",
+  "location": null,
+  "run_id": "a4332fb1-29d3-4642-93c7-cc701a9b2241",
+  "box_id": null,
+  "dam_id": null,
+  "river_id": null,
+  "glacier_id": null,
+  "state": "NEW",
+  "source": "rule",
+  "payload": {
+   "rule": "population_exposed",
+   "metrics": {
+    "stations": [
+     {
+      "km": 0.0,
+      "lat": 29.957119395215507,
+      "lon": 78.18033100468402,
+      "name": "CH0.0",
+      "peak_cms": 7172.0,
+      "in_domain": true,
+      "arrival_hr": 0.125,
+      "max_depth_m": 1.705,
+      "max_stage_m": 291.1271667480469
+     },
+     {
+      "km": 5.0,
+      "lat": 29.954621443060475,
+      "lon": 78.18033100468402,
+      "name": "CH5.0",
+      "peak_cms": 7154.9,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.149,
+      "max_stage_m": 289.43133544921875
+     },
+     {
+      "km": 10.0,
+      "lat": 29.954621443060475,
+      "lon": 78.18033100468402,
+      "name": "CH10.0",
+      "peak_cms": 7154.9,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.149,
+      "max_stage_m": 289.43133544921875
+     },
+     {
+      "km": 15.0,
+      "lat": 29.954621443060475,
+      "lon": 78.18033100468402,
+      "name": "CH15.0",
+      "peak_cms": 7154.9,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.149,
+      "max_stage_m": 289.43133544921875
+     },
+     {
+      "km": 20.0,
+      "lat": 29.954621443060475,
+      "lon": 78.18033100468402,
+      "name": "CH20.0",
+      "peak_cms": 7154.9,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.149,
+      "max_stage_m": 289.43133544921875
+     }
+    ],
+    "window_m": 0.0,
+    "peak_at_hr": 1.593888888888889,
+    "risk_class": null,
+    "volume_hm3": 108.5434667144415,
+    "duration_hr": 6.0,
+    "max_depth_m": 6.828275203704834,
+    "primed_cells": 0,
+    "inundation_km2": 47.93175804464062,
+    "near_field_only": false,
+    "peak_discharge_cms": 7269.852981731704,
+    "population_exposed": 500000,
+    "mass_balance_error_pct": 2.1371852454408957e-06
+   }
+  },
+  "created": "2026-09-27 12:02:04"
+ },
+ {
+  "id": "bd10c6b8-4bad-48a5-b05d-65d9a0b4a71d",
+  "level": "CRITICAL",
+  "category": null,
+  "title": "Run a4332fb1 triggered rule 'arrival_fast'",
+  "body": "metrics={'population_exposed': 500000, 'peak_discharge_cms': 7269.852981731704, 'inundation_km2': 47.93175804464062}",
+  "location": null,
+  "run_id": "a4332fb1-29d3-4642-93c7-cc701a9b2241",
+  "box_id": null,
+  "dam_id": null,
+  "river_id": null,
+  "glacier_id": null,
+  "state": "NEW",
+  "source": "rule",
+  "payload": {
+   "rule": "arrival_fast",
+   "metrics": {
+    "stations": [
+     {
+      "km": 0.0,
+      "lat": 29.957119395215507,
+      "lon": 78.18033100468402,
+      "name": "CH0.0",
+      "peak_cms": 7172.0,
+      "in_domain": true,
+      "arrival_hr": 0.125,
+      "max_depth_m": 1.705,
+      "max_stage_m": 291.1271667480469
+     },
+     {
+      "km": 5.0,
+      "lat": 29.954621443060475,
+      "lon": 78.18033100468402,
+      "name": "CH5.0",
+      "peak_cms": 7154.9,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.149,
+      "max_stage_m": 289.43133544921875
+     },
+     {
+      "km": 10.0,
+      "lat": 29.954621443060475,
+      "lon": 78.18033100468402,
+      "name": "CH10.0",
+      "peak_cms": 7154.9,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.149,
+      "max_stage_m": 289.43133544921875
+     },
+     {
+      "km": 15.0,
+      "lat": 29.954621443060475,
+      "lon": 78.18033100468402,
+      "name": "CH15.0",
+      "peak_cms": 7154.9,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.149,
+      "max_stage_m": 289.43133544921875
+     },
+     {
+      "km": 20.0,
+      "lat": 29.954621443060475,
+      "lon": 78.18033100468402,
+      "name": "CH20.0",
+      "peak_cms": 7154.9,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.149,
+      "max_stage_m": 289.43133544921875
+     }
+    ],
+    "window_m": 0.0,
+    "peak_at_hr": 1.593888888888889,
+    "risk_class": null,
+    "volume_hm3": 108.5434667144415,
+    "duration_hr": 6.0,
+    "max_depth_m": 6.828275203704834,
+    "primed_cells": 0,
+    "inundation_km2": 47.93175804464062,
+    "near_field_only": false,
+    "peak_discharge_cms": 7269.852981731704,
+    "population_exposed": 500000,
+    "mass_balance_error_pct": 2.1371852454408957e-06
+   }
+  },
+  "created": "2026-09-27 12:02:04"
+ },
+ {
+  "id": "c3dc591c-0103-4989-8af2-26cb9324a874",
+  "level": "WARNING",
+  "category": null,
+  "title": "Run ae999c3f triggered rule 'population_exposed'",
+  "body": "metrics={'population_exposed': 500000, 'peak_discharge_cms': 7269.852981731704, 'inundation_km2': 100.29309289419717}",
+  "location": null,
+  "run_id": "ae999c3f-715a-49ee-9bb8-50f19078d502",
+  "box_id": null,
+  "dam_id": null,
+  "river_id": null,
+  "glacier_id": null,
+  "state": "NEW",
+  "source": "rule",
+  "payload": {
+   "rule": "population_exposed",
+   "metrics": {
+    "stations": [
+     {
+      "km": 0.0,
+      "lat": 29.95624193548387,
+      "lon": 78.17989583333333,
+      "name": "CH0.0",
+      "peak_cms": 7243.5,
+      "in_domain": true,
+      "arrival_hr": 0.125,
+      "max_depth_m": 3.571,
+      "max_stage_m": 290.8595275878906
+     },
+     {
+      "km": 5.0,
+      "lat": 29.950693548387097,
+      "lon": 78.17850892857143,
+      "name": "CH5.0",
+      "peak_cms": 7248.6,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.622,
+      "max_stage_m": 289.66436767578125
+     },
+     {
+      "km": 10.0,
+      "lat": 29.950693548387097,
+      "lon": 78.17850892857143,
+      "name": "CH10.0",
+      "peak_cms": 7248.6,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.622,
+      "max_stage_m": 289.66436767578125
+     },
+     {
+      "km": 15.0,
+      "lat": 29.950693548387097,
+      "lon": 78.17850892857143,
+      "name": "CH15.0",
+      "peak_cms": 7248.6,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.622,
+      "max_stage_m": 289.66436767578125
+     },
+     {
+      "km": 20.0,
+      "lat": 29.950693548387097,
+      "lon": 78.17850892857143,
+      "name": "CH20.0",
+      "peak_cms": 7248.6,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.622,
+      "max_stage_m": 289.66436767578125
+     }
+    ],
+    "window_m": 0.0,
+    "peak_at_hr": 1.593888888888889,
+    "risk_class": null,
+    "volume_hm3": 108.53486552364598,
+    "duration_hr": 6.0,
+    "max_depth_m": 6.2004075050354,
+    "primed_cells": 0,
+    "inundation_km2": 100.29309289419717,
+    "near_field_only": false,
+    "peak_discharge_cms": 7269.852981731704,
+    "population_exposed": 500000,
+    "mass_balance_error_pct": 6.898107493917318e-06
+   }
+  },
+  "created": "2026-09-27 11:17:41"
+ },
+ {
+  "id": "1ee392ff-7165-49f5-856b-9d85f02233ad",
+  "level": "CRITICAL",
+  "category": null,
+  "title": "Run ae999c3f triggered rule 'arrival_fast'",
+  "body": "metrics={'population_exposed': 500000, 'peak_discharge_cms': 7269.852981731704, 'inundation_km2': 100.29309289419717}",
+  "location": null,
+  "run_id": "ae999c3f-715a-49ee-9bb8-50f19078d502",
+  "box_id": null,
+  "dam_id": null,
+  "river_id": null,
+  "glacier_id": null,
+  "state": "NEW",
+  "source": "rule",
+  "payload": {
+   "rule": "arrival_fast",
+   "metrics": {
+    "stations": [
+     {
+      "km": 0.0,
+      "lat": 29.95624193548387,
+      "lon": 78.17989583333333,
+      "name": "CH0.0",
+      "peak_cms": 7243.5,
+      "in_domain": true,
+      "arrival_hr": 0.125,
+      "max_depth_m": 3.571,
+      "max_stage_m": 290.8595275878906
+     },
+     {
+      "km": 5.0,
+      "lat": 29.950693548387097,
+      "lon": 78.17850892857143,
+      "name": "CH5.0",
+      "peak_cms": 7248.6,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.622,
+      "max_stage_m": 289.66436767578125
+     },
+     {
+      "km": 10.0,
+      "lat": 29.950693548387097,
+      "lon": 78.17850892857143,
+      "name": "CH10.0",
+      "peak_cms": 7248.6,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.622,
+      "max_stage_m": 289.66436767578125
+     },
+     {
+      "km": 15.0,
+      "lat": 29.950693548387097,
+      "lon": 78.17850892857143,
+      "name": "CH15.0",
+      "peak_cms": 7248.6,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.622,
+      "max_stage_m": 289.66436767578125
+     },
+     {
+      "km": 20.0,
+      "lat": 29.950693548387097,
+      "lon": 78.17850892857143,
+      "name": "CH20.0",
+      "peak_cms": 7248.6,
+      "in_domain": false,
+      "arrival_hr": 0.0625,
+      "max_depth_m": 5.622,
+      "max_stage_m": 289.66436767578125
+     }
+    ],
+    "window_m": 0.0,
+    "peak_at_hr": 1.593888888888889,
+    "risk_class": null,
+    "volume_hm3": 108.53486552364598,
+    "duration_hr": 6.0,
+    "max_depth_m": 6.2004075050354,
+    "primed_cells": 0,
+    "inundation_km2": 100.29309289419717,
+    "near_field_only": false,
+    "peak_discharge_cms": 7269.852981731704,
+    "population_exposed": 500000,
+    "mass_balance_error_pct": 6.898107493917318e-06
+   }
+  },
+  "created": "2026-09-27 11:17:41"
+ },
+ {
+  "id": "79e0d870-51a7-49ab-a88d-36bee3f31bbf",
+  "level": "WARNING",
+  "category": null,
+  "title": "Run 3e77fbc3 triggered rule 'population_exposed'",
+  "body": "metrics={'population_exposed': 500000, 'peak_discharge_cms': 7269.852981731704, 'inundation_km2': 1.1805597678599808}",
+  "location": null,
+  "run_id": "3e77fbc3-d8a9-4df9-af34-e687e8ad7d96",
+  "box_id": null,
+  "dam_id": null,
+  "river_id": null,
+  "glacier_id": null,
+  "state": "NEW",
+  "source": "rule",
+  "payload": {
+   "rule": "population_exposed",
+   "metrics": {
+    "stations": [
+     {
+      "km": 0.0,
+      "name": "CH0.0",
+      "peak_cms": 0.8,
+      "arrival_hr": 0.125,
+      "max_depth_m": 4.018,
+      "max_stage_m": 291.3065185546875
+     },
+     {
+      "km": 5.0,
+      "name": "CH5.0",
+      "peak_cms": 1.6,
+      "arrival_hr": 0.125,
+      "max_depth_m": 5.949,
+      "max_stage_m": 289.9913635253906
+     },
+     {
+      "km": 10.0,
+      "name": "CH10.0",
+      "peak_cms": 1.6,
+      "arrival_hr": 0.125,
+      "max_depth_m": 5.949,
+      "max_stage_m": 289.9913635253906
+     },
+     {
+      "km": 15.0,
+      "name": "CH15.0",
+      "peak_cms": 1.6,
+      "arrival_hr": 0.125,
+      "max_depth_m": 5.949,
+      "max_stage_m": 289.9913635253906
+     },
+     {
+      "km": 20.0,
+      "name": "CH20.0",
+      "peak_cms": 1.6,
+      "arrival_hr": 0.125,
+      "max_depth_m": 5.949,
+      "max_stage_m": 289.9913635253906
+     }
+    ],
+    "window_m": 1500.0,
+    "peak_at_hr": 1.593888888888889,
+    "risk_class": null,
+    "volume_hm3": 79.07086523749386,
+    "duration_hr": 6.0,
+    "max_depth_m": 5.949213981628418,
+    "primed_cells": 0,
+    "inundation_km2": 1.1805597678599808,
+    "near_field_only": true,
+    "peak_discharge_cms": 7269.852981731704,
+    "population_exposed": 500000,
+    "mass_balance_error_pct": 0.021654648360453024
+   }
+  },
+  "created": "2026-09-27 10:09:31"
+ }
+]

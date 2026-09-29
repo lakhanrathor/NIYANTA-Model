@@ -1,0 +1,57 @@
+[
+ {
+  "km": 0.0,
+  "lat": 29.957119395215507,
+  "lon": 78.18033100468402,
+  "name": "CH0.0",
+  "peak_cms": 7172.0,
+  "in_domain": true,
+  "arrival_hr": 0.125,
+  "max_depth_m": 1.705,
+  "max_stage_m": 291.1271667480469
+ },
+ {
+  "km": 5.0,
+  "lat": 29.954621443060475,
+  "lon": 78.18033100468402,
+  "name": "CH5.0",
+  "peak_cms": 7154.9,
+  "in_domain": false,
+  "arrival_hr": 0.0625,
+  "max_depth_m": 5.149,
+  "max_stage_m": 289.43133544921875
+ },
+ {
+  "km": 10.0,
+  "lat": 29.954621443060475,
+  "lon": 78.18033100468402,
+  "name": "CH10.0",
+  "peak_cms": 7154.9,
+  "in_domain": false,
+  "arrival_hr": 0.0625,
+  "max_depth_m": 5.149,
+  "max_stage_m": 289.43133544921875
+ },
+ {
+  "km": 15.0,
+  "lat": 29.954621443060475,
+  "lon": 78.18033100468402,
+  "name": "CH15.0",
+  "peak_cms": 7154.9,
+  "in_domain": false,
+  "arrival_hr": 0.0625,
+  "max_depth_m": 5.149,
+  "max_stage_m": 289.43133544921875
+ },
+ {
+  "km": 20.0,
+  "lat": 29.954621443060475,
+  "lon": 78.18033100468402,
+  "name": "CH20.0",
+  "peak_cms": 7154.9,
+  "in_domain": false,
+  "arrival_hr": 0.0625,
+  "max_depth_m": 5.149,
+  "max_stage_m": 289.43133544921875
+ }
+]

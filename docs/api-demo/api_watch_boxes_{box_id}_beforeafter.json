@@ -1,0 +1,54 @@
+{
+ "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+ "before_km2": 19.88,
+ "after_km2": 120.418,
+ "delta_pct": 505.7,
+ "baseline": {
+  "id": "6d7cc388-7bb6-4eac-977c-9b86a1114175",
+  "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+  "sensor": "sentinel1|water_mask",
+  "path": null,
+  "metrics": {
+   "area_km2": 19.88
+  },
+  "updated": "2026-09-25 07:38:18"
+ },
+ "latest": {
+  "id": "369d9fe9-279d-49a6-8646-55a31e7f29e0",
+  "box_id": "272d85f7-77ff-48bc-b05a-9395a23f1eb1",
+  "glacier_id": null,
+  "kind": "lake_area",
+  "flagged": false,
+  "delta_pct": null,
+  "metrics": {
+   "sam": {
+    "ms": 30271.7,
+    "model": "vit_h",
+    "device": "cuda",
+    "points": 48,
+    "area_px": 35601,
+    "seed_area_px": 22019,
+    "mean_pred_iou": 0.9168,
+    "iou_with_seeds": 0.5812
+   },
+   "index": "MNDWI",
+   "sensor": "sentinel2",
+   "source": "gee",
+   "area_km2": 120.418,
+   "scene_id": "S2C_MSIL2A_20260920T052651_N0512_R105_T43RGP_20260920T102311",
+   "cache_hit": false,
+   "cloud_pct": 2.162743,
+   "delta_pct": 0.0,
+   "simulated": false,
+   "threshold": -0.213,
+   "elapsed_ms": 34646.7,
+   "mndwi_mean": -0.4885457363000877,
+   "scene_date": "2026-09-20",
+   "scenes_available": 4,
+   "baseline_area_km2": 120.418
+  },
+  "baseline_id": "c5c32e68-8d7f-4da8-884d-74b6261de116",
+  "observation_id": "cd5118f0-9023-4854-a179-ddb4e9ba29d2",
+  "ts": "2026-09-26 21:58:26"
+ }
+}

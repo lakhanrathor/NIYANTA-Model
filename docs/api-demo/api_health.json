@@ -1,0 +1,33 @@
+{
+ "status": "ok",
+ "db": "ok",
+ "workers": 2,
+ "queue_depth": 0,
+ "handlers": [
+  "connector.sync",
+  "corridor.dataset",
+  "corridor.prepare",
+  "dataset.process",
+  "export.package",
+  "gee.daily",
+  "stage.breach",
+  "stage.export",
+  "stage.impact",
+  "stage.mesh",
+  "stage.post",
+  "stage.solve",
+  "stage.terrain",
+  "stage.validate"
+ ],
+ "engine_root": "C:\\Users\\ankitkumar\\Desktop\\work\\1\\damatlas\\engines\\delft3d_fm\\2026.01\\kernels",
+ "engine_present": true,
+ "gee_mode": "online",
+ "gee": {
+  "mode": "online",
+  "project": "zeta-antenna-398715",
+  "ready": false,
+  "error": null,
+  "init_ms": null
+ },
+ "storage": "C:\\Users\\ankitkumar\\Desktop\\work\\1\\niyanta\\backend\\storage"
+}

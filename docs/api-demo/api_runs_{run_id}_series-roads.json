@@ -1,0 +1,58 @@
+{
+ "_fixture": "planned — endpoint not yet implemented; contract shape from docs/API_ROUTES.md",
+ "run_id": "a4332fb1-29d3-4642-93c7-cc701a9b2241",
+ "times_s": [
+  0,
+  600,
+  1800,
+  3600,
+  7200,
+  14400,
+  21600,
+  43200,
+  86400
+ ],
+ "roads_km": [
+  128.4,
+  127.9,
+  126.1,
+  121.7,
+  113.2,
+  104.8,
+  98.3,
+  91.6,
+  88.2
+ ],
+ "people_in_water": [
+  0,
+  0,
+  1200,
+  8400,
+  31200,
+  58700,
+  76400,
+  91200,
+  96500
+ ],
+ "roads_cut": [
+  {
+   "frame": 4,
+   "road_id": "372929847",
+   "name": "NH-71B",
+   "class": "trunk",
+   "length_km": 1.84
+  },
+  {
+   "frame": 6,
+   "road_id": "661842930",
+   "name": "State Hwy 12",
+   "class": "secondary",
+   "length_km": 0.92
+  }
+ ],
+ "bands_m": {
+  "low": 0.5,
+  "moderate": 2.0,
+  "high": 5.0
+ }
+}

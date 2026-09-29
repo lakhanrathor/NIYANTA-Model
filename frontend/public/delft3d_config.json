@@ -1,0 +1,23 @@
+{
+  "project_name": "Niyanta_Himalayan_DamBreach_2026",
+  "solvers": {
+    "flow": "dflowfm",
+    "particle_sph": "part",
+    "orchestrator": "dimr"
+  },
+  "grid": {
+    "dem_raster": "damatlas/data/Copernicus_DSM_COG_10_N27_00_E085_00_DEM_cog.tif",
+    "water_mask_raster": "damatlas/data/Copernicus_DSM_COG_10_N27_00_E085_00_DEM_wbm.tif",
+    "cell_size_m": 20.0,
+    "width_m": 1000.0,
+    "length_m": 2000.0
+  },
+  "hydraulic_parameters": {
+    "manning_roughness_n": 0.04,
+    "sph_smoothing_radius_h": 25.0,
+    "fluid_density_kg_m3": 1000.0,
+    "dam_breach_z_m": 480.0,
+    "total_frames": 280,
+    "particle_count": 18000
+  }
+}
