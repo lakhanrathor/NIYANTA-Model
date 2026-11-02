@@ -202,7 +202,10 @@ export const useBuildConfig = create<BuildState>()(
           const formationHr = hw > 0 && Vw > 0
             ? Math.max(0.5, Math.min(8.0, Math.round((0.015 * Math.pow(Vw, 0.53) / Math.pow(hw, 0.9)) * 10) / 10))
             : 0
-          const inflow = storage > 0 ? Math.max(150, Math.round(storage * 25)) : 0
+          // No inflow is invented: "storage × 25" gave Tehri 88,500 m³/s, more
+          // than the Ganga's largest floods. The analyst enters it from data
+          // (case 2 needs it to reach the crest; until then time-to-failure shows —).
+          const inflow = 0
 
           return {
             damId: dam.id,

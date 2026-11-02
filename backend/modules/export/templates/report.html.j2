@@ -16,6 +16,7 @@
   .badge.gradeA { background: #dff3e4; color: #1c6b36; }
   .badge.gradeB { background: #fff4d6; color: #8a6100; }
   .badge.gradeC, .badge.gradeD { background: #fdeaea; color: #98222a; }
+  .badge.label { background: #e0e7ff; color: #3730a3; }
   table { border-collapse: collapse; width: 100%; margin: 6px 0 10px; }
   th, td { border: 1px solid #ccd8e3; padding: 4px 7px; text-align: left; }
   th { background: #eef3f8; font-weight: 600; }
@@ -34,6 +35,7 @@
 <header>
   <h1>NIYANTA — Post-Breach Inundation Report</h1>
   <div class="meta">
+    <span class="badge label">{{ label|upper }}</span> ·
     Run <strong>{{ run.id[:8] }}</strong> · Scenario “{{ scenario.name or scenario.id[:8] }}” · Case {{ scenario.case }} ·
     Engine <strong>{{ run.engine }}</strong> ·
     State <span class="badge ok">{{ run.state }}</span>
@@ -45,22 +47,22 @@
 <h2>1 · Breach &amp; Flood Summary</h2>
 <div class="grid">
   <div>
-    <div class="kpi"><div class="v">{{ "%.0f"|format(metrics.peak_discharge_cms or 0) }} m³/s</div>
-      <div class="l">Peak breach discharge (t+{{ "%.2f"|format(metrics.peak_at_hr or 0) }} h)</div></div>
-    <div class="kpi"><div class="v">{{ "%.1f"|format(metrics.max_depth_m or 0) }} m</div>
+    <div class="kpi"><div class="v">{{ metrics.peak_discharge_cms|f("%.0f") }} m³/s</div>
+      <div class="l">Peak breach discharge (t+{{ metrics.peak_at_hr|f("%.2f") }} h)</div></div>
+    <div class="kpi"><div class="v">{{ metrics.max_depth_m|f("%.1f") }} m</div>
       <div class="l">Maximum flood depth</div></div>
   </div>
   <div>
-    <div class="kpi"><div class="v">{{ "%.1f"|format(metrics.inundation_km2 or 0) }} km²</div>
+    <div class="kpi"><div class="v">{{ metrics.inundation_km2|f("%.1f") }} km²</div>
       <div class="l">Inundation extent (&gt;0.1 m)</div></div>
-    <div class="kpi"><div class="v">{{ "%.1f"|format(metrics.volume_hm3 or 0) }} hm³</div>
-      <div class="l">Released volume · MB err {{ "%.3f"|format(metrics.mass_balance_error_pct or 0) }}%</div></div>
+    <div class="kpi"><div class="v">{{ metrics.volume_hm3|f("%.1f") }} hm³</div>
+      <div class="l">Released volume · MB err {{ metrics.mass_balance_error_pct|f("%.3f") }}%</div></div>
   </div>
   <div>
-    <div class="kpi"><div class="v">{{ "%.0f"|format(impact.population_exposed or 0) }}</div>
-      <div class="l">Population exposed · {{ impact.villages_affected or 0 }} villages</div></div>
-    <div class="kpi"><div class="v">{{ "%.1f"|format(impact.infra.roads_km or 0) }} km</div>
-      <div class="l">Roads flooded · {{ impact.infra.bridges_closed or 0 }}/{{ impact.infra.bridges or 0 }} bridges closed</div></div>
+    <div class="kpi"><div class="v">{{ impact.population_exposed|f("%.0f") }}</div>
+      <div class="l">Population exposed · {{ impact.villages_affected|f("%d") }} villages</div></div>
+    <div class="kpi"><div class="v">{{ impact.infra.roads_km|f("%.1f") }} km</div>
+      <div class="l">Roads flooded · {{ impact.infra.bridges_closed|f("%d") }}/{{ impact.infra.bridges|f("%d") }} bridges closed</div></div>
   </div>
 </div>
 
@@ -72,10 +74,10 @@
 <table>
   <tr><th>Bottom width</th><th>Depth</th><th>Side slope</th><th>Formation time</th><th>Mode</th></tr>
   <tr>
-    <td class="num">{{ "%.1f"|format(breach.width_m or 0) }} m</td>
-    <td class="num">{{ "%.1f"|format(breach.depth_m or 0) }} m</td>
-    <td class="num">{{ "%.2f"|format(breach.side_slope or 0) }}</td>
-    <td class="num">{{ "%.2f"|format(breach.t_form_hr or 0) }} h</td>
+    <td class="num">{{ breach.width_m|f("%.1f") }} m</td>
+    <td class="num">{{ breach.depth_m|f("%.1f") }} m</td>
+    <td class="num">{{ breach.side_slope|f("%.2f") }}</td>
+    <td class="num">{{ breach.t_form_hr|f("%.2f") }} h</td>
     <td>{{ breach.mode }}</td>
   </tr>
 </table>
@@ -87,10 +89,10 @@
   {% for s in stations %}
   <tr>
     <td>{{ s.name or s.km }}</td>
-    <td class="num">{{ "%.0f"|format(s.peak_cms or 0) }}</td>
+    <td class="num">{{ s.peak_cms|f("%.0f") }}</td>
     <td class="num">{{ "%.2f"|format(s.arrival_hr) if s.arrival_hr is not none else "—" }}</td>
-    <td class="num">{{ "%.2f"|format(s.max_depth_m or 0) }}</td>
-    <td class="num">{{ "%.1f"|format(s.max_stage_m or 0) }}</td>
+    <td class="num">{{ s.max_depth_m|f("%.2f") }}</td>
+    <td class="num">{{ s.max_stage_m|f("%.1f") }}</td>
   </tr>
   {% endfor %}
 </table>
@@ -103,8 +105,8 @@
   <tr>
     <td>{{ v.name }}</td>
     <td class="num">{{ v.population }}</td>
-    <td class="num">{{ "%.2f"|format(v.depth_m or 0) }}</td>
-    <td class="num">{{ "%.1f"|format(v.velocity_ms or 0) }}</td>
+    <td class="num">{{ v.depth_m|f("%.2f") }}</td>
+    <td class="num">{{ v.velocity_ms|f("%.1f") }}</td>
     <td class="num">{{ "%.2f"|format(v.arrival_hr) if v.arrival_hr is not none else "—" }}</td>
     <td>{{ v.hazard }}</td>
   </tr>
@@ -113,16 +115,96 @@
   {% endfor %}
 </table>
 
-<h2>6 · Validation</h2>
+<h2>6 · Infrastructure Exposure (OpenStreetMap)</h2>
+{% if infra %}
 <table>
-  <tr><th>Benchmark</th><th class="num">Peak error</th><th class="num">Extent IoU</th><th>Grade</th></tr>
+  <tr><th></th><th class="num">Reached by the flood</th><th class="num">In model domain</th><th>Rule</th></tr>
+  <tr><td>Buildings</td><td class="num">{{ infra.buildings_flooded }}</td><td class="num">{{ infra.buildings }}</td>
+      <td>depth &gt; {{ infra_thr.building_m }} m</td></tr>
+  <tr><td>Roads (km)</td><td class="num">{{ infra.road_km_cut|f("%.2f") }}</td><td class="num">{{ infra.road_km|f("%.2f") }}</td>
+      <td>cut when depth &gt; {{ infra_thr.road_cut_m }} m</td></tr>
+  <tr><td>Bridges</td><td class="num">{{ infra.bridges_flooded }}</td><td class="num">{{ infra.bridges }}</td>
+      <td>depth &gt; {{ infra_thr.building_m }} m</td></tr>
+</table>
+{% else %}
+<p class="meta">— run has no frame stack; per-asset exposure not computed.</p>
+{% endif %}
+
+<h2>7 · Evacuation Corridors</h2>
+{% if evac and evac.origins %}
+<p>
+  <span class="badge gradeD">IMPOSSIBLE {{ evac.stats.impossible }}</span>
+  <span class="badge gradeB">LEAVE NOW {{ evac.stats.leave_now }}</span>
+  <span class="badge gradeA">OK {{ evac.stats.ok }}</span>
+  · {{ evac.stats.origins }} flooded buildings / critical sites · {{ evac.corridors|length }} routes ·
+  {{ evac.assembly|length }} assembly points
+</p>
+<table>
+  <tr><th>Route</th><th class="num">Sites</th><th class="num">Walk (km)</th><th class="num">Latest departure (h)</th>
+      <th class="num">Worst margin (min)</th><th>Class</th></tr>
+  {% for c in evac_rows %}
   <tr>
-    <td>{{ validation.benchmark or "internal consistency" }}</td>
-    <td class="num">{{ "%.1f"|format(validation.error_peak_pct) ~ " %" if validation.error_peak_pct is not none else "—" }}</td>
-    <td class="num">{{ "%.2f"|format(validation.extent_iou) if validation.extent_iou is not none else "—" }}</td>
+    <td>R{{ loop.index }} → A{{ c.assembly + 1 }}</td>
+    <td class="num">{{ c.origins }}</td>
+    <td class="num">{{ c.walk_km|f("%.2f") }}</td>
+    <td class="num">{{ (c.leave_by_s / 3600)|f("%.2f") if c.leave_by_s is not none and c.leave_by_s >= 0 else "too late" }}</td>
+    <td class="num">{{ (c.worst_margin_h * 60)|f("%.0f") if c.worst_margin_h is not none else "—" }}</td>
+    <td>{{ c.cls|replace("_", " ")|upper }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<p class="meta">Worst 12 routes shown; full origins table: <code>GET /api/runs/{{ run.id }}/evacuation?format=csv</code>.
+  Assumptions: walk {{ evac.assumptions.walk_kmh }} km/h, departure {{ evac.assumptions.departure }},
+  road cut &gt; {{ evac.assumptions.road_cut_m }} m, LEAVE NOW if margin &lt; {{ evac.assumptions.leave_now_h }} h,
+  safe = {{ evac.assumptions.safe_node }}.</p>
+{% elif evac %}
+<p class="meta">No building, hospital or school is reached by the flood — nothing to evacuate.</p>
+{% else %}
+<p class="meta">— run has no frame stack; evacuation not computed.</p>
+{% endif %}
+
+<h2>8 · Validation (modelled vs observed)</h2>
+<table>
+  <tr><th>Reference</th><th class="num">Peak error</th><th class="num">Extent IoU</th>
+      <th class="num">Mass balance error</th><th>Grade</th></tr>
+  <tr>
+    <td>{{ validation.benchmark or vdetail.reference or "internal consistency only" }}</td>
+    <td class="num">{{ validation.error_peak_pct|f("%.1f") }}{{ " %" if validation.error_peak_pct is not none }}</td>
+    <td class="num">{{ validation.extent_iou|f("%.2f") }}</td>
+    <td class="num">{{ vdetail.mass_balance_error_pct|f("%.3f") }}{{ " %" if vdetail.mass_balance_error_pct is not none }}</td>
     <td><span class="badge grade{{ validation.grade }}">{{ validation.grade or "—" }}</span></td>
   </tr>
 </table>
+{% if vdetail.observations %}
+<table>
+  <tr><th>Point</th><th>Quantity</th><th class="num">Observed</th><th class="num">Modelled</th>
+      <th class="num">Error</th><th>Source</th></tr>
+  {% for o in vdetail.observations %}
+  <tr>
+    <td>{{ o.name }}</td>
+    <td>{{ {"arrival_min": "arrival (min)", "depth_m": "max depth (m)", "velocity_ms": "max velocity (m/s)"}[o.metric] }}</td>
+    <td class="num">{{ o.observed|f("%.2f") }}</td>
+    <td class="num">{{ o.modelled|f("%.2f") }}</td>
+    <td class="num">{{ o.err_pct|f("%.1f") }}{{ " %" if o.err_pct is not none }}</td>
+    <td>{{ o.source }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<p class="meta">Median error {{ vdetail.observation_median_err_pct|f("%.1f") }} %. Modelled values are the run sampled
+  at the same point (max depth, max velocity, first-wet arrival).</p>
+{% elif vdetail.note %}
+<p class="meta">{{ vdetail.note }} — attach recorded observations (with sources) to validate against the field.</p>
+{% endif %}
+
+<h2>9 · Assumptions &amp; Limitations</h2>
+<ul class="meta">
+  <li>Scenario label <strong>{{ label|upper }}</strong>: observed = a recorded event; reconstruction = a recorded
+    event re-modelled; hypothetical = a what-if; demo = illustration only.</li>
+  <li>Breach outflow: level-pool reservoir, pool capped at the crest, head measured from the breach invert.</li>
+  <li>Population: WorldPop 2020 (1 km) zonal sums — residents, not workers or visitors.</li>
+  <li>Infrastructure: OpenStreetMap as downloaded; unmapped buildings and roads are not counted.</li>
+  <li>Engine <strong>{{ run.engine }}</strong>; results depend on DEM resolution and the breach parameters in §3.</li>
+</ul>
 
 <footer>
   Generated by NIYANTA (SIH26161) · {{ generated }} · data provenance: {{ provenance }}

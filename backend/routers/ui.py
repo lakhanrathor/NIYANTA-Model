@@ -20,6 +20,7 @@ from modules.catalog import catalog
 from modules.db import client as db
 from modules.jobs import queue as jobs
 from modules.run import stages as run_stages
+from modules.scenario import lab as scenario_lab
 from modules.storage import paths
 from .tiles import sample_point
 
@@ -185,6 +186,12 @@ def resume_job(job_id: str) -> dict:
 
 
 # ------------------------------------------------------------------ stats
+@router.get("/scenario-lab")
+def scenario_lab_catalogue() -> dict:
+    """Replayable scenarios (≥1 validated run) by hazard, with badges."""
+    return scenario_lab.catalogue()
+
+
 @router.get("/stats/featured-rivers")
 def featured_rivers(limit: int = Query(6, ge=1, le=50)) -> list[dict]:
     from routers.discover import RIVER_COLS  # noqa: PLC0415
@@ -953,11 +960,16 @@ def run_summary(run_id: str) -> dict:
         "engine": run.get("engine"),
         "engine_label": run_stages.ENGINE_LABEL.get(run.get("engine") or "",
                                                     (run.get("engine") or "").upper()),
+        # spec §29 badge; unset → hypothetical (see modules/scenario/lab.py)
+        "scenario_label": scenario_lab.label_of(spec)[0],
         "near_field_only": bool(met.get("near_field_only")),
         "window_m": float(met.get("window_m") or 0.0) or None,
         "breach_width": breach.get("width_m") or breach_row.get("width_m"),
         "breach_depth": breach.get("depth_m") or breach_row.get("depth_m"),
         "breach_method": breach.get("method") or breach_row.get("method"),
+        # the solved value the model used; 0 (instantaneous) is a real value
+        "breach_t_form_hr": (breach_row.get("t_form_hr") if breach_row.get("t_form_hr") is not None
+                             else breach.get("formation_time_hr")),
         "reservoir_level": reservoir.get("initial_level_m") or breach_row.get("reservoir_level_m"),
         "sim_hours": horizon.get("duration_hr") or breach_row.get("sim_hours"),
         "run_id": str(run["id"])[:8],
@@ -1090,7 +1102,22 @@ def run_terrain(run_id: str, detail: str = "std") -> dict:
         "min": round(lo, 1),
         "max": round(hi, 1),
         "rows": [[round(float(v), 1) for v in row] for row in filled],
+        # where the terrain came from (dataset / copernicus_auto / synthetic) —
+        # the player warns when a run did not use real ground
+        "source": meta.get("source"),
+        # the cell the model breached, as lon/lat (centre of dam_rc)
+        "dam_lonlat": _dam_lonlat(meta),
     }
+
+
+def _dam_lonlat(meta: dict) -> list[float] | None:
+    rc = meta.get("dam_rc")
+    try:
+        r, c = int(rc[0]), int(rc[1])
+        return [round(float(meta["origin_lon"]) + (c + 0.5) * float(meta["dx_deg"]), 6),
+                round(float(meta["origin_lat"]) - (r + 0.5) * float(meta["dy_deg"]), 6)]
+    except (TypeError, KeyError, IndexError, ValueError):
+        return None
 
 
 @router.get("/runs/{run_id}/hazard-villages")

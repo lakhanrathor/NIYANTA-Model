@@ -2,7 +2,7 @@ import type { FrameWaterStatus } from '../PlayerScene'
 
 /** Shared Player vocabulary — every panel imports from here, never from a sibling. */
 
-export type CamPreset = 'dam' | 'valley' | 'top' | 'drone'
+export type CamPreset = 'overview' | 'breach' | 'downstream' | 'infrastructure' | 'impact' | 'top'
 
 export type TimeFormat = 'hhmm' | 'minutes' | 'hours'
 

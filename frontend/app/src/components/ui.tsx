@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { EM_DASH } from '../lib/format'
+import { useRailFold } from './rail'
 
 /* ------------------------------------------------------------------ icons */
 
@@ -161,22 +162,39 @@ export function Panel({
   children,
   className = '',
   bodyClass = '',
+  pinned = false,
 }: {
   title?: ReactNode
   actions?: ReactNode
   children: ReactNode
   className?: string
   bodyClass?: string
+  /** never folds inside a rail (e.g. a panel that appears on click) */
+  pinned?: boolean
 }) {
+  const fold = useRailFold(pinned ? null : title)
   return (
-    <section className={`panel flex min-h-0 flex-col overflow-hidden ${className}`}>
+    <section className={`panel flex min-h-0 flex-col overflow-hidden ${fold.open ? className : ''}`}>
       {title && (
-        <header className="flex h-8 shrink-0 items-center gap-2 border-b border-[var(--line)] px-3">
-          <h2 className="text-[11px] font-semibold tracking-[0.04em] text-[var(--text)]">{title}</h2>
-          <div className="ml-auto flex items-center gap-1.5">{actions}</div>
+        <header
+          className={`flex h-10 shrink-0 items-center gap-2 px-3.5 ${fold.open ? 'border-b border-[var(--line)]' : ''} ${
+            fold.foldable ? 'cursor-pointer select-none hover:bg-[var(--bg-subtle)]' : ''
+          }`}
+          onClick={fold.foldable ? fold.toggle : undefined}
+          aria-expanded={fold.foldable ? fold.open : undefined}
+        >
+          {fold.foldable && (
+            <Icon name={fold.open ? 'chevronDown' : 'chevronRight'} size={12} className="text-[var(--faint)]" />
+          )}
+          <h2 className="text-[12.5px] font-semibold text-[var(--text)]">{title}</h2>
+          {fold.open && (
+            <div className="ml-auto flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+              {actions}
+            </div>
+          )}
         </header>
       )}
-      <div className={`min-h-0 flex-1 overflow-auto ${bodyClass}`}>{children}</div>
+      {fold.open && <div className={`min-h-0 flex-1 overflow-auto ${bodyClass}`}>{children}</div>}
     </section>
   )
 }

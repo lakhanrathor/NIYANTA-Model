@@ -7,6 +7,7 @@ import { SceneControlsPanel } from './player/SceneControlsPanel'
 import { CameraPanel } from './player/CameraPanel'
 import { Viewport } from './player/Viewport'
 import { PlaybackBar } from './player/PlaybackBar'
+import { LiveMetricsBar } from './player/LiveMetricsBar'
 import { LiveStatsPanel } from './player/LiveStatsPanel'
 import { SimulationPanel } from './player/SimulationPanel'
 import { AffectedPanel } from './player/AffectedPanel'
@@ -16,6 +17,7 @@ import { GaugesPanel } from './player/GaugesPanel'
 import { CascadePanel } from './player/CascadePanel'
 import { ProbePanel } from './player/ProbePanel'
 import { ExportPanel } from './player/ExportPanel'
+import { RailGroup } from '../components/rail'
 
 /**
  * PLAYER — 3D cinematic view of one run. This file only composes the page:
@@ -34,11 +36,13 @@ export function Player3D() {
         <div
           className={`flex min-h-0 flex-col gap-2 overflow-y-auto transition-all ${leftOpen ? 'w-[284px] shrink-0' : 'w-0 overflow-hidden'}`}
         >
-          <RunIdentityPanel />
-          <ViewModePanel />
-          <LayersPanel />
-          <SceneControlsPanel />
-          <CameraPanel />
+          <RailGroup id="player.left">
+            <RunIdentityPanel />
+            <ViewModePanel />
+            <LayersPanel />
+            <SceneControlsPanel />
+            <CameraPanel />
+          </RailGroup>
         </div>
 
         {/* ------------------------------------------------------ CENTRE */}
@@ -51,6 +55,7 @@ export function Player3D() {
             onShowRight={() => setRightOpen(true)}
             onHideRight={() => setRightOpen(false)}
           />
+          <LiveMetricsBar />
           <PlaybackBar />
         </div>
 
@@ -58,15 +63,18 @@ export function Player3D() {
         <div
           className={`flex min-h-0 flex-col gap-2 overflow-y-auto transition-all ${rightOpen ? 'w-[318px] shrink-0' : 'w-0 overflow-hidden'}`}
         >
-          <LiveStatsPanel />
-          <SimulationPanel />
-          <AffectedPanel />
-          <VillagesPanel />
-          <HydrographPanel />
-          <GaugesPanel />
-          <CascadePanel />
-          <ProbePanel />
-          <ExportPanel />
+          {/* click answers (probe / asset) sit high so a click shows its result */}
+          <RailGroup id="player.right">
+            <LiveStatsPanel />
+            <ProbePanel />
+            <AffectedPanel />
+            <VillagesPanel />
+            <SimulationPanel />
+            <HydrographPanel />
+            <GaugesPanel />
+            <CascadePanel />
+            <ExportPanel />
+          </RailGroup>
         </div>
       </div>
     </PlayerProvider>

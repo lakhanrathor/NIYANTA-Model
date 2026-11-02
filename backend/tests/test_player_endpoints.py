@@ -108,3 +108,27 @@ def test_create_dam_roundtrip_and_validation():
     assert body["height_m"] == 17.0 and body["crest_m"] is None
     got = c.get(f"/api/dams/{body['id']}")
     assert got.status_code == 200 and got.json()["name"] == "Probe Dam ZZZ"
+
+
+def test_frames_bin_roundtrip_and_stride():
+    """frames.bin = [uint32 len][JSON][float16 (n, rows, cols)], strided like terrain.json."""
+    import struct
+
+    from modules.solvers.base import FrameSeries
+
+    run_id = _make_run()
+    c = _client()
+    assert c.get(f"/api/runs/{run_id}/frames.bin").status_code == 409  # no frame stack yet
+    depth = np.arange(3 * 4 * 6, dtype=np.float32).reshape(3, 4, 6) / 10
+    depth[0, 0, 0] = np.nan
+    FrameSeries(times_s=np.array([0.0, 60.0, 120.0]), depth=depth, max_depth=depth.max(0),
+                max_vel=np.zeros((4, 6)), arrival_s=np.zeros((4, 6))).save(_run_dir(run_id) / "frames.npz")
+    for step in (1, 2):
+        body = c.get(f"/api/runs/{run_id}/frames.bin?step={step}").content
+        n = struct.unpack("<I", body[:4])[0]
+        head = json.loads(body[4:4 + n])
+        got = np.frombuffer(body[4 + n:], dtype="<f2").reshape(head["n"], head["rows"], head["cols"])
+        want = np.nan_to_num(depth[:, ::step, ::step]).astype(np.float16)
+        assert head["times_s"] == [0.0, 60.0, 120.0] and head["step"] == step
+        assert np.array_equal(got, want)  # NaN → 0, exact float16 values
+    assert c.get(f"/api/runs/{run_id}/frames.bin?step=0").status_code == 422

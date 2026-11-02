@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
 import { Icon } from '../components/ui'
+import { RailGroup } from '../components/rail'
 import { AREA_DEFAULTS } from './types'
 
 interface Props {
+  /** fold-state scope, e.g. 'results.right' */
+  railId: string
   side: 'left' | 'right'
   title: string
   width: number
@@ -17,7 +20,7 @@ interface Props {
  * A layout drawer beside the map. Draggable edge (width, app-level clamps),
  * collapsible to a slim rail. Pages only supply the content.
  */
-export function Panel({ side, title, width, open, onWidth, onToggle, children }: Props) {
+export function Panel({ railId, side, title, width, open, onWidth, onToggle, children }: Props) {
   const dragging = useRef(false)
   const limits = AREA_DEFAULTS[side]
 
@@ -90,7 +93,7 @@ export function Panel({ side, title, width, open, onWidth, onToggle, children }:
           </button>
         </div>
         <div style={{ width: `${width}px` }} className="flex min-h-0 max-w-full flex-1 flex-col gap-2 overflow-y-auto [&>*]:shrink-0">
-          {children}
+          <RailGroup id={railId}>{children}</RailGroup>
         </div>
       </div>
       {side === 'left' ? (

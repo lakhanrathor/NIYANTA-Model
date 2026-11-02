@@ -1,4 +1,5 @@
-import type { ResultMetrics, RunSeries } from '../../lib/api'
+import type { ResultMetrics, RunSeries, ScenarioLabel } from '../../lib/api'
+import { ScenarioBadge } from '../../components/ScenarioBadge'
 import { EM_DASH, num } from '../../lib/format'
 import { Metric, Panel, Pill } from '../../components/ui'
 import { DamCard } from '../../components/dam/DamCard'
@@ -26,6 +27,7 @@ export function ResultsScenarioPanel({
   simHours,
   engine,
   engineLabel,
+  scenarioLabel,
   metrics,
   series,
 }: {
@@ -40,6 +42,8 @@ export function ResultsScenarioPanel({
   simHours: number | null
   engine: string | null
   engineLabel: string | null
+  /** spec §29 badge from the run summary; undefined while it loads */
+  scenarioLabel?: ScenarioLabel | null
   metrics: ResultMetrics | null | undefined
   series: RunSeries | null | undefined
 }) {
@@ -76,6 +80,7 @@ export function ResultsScenarioPanel({
           {completed ? 'Simulation Succeeded' : (stateLabel ?? EM_DASH)}
         </Pill>
         <span className="font-mono text-[10px] text-slate-500">{caseLabel}</span>
+        {scenarioLabel !== undefined && <ScenarioBadge label={scenarioLabel} />}
       </div>
 
       <Metric label="Dam type" value={damType ?? EM_DASH} />

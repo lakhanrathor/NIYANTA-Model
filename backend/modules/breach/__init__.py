@@ -46,7 +46,9 @@ def inputs_from_spec(spec: dict[str, Any]) -> tuple[BreachInputs, float]:
     ), bed  # type: ignore[return-value]
 
 
-def reservoir_state(spec: dict[str, Any], bed: float) -> ReservoirState:
+def reservoir_state(spec: dict[str, Any], bed: float,
+                    crest: float | None = None) -> ReservoirState:
+    """`crest` = the resolved crest level (inputs_from_spec: bed + h_b)."""
     res = spec.get("reservoir") or {}
     return ReservoirState(
         initial_level_m=float(res.get("initial_level_m") or 0.0),
@@ -54,6 +56,7 @@ def reservoir_state(spec: dict[str, Any], bed: float) -> ReservoirState:
         storage_m3=float(res.get("storage_mcm") or 0.0) * 1e6,
         area_m2=float(res.get("area_km2") or 1.0) * 1e6,
         inflow_cms=float(res.get("inflow_cms") or 0.0),
+        crest_level_m=crest,
     )
 
 
@@ -68,7 +71,7 @@ def solve_spec(spec: dict[str, Any]) -> tuple[BreachGeom, dict]:
         t_form_hr=float(breach.get("formation_time_hr") or 0.0),
         side_slope=float(breach.get("side_slope") or 0.7),
     )
-    res = reservoir_state(spec, bed)
+    res = reservoir_state(spec, bed, crest=bed + inputs.h_b)
     hg = hydrograph.hydrograph(
         geom, res,
         duration_hr=float((spec.get("horizon") or {}).get("duration_hr") or 24.0),

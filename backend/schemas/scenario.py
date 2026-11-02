@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any, Literal
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class AOI(BaseModel):
@@ -83,6 +83,27 @@ class Provenance(BaseModel):
     producer: str = "scenario"
     trigger: Literal["manual", "f1", "f2", "f3", "auto"] = "manual"
     inputs: list[str] = Field(default_factory=list)
+    # Scenario Lab badge (spec §29). None → shown as HYPOTHETICAL.
+    label: Literal["observed", "reconstruction", "hypothetical", "demo"] | None = None
+
+
+class Observation(BaseModel):
+    """A recorded field value at one point (validation, spec §30). Every value
+    needs a citable source — the evidence rule; at least one value is set."""
+
+    name: str = Field(min_length=1, max_length=80)
+    lon: float = Field(ge=-180, le=180)
+    lat: float = Field(ge=-90, le=90)
+    arrival_min: float | None = Field(default=None, ge=0)
+    depth_m: float | None = Field(default=None, ge=0)
+    velocity_ms: float | None = Field(default=None, ge=0)
+    source: str = Field(min_length=3, max_length=300)
+
+    @model_validator(mode="after")
+    def _has_value(self) -> "Observation":
+        if self.arrival_min is None and self.depth_m is None and self.velocity_ms is None:
+            raise ValueError("observation needs arrival_min, depth_m or velocity_ms")
+        return self
 
 
 class ScenarioSpec(BaseModel):
@@ -106,3 +127,5 @@ class ScenarioSpec(BaseModel):
     dam_id: UUID | None = None
     stations_km: list[float] = Field(default_factory=lambda: [0.0, 5.0, 10.0, 15.0, 20.0])
     benchmark: str | None = None
+    # recorded point observations scored by stage.validate (modelled vs observed)
+    observed: list[Observation] = Field(default_factory=list)

@@ -131,7 +131,7 @@ export function BuildRun() {
 
   if (!dam)
     return (
-      <Panel title="Selected dam">
+      <Panel pinned title="Selected dam">
         <Empty>
           No dam selected — pick one in Discover, then come back. The map keeps its position and
           the corridor when you switch.
@@ -153,13 +153,13 @@ export function BuildRun() {
       <BuildProvenance />
 
       {/* ------------------------------------------------------- dam card */}
-      <Panel title="Selected dam">
+      <Panel pinned title="Selected dam">
         <DamCard variant="inline" />
         <DamCard variant="metrics" />
       </Panel>
 
       {/* ---------------------------------------------------- run summary */}
-      <Panel title="Run summary">
+      <Panel pinned title="Run summary">
         <Metric label="Failure case" value={`Case ${s.case} · ${CASE_META[s.case].title}`} />
         <Metric label="Breach mode" value={caseMode(s.case)} />
         <Metric label="Method" value={s.method} />
@@ -264,7 +264,7 @@ export function BuildRun() {
       </Panel>
 
       {/* ---------------------------------------------------------- start */}
-      <Panel title="Start simulation">
+      <Panel pinned title="Start simulation">
         <div className="p-3">
           <button
             onClick={() => void start()}

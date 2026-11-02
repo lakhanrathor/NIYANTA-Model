@@ -60,6 +60,9 @@ class Settings:
     storage_dir = Path(os.getenv("NIYANTA_STORAGE", str(BACKEND_DIR / "storage")))
     engine_root = os.getenv("NIYANTA_ENGINE_ROOT", "") or _default_engine_root()
     workers = int(os.getenv("NIYANTA_WORKERS", "2"))
+    # Decision D4: the watch chain stops at alert + proposed scenario; the
+    # simulation is one click. 1 = also auto-execute flagged scenarios.
+    auto_model = os.getenv("NIYANTA_AUTO_MODEL", "0") == "1"
     gee_mode = os.getenv("NIYANTA_GEE_MODE", "online")  # offline | online
     gee_project = os.getenv("NIYANTA_GEE_PROJECT", "zeta-antenna-398715")
     gee_service_account = os.getenv("NIYANTA_GEE_SA", str(REPO_DIR / "deploy" / "ee" / "service-account.json"))
@@ -71,5 +74,10 @@ class Settings:
     # auto-enqueue a GEE sweep for the run's watch box on execute.
     auto_dem = os.getenv("NIYANTA_AUTO_DEM", "1") == "1"
     auto_imagery = os.getenv("NIYANTA_AUTO_IMAGERY", "1") == "1"
+    # Decision D7: evacuation assumptions (shown with every result). The road
+    # cut depth is infra_exposure.ROAD_CUT_M (0.30 m), shared with the players.
+    evac_walk_kmh = float(os.getenv("NIYANTA_EVAC_WALK_KMH", "4.5"))
+    evac_leave_now_h = float(os.getenv("NIYANTA_EVAC_LEAVE_NOW_H", "1.0"))
+    evac_snap_m = float(os.getenv("NIYANTA_EVAC_SNAP_M", "500"))
 
 settings = Settings()

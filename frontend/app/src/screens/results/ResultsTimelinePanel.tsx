@@ -142,7 +142,7 @@ export function ResultsTimelinePanel({
             <span className="text-[var(--muted)] font-medium">Speed:</span>
             <Seg
               size="sm"
-              options={['0.5', '1', '2', '4'].map((s) => ({ value: s, label: `${s}x` }))}
+              options={['1', '2', '5', '10'].map((s) => ({ value: s, label: `${s}×` }))}
               value={speed}
               onChange={setSpeed}
             />

@@ -2,6 +2,7 @@ import { api } from '../../lib/api'
 import { useApi } from '../../lib/useApi'
 import { EM_DASH, num } from '../../lib/format'
 import { Icon, Pill, Panel, Prov } from '../../components/ui'
+import { ScenarioBadge } from '../../components/ScenarioBadge'
 import { usePlayer } from './PlayerProvider'
 
 /** Left rail — who this run belongs to: dam photo, state/engine pills, reach. */
@@ -44,6 +45,7 @@ export function RunIdentityPanel() {
               {stateLabel ?? '—'}
             </Pill>
             {engineLabel && <Pill tone="muted">{engineLabel}</Pill>}
+            {summary.data && <ScenarioBadge label={summary.data.scenario_label} />}
           </div>
         </div>
       </div>

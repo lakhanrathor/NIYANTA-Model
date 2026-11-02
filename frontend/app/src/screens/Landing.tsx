@@ -173,7 +173,7 @@ export function Landing() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
-              to="/watch"
+              to="/start"
               className="rounded-md px-6 py-3 text-[0.95rem] font-semibold text-white shadow-[0_6px_18px_rgba(13,59,102,0.28)] transition hover:brightness-110"
               style={{ background: NAVY }}
             >
@@ -224,7 +224,7 @@ export function Landing() {
             <FootLink>Research paper</FootLink>
           </FooterCol>
           <FooterCol title="Useful Links">
-            <FootLink to="/watch">Dashboard</FootLink>
+            <FootLink to="/start">Dashboard</FootLink>
             <FootLink to={resultsTo}>Validation</FootLink>
             <FootLink to={resultsTo}>Reports</FootLink>
             <FootLink to={demoTo}>Demo videos</FootLink>

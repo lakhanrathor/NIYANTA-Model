@@ -41,15 +41,25 @@ def _pop_raster(bbox: tuple[float, float, float, float]) -> tuple[Any, str] | No
 
 
 def _zonal_population(mask: np.ndarray, gt: Affine, shape_hw: tuple[int, int]) -> tuple[float | None, str | None]:
-    """People living inside the flood mask, resampled from a population grid.
+    """People living inside the flood mask (see population_grid).
+
+    Returns (None, None) when no population raster is on disk, so the caller
+    can fall back to settlement populations instead of inventing a zero.
+    """
+    grid, source = population_grid(gt, shape_hw)
+    if grid is None:
+        return None, None
+    return float(grid[mask].sum()), source
+
+
+def population_grid(gt: Affine, shape_hw: tuple[int, int]) -> tuple[np.ndarray | None, str | None]:
+    """People per cell on the run grid, resampled from a population raster.
 
     Grids hold people *per cell*, so they are resampled as an average and then
     scaled by dst/src cell area — correct whether the grid is coarser (WorldPop
     1 km) or finer than the solve grid. Bilinear alone would copy a whole cell's
-    headcount into every smaller cell.
-
-    Returns (None, None) when no population raster is on disk, so the caller
-    can fall back to settlement populations instead of inventing a zero.
+    headcount into every smaller cell. Shared with the per-frame series so the
+    live readouts and the impact total are one computation.
     """
     h, w = shape_hw
     bbox = (gt.c, gt.f + gt.e * h, gt.c + gt.a * w, gt.f)
@@ -80,8 +90,7 @@ def _zonal_population(mask: np.ndarray, gt: Affine, shape_hw: tuple[int, int]) -
     except Exception:  # noqa: BLE001 - unreadable/missing raster -> no zonal figure
         return None, None
     dst_area = abs(gt.a * gt.e) * M_PER_DEG_LAT ** 2 * cos_lat
-    dest = np.where(np.isfinite(dest) & (dest > 0), dest, 0.0) * (dst_area / src_area)
-    return float(dest[mask].sum()), source
+    return np.where(np.isfinite(dest) & (dest > 0), dest, 0.0) * (dst_area / src_area), source
 
 
 def _hazard(depth: float, vel: float) -> str:

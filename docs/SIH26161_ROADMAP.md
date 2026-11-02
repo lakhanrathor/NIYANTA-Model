@@ -335,3 +335,65 @@ Full case file: [`docs/CHAMOLI2021_CASE.md`](CHAMOLI2021_CASE.md).
   cascade pins (Rini, Tapovan 22 m/200 m, Vishnuprayag 17 m).
 - Bugs: custom-dam GeoJSON location silently forced synthetic valleys (fixed in
   `work_terrain`); station tracing on real DEM open (above).
+
+## 14. Scenario Simulation Lab spec — gap analysis & chunk plan (2026-10-04)
+
+Source: team spec `NIYANTA_Scenario_Simulation_Lab_Specification.md` (52 §§). Its §50
+says reuse the existing stack, so these spec choices are **not** adopted: CesiumJS
+(3D stays Three.js Player), Next.js, PostGIS (D8 SQLite), DualSPHysics → Delft3D
+coupling (SPH = in-house WCSPH, D11; Delft3D needs the Deltares kernel).
+
+Already present (reuse): scenario selection (Discover → Build, cases 1/2/3 = spec
+§8.1/8.2/8.3), DEM + satellite 3D terrain, time-driven replay with depth/arrival/
+velocity colouring, OSM roads/buildings/bridges per-frame exposure, WorldPop exposure,
+async job pipeline with stage status (§21.2–22), Compare (§33), HTML report + GeoTIFF/
+SHP/KML/CSV/GeoJSON (§35), Watch alerts (§31–32).
+
+| Chunk | Scope | Spec § | Status |
+|---|---|---|---|
+| 1 | Fix broken: reservoir level-pool physics (pool capped at crest, head from breach invert — Tehri was 8.7 M m³/s with the pool 175 m above the crest), no invented inflow default (was storage × 25), Compare longitudinal profile gated on a river-path point it never used | §14, §38 | **done** |
+| 2 | `/scenario-lab` entry: Dam-break / GLOF / Custom cards, instant replay of prepared runs, OBSERVED / RECONSTRUCTION / HYPOTHETICAL / DEMO badges (`GET /api/scenario-lab`, `PUT /api/scenarios/{id}/label`, `spec.provenance.label`; unset → HYPOTHETICAL) | §6–8, §21.1, §29 | **done** |
+| 3 | Player: live per-frame metrics bar (`LiveMetricsBar.tsx`: max depth, area + front reach, last gauge reached, people in water now / reached so far, buildings / road-km / bridges now + so far; series v2 adds per-frame `max_depth_m` + WorldPop `population`), data-driven camera presets Overview/Breach/Downstream(flood front)/Infrastructure(wet assets now)/Impact(all assets ever hit)/Top, 1/2/5/10× in Player, Results, Compare | §9, §13, §14, §17 | **done** |
+| 4 | Asset inspection: click building / road / bridge / hospital / school in the 3D Player or the Results map → status at the playhead (under water / cut / not yet / receded / never), depth now, peak, water arrives / leaves (`nearestAsset` in `lib/api.ts`, `components/flood/AssetPanel.tsx`, from `/runs/{id}/infrastructure`) | §18 | **done** |
+| 5 | Evacuation corridors (§7 here, G1, D5/D7): `modules/run/evacuation.py` — flooded buildings/hospitals/schools routed over the OSM road graph to the nearest never-cut junction with a time-dependent Dijkstra (a segment is walkable only before its own cut time), margin = arrival − walk, OK / LEAVE NOW / IMPOSSIBLE; `GET /runs/{id}/evacuation` (+ `?format=csv`), cached per infra doc; constants in `Settings.evac_*` (D7). Results: corridors + assembly points on the map (grey once the timeline passes the latest departure), Evacuation panel with assumptions. Deferred: KML/SHP export, `evac_margin_hr < 1` alert rule, people per class | §20 | **done** |
+| 6 | Validation: `spec.observed` recorded point observations (name, lon/lat, arrival_min / depth_m / velocity_ms, **source required**; `PUT /scenarios/{id}/observed`), scored in `work_validate` against the run sampled at the same point (median % error → grade when no benchmark/mask); Results **Validation** panel (grade, reference, modelled vs observed table, record-at-pin form → re-score). Report: label badge, §6 OSM exposure, §7 evacuation, §8 validation incl. observations + mass balance, §9 assumptions; missing numbers print `—` (was `or 0`) | §30, §35 | **done** |
+
+Open after chunk 1: large-reservoir breach defaults (Tehri: 575 m × 195 m = whole crest)
+give ~2.4 M m³/s by weir physics vs ~0.26 M m³/s Froehlich regression (fitted on
+smaller dams) — a breach-size judgement for the analyst, not a code fault.
+
+## 15. Presentation-grade 3D player (2026-10-08)
+
+Goal: smooth, self-explaining playback for volunteer demos (reference: game-style
+GPU water). Rendering only — every height and colour still comes from solver frames.
+
+- **One download:** `GET /runs/{id}/frames.bin?step=` — all depth frames as float16
+  (+ JSON header), gzip, cached as `frames_s{step}.bin.gz` (cb1f9a07: 17.9 MB → 166 KB).
+- **GPU playback:** frames live in a texture array; the vertex shader blends frame
+  A→B, so the surface glides for one playback tick instead of jumping
+  (`screens/player/waterMaterial.ts`). Tile-per-frame path kept as fallback.
+- **True vertical scale:** depth × the terrain's metres→world factor × water
+  exaggeration (was 1 m depth = 1 world unit ≈ 29× the terrain scale).
+- **Natural water mode (default):** colour deepens with depth, ripples drift down
+  the water-surface slope, white foam where depth is rising (the advancing front)
+  and at the wet edge. Depth / arrival / peak-velocity ramps remain as modes.
+- **SPH:** the surface is the main view; solver particles are an optional layer.
+- **Narration:** `story.ts` builds the run's timeline from its own outputs (breach,
+  peak outflow, first buildings/road/bridges, gauge arrivals, max extent, recession);
+  `StoryCaption` shows now / next / live breach outflow; markers on the scrubber.
+- **Breach opening:** dam wall notch grows to the modelled width × depth over the
+  formation time (only when the registry records a dam height — evidence rule).
+- Not done: terrain restyling (satellite drape kept — it is the honest look),
+  auto-follow camera, live GPU what-if simulation.
+
+### Live Flood Lab tab (2026-10-09)
+
+`/flood-lab/:runId` (nav: Flood Lab) — game-style real-time dam break, separate
+from the Player (which stays the validated view). GPU "virtual pipes"
+shallow-water model (`screens/floodlab/simulation.ts`; CPU mirror check:
+mass error 0 %, front travels the full test valley) on the run's DEM, driven by
+the run's breach hydrograph + river inflow, open edges. Scene
+(`FloodLabScene.ts`): stylised or satellite terrain, illustrative trees, gravity
+dam spanning the valley that breaks apart, reservoir lake draining by the run's
+level series, OSM buildings/roads recoloured live, follow-the-flood camera.
+Always labelled LIVE PREVIEW — not the validated result.

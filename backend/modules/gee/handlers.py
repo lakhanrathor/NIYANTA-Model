@@ -162,18 +162,27 @@ def compute(kind: str, box: dict, params: dict | None = None) -> dict[str, Any]:
             from modules.run import execute as run_execute  # noqa: PLC0415
             from modules.scenario import builders  # noqa: PLC0415
 
+            from config import settings  # noqa: PLC0415
+
             scenario = builders.from_event(str(change["id"]), auto_execute=False)["scenario"]
-            run = run_execute.create_run(str(scenario["id"]))
-            run_execute.execute(str(run["id"]))
             out["scenario_id"] = str(scenario["id"])
-            out["run_id"] = str(run["id"])
+            # D4: propose, don't run. Executing here also re-queued a watch
+            # sweep per run (run_execute hook) — one Start click became 39
+            # runs that starved the analyst's own run of workers.
+            run = None
+            if settings.auto_model:
+                run = run_execute.create_run(str(scenario["id"]))
+                run_execute.execute(str(run["id"]))
+                out["run_id"] = str(run["id"])
             alert = alert_rules.create(
                 "CRITICAL" if cls == "CRITICAL" else "WARNING",
                 f"Watch '{box['name']}': flagged {change_kind} (+{metrics.get('delta_pct', 0)}%)",
-                f"f₂ score {scored['detail']['score']} → auto scenario launched",
+                f"f₂ score {scored['detail']['score']} → "
+                + ("auto scenario launched" if run else "scenario proposed — launch from Watch"),
                 source="gee",
                 payload={"box_id": str(box["id"]), "change_id": str(change["id"]),
-                         "run_id": str(run["id"]), "class": cls},
+                         "scenario_id": str(scenario["id"]),
+                         "run_id": str(run["id"]) if run else None, "class": cls},
             )
             out["alert_id"] = str(alert["id"])
         out["risk_class"] = cls

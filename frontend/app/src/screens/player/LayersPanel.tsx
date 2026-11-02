@@ -14,7 +14,7 @@ export function LayersPanel() {
     runId,
     damView, water, terrainDoc,
     colorMode, setColorMode, ramps, overlayStates, villages, villagesDoc,
-    hiddenLayers, toggleLayer,
+    hiddenLayers, toggleLayer, showParticles, setShowParticles, run,
   } = usePlayer()
   const visible = (id: string) => !hiddenLayers.includes(id)
   // same query key as the Viewport — one request, shared cache
@@ -28,9 +28,10 @@ export function LayersPanel() {
       : null,
   )
 
-  const modeRamp = colorMode === 'depth' ? ramps.depth : colorMode === 'arrival' ? ramps.arrival : ramps.velocity
+  const modeRamp =
+    colorMode === 'depth' ? ramps.depth : colorMode === 'arrival' ? ramps.arrival : colorMode === 'velocity' ? ramps.velocity : null
   const modeHint =
-    colorMode === 'depth'
+    colorMode === 'depth' || colorMode === 'natural'
       ? water?.status === 'no-tiles'
         ? 'no depth tiles'
         : undefined
@@ -67,6 +68,15 @@ export function LayersPanel() {
           swatch="#0284c7"
           hint={colorMode === 'depth' && water?.status === 'no-tiles' ? 'no depth tiles' : undefined}
         />
+        {run.data?.run.engine === 'sph' && (
+          <Check
+            checked={showParticles}
+            onChange={() => setShowParticles(!showParticles)}
+            label="SPH particles"
+            swatch="#60a5fa"
+            hint="solver particles over the surface"
+          />
+        )}
         <Check
           checked={visible(LAYER_IDS.villages)}
           onChange={() => toggleLayer(LAYER_IDS.villages)}
@@ -107,6 +117,7 @@ export function LayersPanel() {
         <Seg
           size="sm"
           options={[
+            { value: 'natural', label: 'Natural' },
             { value: 'depth', label: 'Depth' },
             { value: 'arrival', label: 'Arrival' },
             { value: 'velocity', label: 'Peak vel.' },
@@ -115,7 +126,14 @@ export function LayersPanel() {
           onChange={(v) => setColorMode(v as WaterColorMode)}
         />
         {modeHint && <p className="num mt-1 text-[10px] text-[var(--warn)]">{modeHint}</p>}
-        <RampLegend stops={modeRamp} unit={colorMode === 'depth' ? 'm' : colorMode === 'arrival' ? 'h' : 'm/s'} />
+        {colorMode === 'natural' ? (
+          <p className="mt-1.5 text-[10.5px] leading-snug text-[var(--muted)]">
+            Darker blue = deeper water · white foam = water rising now (the advancing flood front) · ripples drift
+            the way the water flows. Heights are true scale × the water exaggeration in Scene controls.
+          </p>
+        ) : (
+          <RampLegend stops={modeRamp} unit={colorMode === 'depth' ? 'm' : colorMode === 'arrival' ? 'h' : 'm/s'} />
+        )}
       </div>
 
       {damView?.height_m == null && damView && (

@@ -129,6 +129,46 @@ def run_particles(run_id: str, frame: int = 0) -> dict:
     }
 
 
+@router.get("/{run_id}/frames.bin")
+def run_frames_bin(run_id: str, step: int = 1):
+    """Every depth frame in one download, for smooth GPU playback in the 3D
+    player: [uint32 header length][JSON header][float16 depth (n, rows, cols)],
+    gzip-encoded. `step` strides the solve grid exactly like terrain.json
+    (pass its `step`) so water and terrain vertices coincide. Cached on disk
+    beside frames.npz and rebuilt when the frame stack changes."""
+    import gzip  # noqa: PLC0415
+    import json  # noqa: PLC0415
+    import struct  # noqa: PLC0415
+
+    import numpy as np  # noqa: PLC0415
+    from fastapi.responses import Response  # noqa: PLC0415
+
+    if not catalog.run_get(run_id):
+        raise HTTPException(404, "run not found")
+    if not 1 <= step <= 16:
+        raise HTTPException(422, "step must be 1..16")
+    src = paths.run_dir(run_id) / "frames.npz"
+    if not src.exists():
+        raise HTTPException(409, "run has no frame stack yet")
+    cache = paths.run_dir(run_id) / f"frames_s{step}.bin.gz"
+    if not cache.exists() or cache.stat().st_mtime < src.stat().st_mtime:
+        with np.load(src, allow_pickle=False) as z:
+            times = z["times_s"].astype(float)
+            depth = np.ascontiguousarray(z["depth"][:, ::step, ::step], dtype="<f2")
+        depth = np.nan_to_num(depth, nan=0.0, posinf=0.0, neginf=0.0)
+        n, rows, cols = (int(v) for v in depth.shape)
+        head = json.dumps({"n": n, "rows": rows, "cols": cols, "step": step,
+                           "times_s": [round(float(t), 2) for t in times],
+                           "max_depth_m": round(float(depth.max()) if depth.size else 0.0, 3)}).encode()
+        head += b" " * ((-len(head)) % 2)  # keep the float16 block 2-byte aligned
+        body = struct.pack("<I", len(head)) + head + depth.tobytes()
+        tmp = cache.with_suffix(".tmp")
+        tmp.write_bytes(gzip.compress(body, compresslevel=5))
+        tmp.replace(cache)
+    return Response(cache.read_bytes(), media_type="application/octet-stream",
+                    headers={"Content-Encoding": "gzip", "Cache-Control": "no-cache"})
+
+
 @router.get("/{run_id}/infrastructure")
 def run_infrastructure(run_id: str) -> dict:
     """OSM buildings / road segments / bridges inside the model grid, each with
@@ -142,6 +182,36 @@ def run_infrastructure(run_id: str) -> dict:
         doc = infra_exposure.ensure(run_id)
     except FileNotFoundError as exc:
         raise HTTPException(409, "run has no frame stack yet") from exc
+    return {k: v for k, v in doc.items() if not k.startswith("_")}
+
+
+@router.get("/{run_id}/evacuation")
+def run_evacuation(run_id: str, format: str = "json"):  # noqa: A002
+    """Evacuation corridors over the OSM road graph (roadmap §7): every flooded
+    building / hospital / school routed to the nearest never-cut road junction,
+    margin = water arrival − walk time, classed OK / LEAVE NOW / IMPOSSIBLE.
+    `?format=csv` returns the origins table."""
+    from modules.run import evacuation  # noqa: PLC0415
+
+    if not catalog.run_get(run_id):
+        raise HTTPException(404, "run not found")
+    try:
+        doc = evacuation.ensure(run_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(409, "run has no frame stack yet") from exc
+    if format == "csv":
+        import csv  # noqa: PLC0415
+        import io  # noqa: PLC0415
+
+        from fastapi.responses import Response  # noqa: PLC0415
+
+        buf = io.StringIO()
+        cols = ["k", "n", "x", "y", "arrival_s", "walk_km", "walk_s", "margin_h", "cls", "corridor"]
+        w = csv.DictWriter(buf, fieldnames=cols, extrasaction="ignore")
+        w.writeheader()
+        w.writerows(doc["origins"])
+        return Response(buf.getvalue(), media_type="text/csv", headers={
+            "Content-Disposition": f'attachment; filename="evacuation_{run_id[:8]}.csv"'})
     return {k: v for k, v in doc.items() if not k.startswith("_")}
 
 

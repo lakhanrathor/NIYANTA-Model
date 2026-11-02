@@ -71,7 +71,7 @@ def sweep(scenario_id: str) -> dict:
     spec = sc["spec"]
     breach = spec.get("breach") or {}
     inputs, bed = inputs_from_spec(spec)
-    res = breach_reservoir_state(spec, bed)
+    res = breach_reservoir_state(spec, bed, crest=bed + inputs.h_b)
     out = sensitivity.sweep(
         breach.get("method", "froehlich2008"), inputs, res,
         duration_hr=float((spec.get("horizon") or {}).get("duration_hr") or 24.0),

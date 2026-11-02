@@ -1,11 +1,13 @@
-import { useEffect, useMemo, useState } from 'react'
-import { api, infraDepthAt } from '../../lib/api'
+import { useEffect, useState } from 'react'
+import { api } from '../../lib/api'
 import { useApi } from '../../lib/useApi'
 import { EM_DASH, latLon, num } from '../../lib/format'
 import { Empty, Icon, Pill } from '../../components/ui'
 import type { CascadeDam } from '../../lib/api'
 import { useRiverContext } from '../../lib/river-context'
 import { PlayerScene } from '../PlayerScene'
+import { parseFrameStack } from './waterMaterial'
+import { StoryCaption } from './StoryCaption'
 import { usePlayer } from './PlayerProvider'
 import { LAYER_IDS } from './types'
 
@@ -38,7 +40,7 @@ export function Viewport({
     terrainDoc, ramps, clamped, water, setWater, setPick,
     setSelectedVillage, setOverlayState,
     terrainExag, waterExag, waterOpacity, hiddenLayers,
-    villages, selectedVillage, colorMode,
+    villages, selectedVillage, colorMode, playing, speed, showParticles,
   } = p
   // Layer visibility is mission state, not page state.
   const showTerrain = !hiddenLayers.includes(LAYER_IDS.terrain)
@@ -63,7 +65,7 @@ export function Viewport({
     const scene = new PlayerScene(mountRef.current, {
       terrainExag: 1,
       waterExag: 1,
-      waterOpacity: 0.85,
+      waterOpacity: 0.95,
       showTerrain: true,
       showDam: true,
       showWater: true,
@@ -118,6 +120,22 @@ export function Viewport({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [damKey])
 
+  // The breach outflow series drives the jet through the opening.
+  const hydroDoc = p.hydro.data
+  useEffect(() => {
+    sceneRef.current?.setHydrograph(hydroDoc?.time_s, hydroDoc?.q_cms)
+  }, [hydroDoc, sceneRef])
+
+  // The modelled breach opens in the dam wall as the run plays.
+  const sum = p.summary.data
+  useEffect(() => {
+    const w = sum?.breach_width
+    const d = sum?.breach_depth
+    sceneRef.current?.setBreach(
+      w != null && d != null ? { width_m: w, depth_m: d, tForm_s: (sum?.breach_t_form_hr ?? 0) * 3600 } : null,
+    )
+  }, [sum?.breach_width, sum?.breach_depth, sum?.breach_t_form_hr, damKey, sceneRef])
+
   useEffect(() => {
     sceneRef.current?.setVillages(villages)
   }, [villages, sceneRef])
@@ -146,27 +164,56 @@ export function Viewport({
     })
   }, [sceneRef, terrainExag, waterExag, waterOpacity, hiddenLayers]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Depth draping follows the playhead (debounced — the full-res grid paints
-  // ~115k vertices). The scene drops stale loads itself.
+  // Every depth frame in one download → GPU texture array; playback then
+  // glides between frames in the shader. Until it lands (or if it can't be
+  // used) frames load one by one from the depth tiles.
+  const [stackReady, setStackReady] = useState(false)
+  const terrainStep = terrainDoc.data?.step ?? 1
+  useEffect(() => {
+    setStackReady(false)
+    sceneRef.current?.setFrameStack(null)
+    if (!runId || !terrainDoc.data) return
+    let live = true
+    fetch(`/api/runs/${runId}/frames.bin?step=${terrainStep}`)
+      .then((r) => (r.ok ? r.arrayBuffer() : null))
+      .then((buf) => {
+        if (!live) return
+        sceneRef.current?.setFrameStack(buf ? parseFrameStack(buf) : null)
+        setStackReady(Boolean(sceneRef.current?.smooth))
+      })
+      .catch(() => {})
+    return () => {
+      live = false
+    }
+  }, [runId, terrainDoc.data, terrainStep, sceneRef])
+
+  useEffect(() => {
+    // tile path only — with the GPU stack the scene times the notch itself
+    if (!stackReady && p.frameT != null) sceneRef.current?.setBreachTime(p.frameT)
+  }, [p.frameT, stackReady, sceneRef]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Depth follows the playhead. Smooth path: no debounce, the surface glides
+  // for one playback tick. Tile path: debounced (each frame is a download).
+  const tickMs = 1200 / Number(speed)
   useEffect(() => {
     if (!runId || !bbox) return
     let live = true
-    setWater(null)
+    if (!stackReady) setWater(null)
     const timer = window.setTimeout(() => {
       sceneRef.current
-        ?.setFrame(clamped)
+        ?.setFrame(clamped, stackReady ? (playing ? tickMs : 250) : 0)
         .then((res) => {
           if (live) setWater(res)
         })
         .catch(() => {
           if (live) setWater({ status: 'no-tiles', wet: 0, total: 0 })
         })
-    }, 120)
+    }, stackReady ? 0 : 120)
     return () => {
       live = false
       window.clearTimeout(timer)
     }
-  }, [runId, bboxKey, clamped, sceneRef, setWater]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [runId, bboxKey, clamped, stackReady, sceneRef, setWater]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // OSM infrastructure: fetched once per run, recoloured every frame — the
   // flood reaching, cutting and leaving roads and buildings.
@@ -181,21 +228,10 @@ export function Viewport({
   useEffect(() => {
     sceneRef.current?.setInfraFrame(clamped)
   }, [clamped, infra.data, sceneRef])
-  const infraNow = useMemo(() => {
-    const d = infra.data
-    if (!d) return null
-    const bThr = d.thresholds.building_m
-    const cut = d.thresholds.road_cut_m
-    let buildings = 0
-    for (const b of d.buildings) if ((infraDepthAt(b, clamped) ?? 0) > bThr) buildings++
-    let roadKm = 0
-    for (const r of d.roads) if ((infraDepthAt(r, clamped) ?? 0) > cut) roadKm += r.km
-    return { buildings, roadKm, cut }
-  }, [infra.data, clamped])
 
-  // SPH runs draw their solved particles instead of the depth surface; the
-  // depth frame above still loads (probe + stats read it).
-  const isSph = p.run.data?.run.engine === 'sph'
+  // SPH runs can draw the solver's particles over the water surface
+  // (Layers → SPH particles); the surface stays — it is the readable view.
+  const isSph = p.run.data?.run.engine === 'sph' && showParticles
   // count is tagged with its frame: while the next frame loads, the pill must
   // not show the previous frame's count under the new frame number
   const [particleState, setParticleState] = useState<{ frame: number; count: number } | null>(null)
@@ -238,7 +274,7 @@ export function Viewport({
             ? 'No depth tiles for this frame'
             : water.status === 'dry'
               ? `Frame ${clamped + 1} · dry everywhere`
-              : `Frame ${clamped + 1} · ${num(water.wet, 0)} of ${num(water.total, 0)} cells wet`
+              : `Frame ${clamped + 1} · ${num(water.wet, 0)} of ${num(water.total, 0)} cells wet${stackReady ? ' · smooth' : ''}`
 
   return (
     <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-lg border border-[var(--line)] bg-white">
@@ -287,26 +323,40 @@ export function Viewport({
         <span className="num text-[var(--muted)]">{damView ? latLon(damView.lat, damView.lon) : EM_DASH}</span>
       </div>
 
+      {bbox && (
+        <div className="pointer-events-none absolute inset-x-0 top-11 z-10">
+          <StoryCaption />
+        </div>
+      )}
+
       {waterNote && (
         <div className="absolute right-3 top-2.5 z-10">
           <Pill tone={water?.status === 'no-tiles' ? 'warn' : 'muted'}>{waterNote}</Pill>
         </div>
       )}
-      {infraNow && showInfra && (
+      {infra.data && showInfra && (
         <div className="absolute bottom-3 left-3 z-10 flex flex-wrap items-center gap-2 rounded-md border border-[var(--line)] bg-white/95 px-2.5 py-1.5 text-[11px] backdrop-blur">
-          <span className="font-medium">OSM infrastructure · now</span>
+          <span className="font-medium">OSM infrastructure</span>
           <span className="flex items-center gap-1">
             <span className="h-2 w-2 rounded-sm" style={{ background: '#c2410c' }} />
-            <span className="num">{num(infraNow.buildings, 0)}</span> buildings under water
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="h-2 w-2 rounded-sm" style={{ background: '#c2410c' }} />
-            <span className="num">{infraNow.roadKm.toFixed(1)}</span> km roads cut (&gt;{infraNow.cut} m)
+            under water now
           </span>
           <span className="flex items-center gap-1 text-[var(--muted)]">
             <span className="h-2 w-2 rounded-sm" style={{ background: '#f59e0b' }} />
             flooded earlier
           </span>
+        </div>
+      )}
+      {terrainDoc.data?.source === 'synthetic' && bbox && (
+        <div className="absolute bottom-14 left-3 z-10 max-w-[420px] rounded-md border border-amber-300 bg-amber-50/95 px-2.5 py-1.5 text-[11px] leading-snug text-amber-900">
+          <b>Synthetic test valley.</b> This run did not get real terrain for its study area, so the flood is
+          modelled on an artificial valley — not the real ground around {damView?.name ?? 'the dam'}. Re-run it to
+          model the real valley.
+        </div>
+      )}
+      {damView?.placed === 'model' && terrainDoc.data?.source !== 'synthetic' && bbox && (
+        <div className="absolute bottom-14 left-3 z-10">
+          <Pill tone="warn">Dam shown at the model&apos;s breach cell — the registry point is outside this grid</Pill>
         </div>
       )}
       {terrainDoc.offline && bbox && (

@@ -57,6 +57,41 @@ def get_scenario(scenario_id: str) -> dict:
     return {"scenario": sc, "breach_solution": breach, "runs": runs}
 
 
+@router.put("/{scenario_id}/label")
+def set_scenario_label(scenario_id: str, body: dict) -> dict:
+    """Scenario Lab badge: {"label": "observed|reconstruction|hypothetical|demo"}
+    or {"label": null} to clear it (then it shows as HYPOTHETICAL)."""
+    from modules.scenario import lab  # noqa: PLC0415
+
+    _require_uuid(scenario_id)
+    try:
+        return lab.set_label(scenario_id, body.get("label"))
+    except LookupError as exc:
+        raise HTTPException(404, str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+
+
+@router.put("/{scenario_id}/observed")
+def set_scenario_observed(scenario_id: str, body: dict) -> dict:
+    """Recorded point observations for validation: {"observed": [{name, lon,
+    lat, arrival_min?, depth_m?, velocity_ms?, source}]} — replaces the list."""
+    from pydantic import ValidationError  # noqa: PLC0415
+
+    from modules.scenario import lab  # noqa: PLC0415
+
+    _require_uuid(scenario_id)
+    items = body.get("observed")
+    if not isinstance(items, list):
+        raise HTTPException(422, "body must be {\"observed\": [...]}")
+    try:
+        return lab.set_observed(scenario_id, items)
+    except LookupError as exc:
+        raise HTTPException(404, str(exc)) from exc
+    except (ValidationError, TypeError) as exc:
+        raise HTTPException(422, str(exc)) from exc
+
+
 @router.post("/{scenario_id}/execute")
 def execute_scenario(scenario_id: str, engine: str | None = None) -> dict:
     _require_uuid(scenario_id)

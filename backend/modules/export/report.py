@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader, Undefined, select_autoescape
 
 from modules.catalog import catalog
 from modules.db import client as db
@@ -30,6 +30,24 @@ def build(run_id: str) -> Path:
     impact_rows = _read_json(run_dir / "impact_table.json", [])
     impact = result.get("impact") or {}
     validation = result.get("validation") or {}
+    vrow = db.query_one("SELECT * FROM validation_score WHERE run_id = %s", (run_id,)) or {}
+    vdetail = vrow.get("detail") or {}
+    if isinstance(vdetail, str):
+        vdetail = json.loads(vdetail)
+
+    spec = scenario.get("spec") or {}
+    from modules.scenario import lab  # noqa: PLC0415
+
+    label = lab.label_of(spec)[0]
+    # OSM exposure + evacuation need the frame stack; absent → section says so
+    infra = evac = None
+    try:
+        from modules.run import evacuation, infra_exposure  # noqa: PLC0415
+
+        infra = infra_exposure.ensure(run_id)
+        evac = evacuation.ensure(run_id)
+    except FileNotFoundError:
+        pass
 
     breach_row = db.query_one("SELECT * FROM breach_solution WHERE scenario_id = %s",
                               (run["scenario_id"],)) or {}
@@ -52,6 +70,8 @@ def build(run_id: str) -> Path:
 
     env = Environment(loader=FileSystemLoader(str(TEMPLATES)),
                       autoescape=select_autoescape(["html"]))
+    # evidence rule: a missing number prints as an em dash, never as 0
+    env.filters["f"] = lambda v, fmt="%.1f": "—" if v is None or isinstance(v, Undefined) else fmt % v
     html = env.get_template("report.html.j2").render(
         run=run,
         scenario=scenario,
@@ -60,6 +80,13 @@ def build(run_id: str) -> Path:
         impact=impact,
         impact_rows=impact_rows,
         validation=validation,
+        vdetail=vdetail,
+        label=label,
+        infra=(infra or {}).get("summary"),
+        infra_thr=(infra or {}).get("thresholds"),
+        evac=evac,
+        evac_rows=sorted((evac or {}).get("corridors") or [],
+                         key=lambda c: -1e9 if c["worst_margin_h"] is None else c["worst_margin_h"])[:12],
         breach=breach,
         thumbnail=thumb_rel,
         depth_scale=depth_scale,

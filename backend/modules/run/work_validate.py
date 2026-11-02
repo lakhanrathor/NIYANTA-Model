@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import statistics
 from typing import Any
 
 import numpy as np
@@ -72,6 +73,19 @@ def score(run_id: str, progress=None) -> dict[str, Any]:
                 detail["extent_iou"] = iou
                 detail["reference"] = "observed_extent"
 
+    # recorded point observations (spec.observed): modelled vs observed
+    observed = spec.get("observed") or []
+    if observed:
+        rows = observation_rows(run_id, observed)
+        detail["observations"] = rows
+        errs = [r["err_pct"] for r in rows if r["err_pct"] is not None]
+        if errs:
+            med = statistics.median(errs)
+            detail["observation_median_err_pct"] = round(med, 1)
+            if grade is None:
+                grade = _band(med)
+                detail["reference"] = "observed_points"
+
     mb_err = float(metrics.get("mass_balance_error_pct") or 0.0)
     if mb_err > 5.0:
         detail["mass_balance_warning"] = mb_err
@@ -96,10 +110,36 @@ def score(run_id: str, progress=None) -> dict[str, Any]:
         conflict="run_id",
     )
     run_result.merge(run_id, validation={"benchmark": benchmark, "error_peak_pct": err_peak,
-                                         "extent_iou": iou, "grade": grade})
+                                         "extent_iou": iou, "grade": grade,
+                                         "reference": detail.get("reference"),
+                                         "observation_median_err_pct": detail.get("observation_median_err_pct")})
     if progress:
         progress(91, f"validate: grade {grade}")
     return {"grade": grade, "benchmark": benchmark}
+
+
+def observation_rows(run_id: str, observed: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """One row per recorded value: the run sampled at the same point (max
+    depth, max velocity, first-wet arrival — the probe's semantics)."""
+    from routers.tiles import sample_point  # noqa: PLC0415
+
+    rows: list[dict[str, Any]] = []
+    for ob in observed:
+        sim = sample_point(run_id, float(ob["lon"]), float(ob["lat"])) or {}
+        arr = sim.get("arrival_s")
+        modelled = {"arrival_min": None if arr is None else arr / 60.0,
+                    "depth_m": sim.get("depth_m"), "velocity_ms": sim.get("velocity_mps")}
+        for metric in ("arrival_min", "depth_m", "velocity_ms"):
+            obs = ob.get(metric)
+            if obs is None:
+                continue
+            mod = modelled[metric]
+            err = None if mod is None or not obs else abs(mod - obs) / obs * 100.0
+            rows.append({"name": ob["name"], "metric": metric, "observed": obs,
+                         "modelled": None if mod is None else round(float(mod), 2),
+                         "err_pct": None if err is None else round(err, 1),
+                         "source": ob.get("source"), "lon": ob["lon"], "lat": ob["lat"]})
+    return rows
 
 
 def _observed_iou(run_id: str, prod: dict) -> float | None:

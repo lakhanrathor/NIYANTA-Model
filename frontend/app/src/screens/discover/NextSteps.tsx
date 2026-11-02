@@ -226,7 +226,7 @@ export function NextSteps({ riverId, riverName, damId, damName, bufferKm }: Prop
   const canReprepare = Boolean(riverId && corridor && !preparing && !busy)
 
   return (
-    <Panel title="Next Steps">
+    <Panel pinned title="Next Steps">
       <ol className="flex flex-col gap-1.5 p-3">
         {steps.map((s, i) => (
           <li key={s.title} className="flex items-center gap-2">

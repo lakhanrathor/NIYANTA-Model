@@ -30,6 +30,7 @@ export function ExplorerLayout({
       <div className="flex min-h-0 flex-1 gap-1.5 overflow-hidden">
         {left ? (
           <Panel
+            railId={`${layoutId}.left`}
             side="left"
             title={leftTitle}
             width={panels.left.width}

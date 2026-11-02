@@ -79,11 +79,15 @@ def make_spec(**over) -> dict:
 
 
 def validated_run_id() -> str:
-    row = db.query_one(
-        "SELECT id FROM run WHERE state IN ('VALIDATED','PUBLISHED') ORDER BY created DESC LIMIT 1"
+    from modules.storage import paths
+
+    # other test files insert bare VALIDATED rows (no outputs) — skip those
+    rows = db.query(
+        "SELECT id FROM run WHERE state IN ('VALIDATED','PUBLISHED') ORDER BY created DESC LIMIT 50"
     )
-    if row:
-        return str(row["id"])
+    for row in rows:
+        if (paths.run_dir(str(row["id"])) / "frames.npz").exists():
+            return str(row["id"])
     sc = catalog.scenario_create(ScenarioSpec.model_validate(make_spec()).model_dump(mode="json"))
     run = run_execute.create_run(str(sc["id"]))
     run_execute.execute(str(run["id"]))

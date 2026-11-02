@@ -37,6 +37,7 @@ def handle_solve(ctx: JobContext) -> dict[str, Any]:
             storage_m3=float((spec.get("reservoir") or {}).get("storage_mcm") or 0.0) * 1e6 or inputs.v_w,
             area_m2=float((spec.get("reservoir") or {}).get("area_km2") or 0.0) * 1e6 or 1.0,
             inflow_cms=float((spec.get("reservoir") or {}).get("inflow_cms") or 0.0),
+            crest_level_m=bed + inputs.h_b,
         ),
         duration_hr=float((spec.get("horizon") or {}).get("duration_hr") or 24.0),
         mode=spec.get("breach", {}).get("mode", "overtopping"),

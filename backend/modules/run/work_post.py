@@ -146,7 +146,13 @@ def handle_post(ctx: JobContext) -> dict[str, Any]:
                            meta={"count": len(stations_out)})
 
     # ---- impact series (area by hazard class + flood-front reach over time)
-    series = build_series(frames, mesh, cell_m, min_m=EXTENT_THRESHOLD_M)
+    from rasterio.transform import Affine
+
+    from modules.run.work_impact import population_grid
+
+    pop, pop_source = population_grid(Affine(*gt), frames.max_depth.shape)
+    series = build_series(frames, mesh, cell_m, min_m=EXTENT_THRESHOLD_M,
+                          pop_grid=pop, pop_source=pop_source)
 
     run_result.merge(run_id, metrics=metrics, rasters=rasters, stations=stations_out,
                      series=series)

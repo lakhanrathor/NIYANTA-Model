@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { INFRA_COLORS, infraDepthAt, tiles } from '../lib/api'
 import type { InfraExposure, RampStop, RunInfra, Terrain3D } from '../lib/api'
+import { WATER_MODE, createWaterMaterial, rampTexture, type FrameStack } from './player/waterMaterial'
 
 /* ------------------------------------------------------------------ tiles */
 
@@ -15,7 +16,7 @@ function mercX(lon: number, z: number) {
   return ((lon + 180) / 360) * 2 ** z
 }
 
-function mercY(lat: number, z: number) {
+export function mercY(lat: number, z: number) {
   const r = (lat * Math.PI) / 180
   return ((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2) * 2 ** z
 }
@@ -94,7 +95,7 @@ async function loadTileBitmap(url: string, timeoutMs = 15000): Promise<ImageBitm
 }
 
 /** Satellite mosaic cropped to the exact model bbox (Mercator pixel rect). */
-async function loadImagery(
+export async function loadImagery(
   bbox: [number, number, number, number],
 ): Promise<{ canvas: HTMLCanvasElement; z: number; yf0: number; yf1: number } | null> {
   const win = tileWindow(bbox, 8)
@@ -198,22 +199,6 @@ function depthFromRGB(r: number, g: number, b: number, lut: RampLUT): number {
   return out
 }
 
-/** Forward direction: depth in metres → display colour. */
-function colorForDepth(d: number, lut: RampLUT): [number, number, number] {
-  const { vs, cols } = lut
-  if (d <= vs[0]) return cols[0]
-  for (let k = 0; k < vs.length - 1; k++) {
-    if (d <= vs[k + 1]) {
-      const span = Math.max(1e-9, vs[k + 1] - vs[k])
-      const t = (d - vs[k]) / span
-      const a = cols[k]
-      const c = cols[k + 1]
-      return [a[0] + (c[0] - a[0]) * t, a[1] + (c[1] - a[1]) * t, a[2] + (c[2] - a[2]) * t]
-    }
-  }
-  return cols[cols.length - 1]
-}
-
 /* ------------------------------------------------------------------ scene */
 
 export interface SceneDam {
@@ -223,6 +208,8 @@ export interface SceneDam {
   height_m?: number | null
   crest_length_m?: number | null
   heading_deg?: number | null
+  /** 'model' = placed at the solver's breach cell (registry point is outside the grid) */
+  placed?: 'registry' | 'model'
 }
 
 export interface SceneOptions {
@@ -254,8 +241,8 @@ function infraColor(f: InfraExposure, i: number, thr: number, dry: THREE.Color, 
   return out.copy(dry)
 }
 
-/** Water surface colouring: true depth, modelled arrival (h), or peak velocity (m/s). */
-export type WaterColorMode = 'depth' | 'arrival' | 'velocity'
+/** Water surface colouring: natural water look, depth ramp, modelled arrival (h), or peak velocity (m/s). */
+export type WaterColorMode = 'natural' | 'depth' | 'arrival' | 'velocity'
 
 export type OverlayStatus = 'loading' | 'ready' | 'no-tiles' | 'no-ramp'
 
@@ -351,7 +338,14 @@ export class PlayerScene {
   private terrainMesh: THREE.Mesh | null = null
   private terrainMat: THREE.MeshStandardMaterial | null = null
   private waterMesh: THREE.Mesh | null = null
-  private waterMat: THREE.MeshStandardMaterial | null = null
+  private waterMat: THREE.ShaderMaterial | null = null
+  /** All depth frames on the GPU (frames.bin) — null → one layer per loaded frame. */
+  private stack: FrameStack | null = null
+  private stackBound = false
+  /** Displayed (fractional) frame and the tween that moves it. */
+  private playT = 0
+  private tween: { from: number; to: number; start: number; dur: number } | null = null
+  private t0 = performance.now()
   private damGroup: THREE.Group | null = null
   private villageGroup: THREE.Group | null = null
   private villageSelected: THREE.Mesh | null = null
@@ -378,7 +372,7 @@ export class PlayerScene {
   private horizM = WORLD / 26000
   private depthArr: Float32Array | null = null
   private lut: RampLUT | null = null
-  private colorMode: WaterColorMode = 'depth'
+  private colorMode: WaterColorMode = 'natural'
   private overlayLUTs: Partial<Record<'arrival' | 'velocity', RampLUT>> = {}
   private overlayData: Partial<Record<'arrival' | 'velocity', Float32Array>> = {}
   private overlayStat: Partial<Record<'arrival' | 'velocity', OverlayStatus>> = {}
@@ -388,6 +382,35 @@ export class PlayerScene {
   private imageryToken = 0
   private imgGeo: { z: number; yf0: number; yf1: number } | null = null
   private dam: SceneDam | null = null
+  /** Modelled breach (metres, seconds) and the playhead time it is shown at. */
+  private breach: { width_m: number; depth_m: number; tForm_s: number } | null = null
+  private breachT = 0
+  private beacon: THREE.Mesh | null = null
+  /** Block wall across the valley; breached blocks lose their top, which falls. */
+  private wall: {
+    blocks: { base: THREE.Mesh; chunk: THREE.Mesh; x: number; jit: number }[]
+    rubble: THREE.InstancedMesh
+    lW: number
+    hW: number
+    tW: number
+    /** display scale (≥ 1 when the true-size wall would be unreadably small) */
+    s: number
+    /** local +z → downstream (+1) or upstream (−1) */
+    zDown: number
+  } | null = null
+  /** Outflow jet through the breach, emission ∝ hydrograph Q(t) / peak. */
+  private jet: {
+    pts: THREE.Points
+    pos: Float32Array
+    vel: Float32Array
+    life: Float32Array
+    origin: THREE.Vector3
+    down: THREE.Vector3
+    across: THREE.Vector3
+    acc: number
+  } | null = null
+  private hydro: { t: number[]; q: number[]; peak: number } | null = null
+  private lastFrame = performance.now()
   private opts: SceneOptions
   onPick: ((lon: number, lat: number) => void) | null = null
   onVillage: ((v: SceneVillage) => void) | null = null
@@ -409,9 +432,13 @@ export class PlayerScene {
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' })
     this.renderer.setSize(w, h)
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    // 1.5× is sharp on laptops and far cheaper than 2× per frame
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     this.renderer.shadowMap.enabled = true
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    this.renderer.shadowMap.type = THREE.PCFShadowMap
+    // terrain, buildings and the dam rarely move: shadows are redrawn only
+    // when one of them changes (see shadowsDirty), not on every frame
+    this.renderer.shadowMap.autoUpdate = false
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping
     this.renderer.toneMappingExposure = 1.05
     container.appendChild(this.renderer.domElement)
@@ -481,6 +508,7 @@ export class PlayerScene {
 
     const animate = () => {
       this.raf = requestAnimationFrame(animate)
+      this.stepWater()
       this.controls.update()
       this.renderer.render(this.scene, this.camera)
     }
@@ -495,7 +523,8 @@ export class PlayerScene {
     this.depthArr = null
     this.overlayData = {}
     this.overlayStat = {}
-    this.colorMode = 'depth'
+    this.colorMode = 'natural'
+    this.setFrameStack(null)
     this.setVillages([])
     this.setParticles(null)
     this.setInfrastructure(null)
@@ -504,7 +533,103 @@ export class PlayerScene {
 
   setRamp(stops: RampStop[] | null | undefined) {
     this.lut = stops?.length ? buildLUT(stops) : null
-    if (this.depthArr) this.paintWater()
+    this.paintWater()
+  }
+
+  /** All depth frames of the run (from frames.bin); null clears. Bound to the
+   *  GPU once the terrain grid matches — otherwise frames load one by one. */
+  setFrameStack(stack: FrameStack | null) {
+    this.stack = stack
+    this.stackBound = false
+    this.tween = null
+    this.bindStack()
+  }
+
+  /** True when playback runs from the GPU frame stack (smooth tweening). */
+  get smooth(): boolean {
+    return this.stackBound
+  }
+
+  private bindStack() {
+    const mat = this.waterMat
+    const grid = this.grid
+    const st = this.stack
+    if (!mat || !grid) return
+    const gl = this.renderer.getContext() as WebGL2RenderingContext
+    const maxLayers = Number(gl.getParameter(gl.MAX_ARRAY_TEXTURE_LAYERS)) || 256
+    const old = mat.uniforms.uDepth.value as THREE.Texture
+    if (st && st.rows === grid.nR && st.cols === grid.nC && st.n >= 1 && st.n <= maxLayers) {
+      const tex = new THREE.DataArrayTexture(st.half, st.cols, st.rows, st.n)
+      tex.format = THREE.RedFormat
+      tex.type = THREE.HalfFloatType
+      tex.unpackAlignment = 1
+      tex.needsUpdate = true
+      mat.uniforms.uDepth.value = tex
+      this.stackBound = true
+      this.applyT(Math.min(this.playT, st.n - 1))
+    } else {
+      // single layer, rewritten by setFrame from the depth tiles
+      const tex = new THREE.DataArrayTexture(new Uint16Array(grid.nR * grid.nC), grid.nC, grid.nR, 1)
+      tex.format = THREE.RedFormat
+      tex.type = THREE.HalfFloatType
+      tex.unpackAlignment = 1
+      tex.needsUpdate = true
+      mat.uniforms.uDepth.value = tex
+      this.stackBound = false
+      this.applyT(0)
+      if (this.depthArr) this.uploadSingle(this.depthArr)
+    }
+    old.dispose()
+  }
+
+  private uploadSingle(depths: Float32Array) {
+    const tex = this.waterMat?.uniforms.uDepth.value as THREE.DataArrayTexture | undefined
+    if (!tex || this.stackBound) return
+    const arr = tex.image.data as Uint16Array
+    if (arr.length !== depths.length) return
+    for (let k = 0; k < depths.length; k++) arr[k] = THREE.DataUtils.toHalfFloat(depths[k])
+    tex.needsUpdate = true
+  }
+
+  /** Show fractional frame t: blend floor(t) → floor(t)+1. */
+  private applyT(t: number) {
+    const mat = this.waterMat
+    if (!mat) return
+    const n = this.stackBound && this.stack ? this.stack.n : 1
+    const tt = Math.max(0, Math.min(n - 1, t))
+    const a = Math.floor(tt)
+    mat.uniforms.uFrameA.value = a
+    mat.uniforms.uFrameB.value = Math.min(a + 1, n - 1)
+    mat.uniforms.uMix.value = tt - a
+    this.playT = tt
+    const ts = this.stackBound ? this.stack?.times_s : null
+    if (ts?.length) {
+      const b = Math.min(a + 1, ts.length - 1)
+      this.breachT = ts[a] + (ts[b] - ts[a]) * (tt - a)
+      this.updateBreach()
+    }
+  }
+
+  /** Per display frame: advance the playhead tween and the ripple clock. */
+  private stepWater() {
+    const now = performance.now()
+    this.stepJet(Math.min(0.05, (now - this.lastFrame) / 1000))
+    this.lastFrame = now
+    if (this.beacon) {
+      // quick pulse once water is leaving the dam, slow before the breach
+      const f = ((performance.now() - this.t0) / 1000) * (this.breachT > 0 ? 1.3 : 0.4)
+      const k = f - Math.floor(f)
+      this.beacon.scale.setScalar(1 + k * 2.5)
+      ;(this.beacon.material as THREE.MeshBasicMaterial).opacity = 0.9 * (1 - k)
+    }
+    const mat = this.waterMat
+    if (!mat) return
+    mat.uniforms.uTime.value = (performance.now() - this.t0) / 1000
+    const tw = this.tween
+    if (!tw) return
+    const k = tw.dur > 0 ? Math.min(1, (performance.now() - tw.start) / tw.dur) : 1
+    this.applyT(tw.from + (tw.to - tw.from) * k)
+    if (k >= 1) this.tween = null
   }
 
   /** Build terrain + water shells for the domain. `terrain` null → flat plane. */
@@ -517,7 +642,13 @@ export class PlayerScene {
       }
     }
     this.terrainMat?.dispose()
-    this.waterMat?.dispose()
+    if (this.waterMat) {
+      for (const k of ['uDepth', 'uBed', 'uRamp', 'uOverlay', 'uOverlayRamp']) {
+        ;(this.waterMat.uniforms[k].value as THREE.Texture | null)?.dispose()
+      }
+      this.waterMat.dispose()
+    }
+    this.stackBound = false
     this.terrainMat = null
     this.waterMat = null
     if (this.villageGroup) {
@@ -577,24 +708,33 @@ export class PlayerScene {
 
     const wGeo = new THREE.PlaneGeometry(WORLD, WORLD, nC - 1, nR - 1)
     wGeo.rotateX(-Math.PI / 2)
-    this.waterMat = new THREE.MeshStandardMaterial({
-      vertexColors: true,
-      transparent: true,
-      opacity: this.opts.waterOpacity,
-      roughness: 0.3,
-      metalness: 0,
-    })
+    this.waterMat = createWaterMaterial()
+    const u = this.waterMat.uniforms
+    // bed = metres above the domain minimum; the shader scales it like the terrain
+    const bed = new Float32Array(nR * nC)
+    for (let k = 0; k < bed.length; k++) bed[k] = Number.isFinite(elev[k]) ? elev[k] - emin : 0
+    const bedTex = new THREE.DataTexture(bed, nC, nR, THREE.RedFormat, THREE.FloatType)
+    bedTex.needsUpdate = true
+    ;(u.uBed.value as THREE.Texture).dispose()
+    u.uBed.value = bedTex
+    u.uGrid.value.set(nC, nR)
+    u.uCell.value.set(WORLD / (nC - 1), WORLD / (nR - 1))
+    u.uOpacity.value = this.opts.waterOpacity
     const wMesh = new THREE.Mesh(wGeo, this.waterMat)
+    // vertices move in the shader — the CPU bounds don't know where
+    wMesh.frustumCulled = false
+    wMesh.renderOrder = 2
     wMesh.visible = this.opts.showWater
     this.scene.add(wMesh)
     this.waterMesh = wMesh
+    this.bindStack()
     this.applyHeights()
     this.rebuildDam()
     this.rebuildVillages()
     this.rebuildCascade()
     this.rebuildInfra()
     // Overlays are grid-aligned — reload the active one for the new shell.
-    if (this.colorMode !== 'depth') void this.loadOverlay(this.colorMode)
+    if (this.colorMode === 'arrival' || this.colorMode === 'velocity') void this.loadOverlay(this.colorMode)
     void this.loadImagery(bbox)
     // particles are placed on the grid — re-seat them on the new shell
     this.setParticles(this.particleData)
@@ -606,12 +746,132 @@ export class PlayerScene {
     this.rebuildDam()
   }
 
+  /** The modelled breach opening (null = draw the dam intact). */
+  setBreach(b: { width_m: number; depth_m: number; tForm_s: number } | null) {
+    this.breach = b && b.width_m > 0 && b.depth_m > 0 ? { ...b } : null
+    this.rebuildDam()
+  }
+
+  /** Breach outflow series (s, m³/s) — drives the jet through the breach. */
+  setHydrograph(t: number[] | null | undefined, q: number[] | null | undefined) {
+    this.hydro = t?.length && q?.length ? { t, q, peak: Math.max(1e-9, ...q) } : null
+  }
+
+  /** Grow the opening with the playhead: linear over the formation time. */
+  setBreachTime(tS: number) {
+    this.breachT = tS
+    this.updateBreach()
+  }
+
+  private breachProgress(): number {
+    const b = this.breach
+    if (!b) return 0
+    return b.tForm_s > 0 ? Math.min(1, Math.max(0, this.breachT / b.tForm_s)) : this.breachT > 0 ? 1 : 0
+  }
+
+  private outflowFrac(): number {
+    const h = this.hydro
+    if (!h) return this.breachProgress() > 0 ? 0.6 : 0
+    const dt = h.t[1] - h.t[0] || 1
+    const i = Math.round((this.breachT - h.t[0]) / dt)
+    if (i < 0 || i >= h.q.length) return 0
+    return Math.min(1, Math.max(0, h.q[i] / h.peak))
+  }
+
+  /** Cut the breach into the block wall for the current breach time. */
+  private updateBreach() {
+    const w = this.wall
+    const b = this.breach
+    if (!w) return
+    const p = this.breachProgress()
+    const maxGap = b ? Math.min(w.lW * 0.95, b.width_m * this.horizM * w.s) : 0
+    const gap = maxGap * p
+    const notch = b ? Math.min(w.hW * 0.98, b.depth_m * this.horizM * this.opts.terrainExag * w.s) * p : 0
+    let fallen = 0
+    for (const blk of w.blocks) {
+      // ragged edge: each block enters the opening at its own jittered width
+      const inGap = gap > 0 && Math.abs(blk.x) <= gap / 2 + blk.jit * 0.12 * maxGap
+      const cutH = inGap ? Math.min(w.hW, notch * (0.85 + 0.3 * blk.jit)) : 0
+      const keep = Math.max(w.hW - cutH, 1e-3)
+      blk.base.scale.y = keep
+      blk.base.position.y = keep / 2
+      // the removed top falls downstream and breaks up over ~a tenth of the
+      // formation time (or a minute when the failure is instantaneous)
+      const tEnter = maxGap > 0 && b ? ((2 * Math.abs(blk.x)) / maxGap) * b.tForm_s : 0
+      const span = Math.max(60, (b?.tForm_s ?? 0) * 0.1)
+      const k = inGap ? Math.min(1, Math.max(0, (this.breachT - tEnter) / span)) : 0
+      blk.chunk.visible = inGap && cutH > 1e-3 && k < 1
+      if (blk.chunk.visible) {
+        blk.chunk.scale.y = cutH
+        blk.chunk.position.set(blk.x, keep + cutH / 2 - k * k * (keep + cutH), w.zDown * k * w.hW * 1.6)
+        blk.chunk.rotation.x = w.zDown * k * 1.4
+      }
+      if (inGap && k >= 1) fallen++
+    }
+    w.rubble.count = Math.min(w.rubble.instanceMatrix.count, fallen * 3)
+    // redraw shadows only while the wall is actually changing
+    const moving = w.blocks.some((blk) => blk.chunk.visible)
+    if (moving || fallen !== this.lastFallen || Math.abs(p - this.lastP) > 0.004) this.shadowsDirty()
+    this.lastFallen = fallen
+    this.lastP = p
+  }
+
+  private lastFallen = -1
+  private lastP = -1
+  private shadowsDirty() {
+    this.renderer.shadowMap.needsUpdate = true
+  }
+
+  /** Per display frame: spray water through the open breach. */
+  private stepJet(dtReal: number) {
+    const j = this.jet
+    const w = this.wall
+    if (!j || !w) return
+    const frac = this.breachProgress() > 0 ? this.outflowFrac() : 0
+    const n = j.life.length
+    const g = w.hW * 3.2
+    // emit in proportion to the outflow (a trickle stays visible)
+    j.acc += frac > 0.002 ? (60 + 900 * Math.sqrt(frac)) * dtReal : 0
+    const b = this.breach
+    const p = this.breachProgress()
+    const gap = b ? Math.min(w.lW * 0.95, b.width_m * this.horizM * w.s) * p : 0
+    const notch = b ? Math.min(w.hW, b.depth_m * this.horizM * this.opts.terrainExag * w.s) * p : 0
+    for (let i = 0; i < n && j.acc >= 1; i++) {
+      if (j.life[i] > 0) continue
+      j.acc -= 1
+      const a = (Math.random() - 0.5) * Math.max(gap, w.lW * 0.05)
+      const y = w.hW - notch * Math.random()
+      j.pos[i * 3] = j.origin.x + j.across.x * a
+      j.pos[i * 3 + 1] = j.origin.y + y
+      j.pos[i * 3 + 2] = j.origin.z + j.across.z * a
+      const v = w.hW * (0.8 + 1.6 * Math.sqrt(frac)) * (0.7 + Math.random() * 0.6)
+      j.vel[i * 3] = j.down.x * v + j.across.x * (Math.random() - 0.5) * v * 0.3
+      j.vel[i * 3 + 1] = v * 0.25 * Math.random()
+      j.vel[i * 3 + 2] = j.down.z * v + j.across.z * (Math.random() - 0.5) * v * 0.3
+      j.life[i] = 0.9 + Math.random() * 0.6
+    }
+    j.acc = Math.min(j.acc, 50)
+    for (let i = 0; i < n; i++) {
+      if (j.life[i] <= 0) {
+        j.pos[i * 3 + 1] = -1e5
+        continue
+      }
+      j.life[i] -= dtReal
+      j.vel[i * 3 + 1] -= g * dtReal
+      j.pos[i * 3] += j.vel[i * 3] * dtReal
+      j.pos[i * 3 + 1] += j.vel[i * 3 + 1] * dtReal
+      j.pos[i * 3 + 2] += j.vel[i * 3 + 2] * dtReal
+    }
+    ;(j.pts.geometry.attributes.position as THREE.BufferAttribute).needsUpdate = true
+  }
+
   setOptions(opts: Partial<SceneOptions>) {
     const prev = this.opts
     this.opts = { ...this.opts, ...opts }
+    this.shadowsDirty()
     if (this.terrainMesh) this.terrainMesh.visible = this.opts.showTerrain
     if (this.damGroup) this.damGroup.visible = this.opts.showDam
-    if (this.waterMesh) this.waterMesh.visible = this.opts.showWater && !this.particles
+    if (this.waterMesh) this.waterMesh.visible = this.opts.showWater
     if (this.particles) {
       this.particles.visible = this.opts.showWater
       ;(this.particles.material as THREE.PointsMaterial).opacity = this.opts.waterOpacity
@@ -619,7 +879,7 @@ export class PlayerScene {
     if (this.villageGroup) this.villageGroup.visible = this.opts.showVillages
     if (this.cascadeGroup) this.cascadeGroup.visible = this.opts.showCascade
     if (this.infraGroup) this.infraGroup.visible = this.opts.showInfra
-    if (this.waterMat) this.waterMat.opacity = this.opts.waterOpacity
+    if (this.waterMat) this.waterMat.uniforms.uOpacity.value = this.opts.waterOpacity
     if (
       this.grid &&
       (prev.terrainExag !== this.opts.terrainExag || prev.waterExag !== this.opts.waterExag)
@@ -732,6 +992,7 @@ export class PlayerScene {
 
     g.visible = this.opts.showInfra
     this.infraGroup = g
+    this.shadowsDirty()
     this.scene.add(g)
     this.paintInfra()
   }
@@ -819,18 +1080,17 @@ export class PlayerScene {
       this.particles.visible = this.opts.showWater
       this.scene.add(this.particles)
     }
-    if (this.waterMesh) this.waterMesh.visible = this.opts.showWater && !this.particles
   }
 
   /** Water colouring: true depth, modelled arrival (h), or peak velocity (m/s). */
   setColorMode(mode: WaterColorMode) {
     if (this.colorMode === mode) {
-      if (mode === 'depth' || this.overlayData[mode]) this.paintWater()
+      if (mode === 'natural' || mode === 'depth' || this.overlayData[mode]) this.paintWater()
       else void this.loadOverlay(mode)
       return
     }
     this.colorMode = mode
-    if (mode === 'depth' || this.overlayData[mode]) {
+    if (mode === 'natural' || mode === 'depth' || this.overlayData[mode]) {
       this.paintWater()
       return
     }
@@ -942,11 +1202,31 @@ export class PlayerScene {
     }
   }
 
-  /** Load frame `i` of the depth raster, drape it on the water shell. */
-  async setFrame(i: number): Promise<FrameWaterResult> {
+  /** Show frame `i`. With the GPU stack the surface glides there over
+   *  `durMs` (the playback tick, so motion never stops between frames);
+   *  otherwise frame i's depth tiles load and replace the single layer. */
+  async setFrame(i: number, durMs = 0): Promise<FrameWaterResult> {
     const my = ++this.frameToken
     const grid = this.grid
     if (!grid || !this.runId || !this.waterMesh) return { status: 'no-domain', wet: 0, total: 0 }
+    if (this.stackBound && this.stack) {
+      const st = this.stack
+      const to = Math.max(0, Math.min(st.n - 1, i))
+      // a jump (scrub / loop back) settles quickly instead of sweeping
+      const dur = Math.abs(to - this.playT) > 1.5 ? Math.min(durMs, 220) : durMs
+      this.tween = dur > 0 ? { from: this.playT, to, start: performance.now(), dur } : null
+      if (dur <= 0) this.applyT(to)
+      const size = st.rows * st.cols
+      const depths = new Float32Array(size)
+      let wet = 0
+      for (let k = 0, o = to * size; k < size; k++) {
+        const d = THREE.DataUtils.fromHalfFloat(st.half[o + k])
+        depths[k] = d
+        if (d > 0.01) wet++
+      }
+      this.depthArr = depths
+      return { status: wet > 0 ? 'wet' : 'dry', wet, total: size }
+    }
     const loaded = await this.loadKindPixels('depth', i)
     if (my !== this.frameToken) return { status: 'no-tiles', wet: 0, total: grid.nR * grid.nC }
     if (!loaded) return { status: 'no-tiles', wet: 0, total: grid.nR * grid.nC }
@@ -979,31 +1259,89 @@ export class PlayerScene {
     }
     if (my !== this.frameToken) return { status: 'no-tiles', wet: 0, total: nR * nC }
     this.depthArr = depths
-    this.paintWater()
+    this.uploadSingle(depths)
     return { status: wet > 0 ? 'wet' : 'dry', wet, total: nR * nC }
   }
 
   /* -------------------------------------------------------------- camera */
 
-  preset(view: 'dam' | 'valley' | 'top' | 'drone') {
+  /** Camera presets (spec §17). Data-driven views aim at what the run itself
+   *  says: the flood front, flooded infrastructure, what is under water now.
+   *  Returns false — camera untouched — when the run has nothing to aim at. */
+  preset(view: 'overview' | 'breach' | 'downstream' | 'infrastructure' | 'impact' | 'top'): boolean {
     const c = new THREE.Vector3(0, 0, 0)
-    const target = this.damWorld() ?? c
     const cam = this.camera
     const ctrl = this.controls
-    if (view === 'dam') {
-      cam.position.set(target.x, target.y + 85, target.z + 150)
-      ctrl.target.copy(target)
-    } else if (view === 'valley') {
+    if (view === 'breach') {
+      const dam = this.damWorld() ?? c
+      cam.position.set(dam.x, dam.y + 85, dam.z + 150)
+      ctrl.target.copy(dam)
+    } else if (view === 'overview') {
       cam.position.set(c.x - 170, 130, c.z + 230)
       ctrl.target.set(c.x, 10, c.z + 60)
     } else if (view === 'top') {
       cam.position.set(c.x, 540, c.z + 1)
       ctrl.target.copy(c)
     } else {
-      cam.position.set(c.x + 235, 175, c.z - 175)
+      const target =
+        view === 'downstream' ? this.floodFront()
+        : view === 'infrastructure' ? this.infraCentroid('ever')
+        : (this.infraCentroid('now') ?? this.infraCentroid('ever'))
+      if (!target) return false
+      // oblique look from behind-left, close enough to read buildings/roads
+      cam.position.set(target.x - 60, target.y + 95, target.z + 120)
       ctrl.target.copy(target)
     }
     ctrl.update()
+    return true
+  }
+
+  /** Wet cell of the loaded depth frame farthest from the dam (the front). */
+  private floodFront(): THREE.Vector3 | null {
+    const grid = this.grid
+    const depth = this.depthArr
+    if (!grid || !depth) return null
+    const dam = this.damWorld()
+    const segW = WORLD / (grid.nC - 1)
+    const segH = WORLD / (grid.nR - 1)
+    let best = -1
+    let bi = -1
+    for (let i = 0; i < depth.length; i++) {
+      if (!(depth[i] > 0.1)) continue
+      const x = (i % grid.nC) * segW - WORLD / 2
+      const z = -WORLD / 2 + Math.floor(i / grid.nC) * segH
+      const d = dam ? (x - dam.x) ** 2 + (z - dam.z) ** 2 : -z
+      if (d > best) {
+        best = d
+        bi = i
+      }
+    }
+    if (bi < 0) return null
+    const r = Math.floor(bi / grid.nC)
+    const col = bi % grid.nC
+    const e = grid.elev[bi]
+    const y = (Number.isFinite(e) ? e - grid.elevMin : 0) * this.horizM * this.opts.terrainExag
+    return new THREE.Vector3(col * segW - WORLD / 2, y, -WORLD / 2 + r * segH)
+  }
+
+  /** Centre of OSM features flooded at the current frame ('now') or at any
+   *  point in the run ('ever'). Null when none are. */
+  private infraCentroid(mode: 'now' | 'ever'): THREE.Vector3 | null {
+    const doc = this.infra
+    if (!doc) return null
+    const i = this.infraFrame
+    const hit = (f: InfraExposure, thr: number) =>
+      mode === 'ever' ? f.f0 != null : (infraDepthAt(f, i) ?? 0) > thr
+    const pts: [number, number][] = []
+    for (const b of doc.buildings) if (hit(b, doc.thresholds.building_m)) pts.push([b.x, b.y])
+    for (const p of doc.points) if (hit(p, doc.thresholds.building_m)) pts.push([p.x, p.y])
+    for (const r of doc.roads)
+      if (hit(r, doc.thresholds.road_cut_m)) pts.push([(r.p[0] + r.p[2]) / 2, (r.p[1] + r.p[3]) / 2])
+    if (!pts.length) return null
+    const lon = pts.reduce((s, p) => s + p[0], 0) / pts.length
+    const lat = pts.reduce((s, p) => s + p[1], 0) / pts.length
+    const w = this.lonLatToWorld(lon, lat)
+    return w ? new THREE.Vector3(w.x, w.y, w.z) : null
   }
 
   /** World-space marker where the analyst clicked — the panel probes it. */
@@ -1041,16 +1379,37 @@ export class PlayerScene {
     return { x, y, z }
   }
 
+  /** Unit vector (xz) of steepest descent around a world point, from the DEM. */
+  private downstreamDir(at: THREE.Vector3): THREE.Vector3 {
+    const grid = this.grid
+    const out = new THREE.Vector3(0, 0, 1)
+    if (!grid) return out
+    const segW = WORLD / (grid.nC - 1)
+    const segH = WORLD / (grid.nR - 1)
+    const c0 = (at.x + WORLD / 2) / segW
+    const r0 = (at.z + WORLD / 2) / segH
+    const elevAt = (c: number, r: number) => {
+      const cc = Math.min(grid.nC - 1, Math.max(0, Math.round(c)))
+      const rr = Math.min(grid.nR - 1, Math.max(0, Math.round(r)))
+      const e = grid.elev[rr * grid.nC + cc]
+      return Number.isFinite(e) ? e : Infinity
+    }
+    let best = Infinity
+    for (let k = 0; k < 24; k++) {
+      const a = (k / 24) * Math.PI * 2
+      const e = elevAt(c0 + Math.cos(a) * 6, r0 + Math.sin(a) * 6)
+      if (e < best) {
+        best = e
+        out.set(Math.cos(a) * segW, 0, Math.sin(a) * segH).normalize()
+      }
+    }
+    return out
+  }
+
   private damWorld(): THREE.Vector3 | null {
     if (!this.dam) return null
     const p = this.lonLatToWorld(this.dam.lon, this.dam.lat)
     return p ? new THREE.Vector3(p.x, p.y, p.z) : null
-  }
-
-  private waterY(elevM: number, depthM: number): number {
-    const bed = (Number.isFinite(elevM) ? elevM - (this.grid?.elevMin ?? 0) : 0) * this.horizM
-    if (depthM <= 0.01) return bed * this.opts.terrainExag - 1.2
-    return (bed + depthM * this.opts.waterExag) * this.opts.terrainExag
   }
 
   private applyHeights() {
@@ -1068,7 +1427,13 @@ export class PlayerScene {
       }
     }
     tPos.needsUpdate = true
+    this.shadowsDirty()
     this.terrainMesh.geometry.computeVertexNormals()
+    if (this.waterMesh) {
+      const wPos = (this.waterMesh.geometry as THREE.BufferGeometry).attributes.position as THREE.BufferAttribute
+      wPos.copyArray(tPos.array as Float32Array)
+      wPos.needsUpdate = true
+    }
     if (!this.grid?.hasTerrain && this.terrainMat) {
       this.terrainMat.color.set('#7d8b96')
     }
@@ -1079,50 +1444,51 @@ export class PlayerScene {
     this.rebuildInfra()
   }
 
+  /** Push display state to the water shader — scales, colour mode, ramps.
+   *  Cheap: uniforms only; the frames themselves are already on the GPU. */
   private paintWater() {
     const grid = this.grid
-    const mesh = this.waterMesh
-    if (!grid || !mesh) return
-    const geo = mesh.geometry as THREE.BufferGeometry
-    const pos = geo.attributes.position as THREE.BufferAttribute
-    let col = geo.attributes.color as THREE.BufferAttribute | undefined
-    if (!col) {
-      col = new THREE.BufferAttribute(new Float32Array(pos.count * 3), 3)
-      geo.setAttribute('color', col)
-    }
-    const segW = WORLD / (grid.nC - 1)
-    const segH = WORLD / (grid.nR - 1)
-    const flat: [number, number, number] = [2 / 255, 132 / 255, 199 / 255]
-    // Overlay colouring (arrival hours / peak m/s) rides on the same wet mask
-    // as depth — height always comes from the depth frame.
-    const ov = this.colorMode === 'depth' ? null : this.overlayData[this.colorMode]
-    const ovLut = this.colorMode === 'depth' ? null : this.overlayLUTs[this.colorMode]
-    for (let r = 0; r < grid.nR; r++) {
-      for (let c = 0; c < grid.nC; c++) {
-        const idx = r * grid.nC + c
-        const e = grid.elev[idx]
-        const d = this.depthArr ? this.depthArr[idx] : 0
-        pos.setXYZ(idx, c * segW - WORLD / 2, this.waterY(e, d), -WORLD / 2 + r * segH)
-        if (d <= 0.01) {
-          col.setXYZ(idx, 0.1, 0.2, 0.3)
-        } else if (ov && ovLut) {
-          const v = ov[idx]
-          if (Number.isFinite(v)) {
-            const [cr, cg, cb] = colorForDepth(v, ovLut)
-            col.setXYZ(idx, cr / 255, cg / 255, cb / 255)
-          } else {
-            col.setXYZ(idx, flat[0], flat[1], flat[2])
-          }
-        } else if (this.colorMode === 'depth' && this.lut) {
-          const [cr, cg, cb] = colorForDepth(d, this.lut)
-          col.setXYZ(idx, cr / 255, cg / 255, cb / 255)
-        } else {
-          col.setXYZ(idx, flat[0], flat[1], flat[2])
-        }
+    const mat = this.waterMat
+    if (!grid || !mat) return
+    const u = mat.uniforms
+    u.uBedScale.value = this.horizM * this.opts.terrainExag
+    // true vertical scale × the analyst's water exaggeration
+    u.uDepthScale.value = this.horizM * this.opts.terrainExag * this.opts.waterExag
+    u.uOpacity.value = this.opts.waterOpacity
+    const mode = this.colorMode
+    if (mode === 'natural') {
+      u.uMode.value = WATER_MODE.natural
+    } else if (mode === 'depth') {
+      if (this.lut) {
+        const r = rampTexture(this.lut.vs, this.lut.cols)
+        ;(u.uRamp.value as THREE.Texture).dispose()
+        u.uRamp.value = r.tex
+        u.uRampMin.value = r.min
+        u.uRampMax.value = r.max
+        u.uMode.value = WATER_MODE.depth
+      } else {
+        u.uMode.value = WATER_MODE.natural
+      }
+    } else {
+      const ov = this.overlayData[mode]
+      const lut = this.overlayLUTs[mode]
+      if (ov && lut) {
+        const vals = new Float32Array(ov.length)
+        for (let k = 0; k < ov.length; k++) vals[k] = Number.isFinite(ov[k]) ? ov[k] : -1e9
+        const tex = new THREE.DataTexture(vals, grid.nC, grid.nR, THREE.RedFormat, THREE.FloatType)
+        tex.needsUpdate = true
+        ;(u.uOverlay.value as THREE.Texture).dispose()
+        u.uOverlay.value = tex
+        const r = rampTexture(lut.vs, lut.cols)
+        ;(u.uOverlayRamp.value as THREE.Texture).dispose()
+        u.uOverlayRamp.value = r.tex
+        u.uOvMin.value = r.min
+        u.uOvMax.value = r.max
+        u.uMode.value = WATER_MODE.overlay
+      } else {
+        u.uMode.value = WATER_MODE.natural
       }
     }
-    pos.needsUpdate = true
-    col.needsUpdate = true
   }
 
   private async loadImagery(bbox: [number, number, number, number]) {
@@ -1166,6 +1532,9 @@ export class PlayerScene {
       this.scene.remove(this.damGroup)
       this.damGroup = null
     }
+    this.wall = null
+    this.jet = null
+    this.beacon = null
     const at = this.damWorld()
     if (!at || !this.grid) return
     const g = new THREE.Group()
@@ -1187,25 +1556,136 @@ export class PlayerScene {
     ring.position.set(at.x, at.y + 0.6, at.z)
     g.add(ring)
 
-    // Wall — only when the registry actually knows the height.
-    const h = this.dam?.height_m
-    if (typeof h === 'number' && h > 0) {
+    // Breach beacon — drawn over the terrain so the breach site is never
+    // hidden: a pulsing ring, a light beam and a label (pulses faster once
+    // water is leaving the dam; see stepWater)
+    const over = (color: string, opacity: number) =>
+      new THREE.MeshBasicMaterial({ color, transparent: true, opacity, depthTest: false, side: THREE.DoubleSide })
+    const pulseGeo = new THREE.RingGeometry(7, 10, 48)
+    pulseGeo.rotateX(-Math.PI / 2)
+    const pulse = new THREE.Mesh(pulseGeo, over('#ef4444', 0.9))
+    pulse.position.set(at.x, at.y + 1, at.z)
+    pulse.renderOrder = 20
+    g.add(pulse)
+    const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 70, 10, 1, true), over('#ef4444', 0.45))
+    beam.position.set(at.x, at.y + 35, at.z)
+    beam.renderOrder = 19
+    g.add(beam)
+    const cv = document.createElement('canvas')
+    cv.width = 256
+    cv.height = 64
+    const ctx = cv.getContext('2d')!
+    ctx.fillStyle = 'rgba(185, 28, 28, 0.92)'
+    ctx.beginPath()
+    ctx.roundRect(4, 4, 248, 56, 14)
+    ctx.fill()
+    ctx.fillStyle = '#fff'
+    ctx.font = 'bold 30px Inter, system-ui, sans-serif'
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.fillText('BREACH', 128, 34)
+    const label = new THREE.Sprite(
+      new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), depthTest: false, transparent: true }),
+    )
+    label.scale.set(36, 9, 1)
+    label.position.set(at.x, at.y + 78, at.z)
+    label.renderOrder = 21
+    g.add(label)
+    this.beacon = pulse
+
+    // Wall — from the recorded height, else the modelled breach depth (a
+    // breach cannot be deeper than the dam). Drawn at a readable minimum size
+    // with true proportions: a schematic marker, not a dimension claim.
+    const h = this.dam?.height_m && this.dam.height_m > 0 ? this.dam.height_m : (this.breach?.depth_m ?? 0)
+    if (h > 0) {
       const lenM = this.dam?.crest_length_m && this.dam.crest_length_m > 0 ? this.dam.crest_length_m : h * 3
-      const hW = h * this.horizM * this.opts.terrainExag
-      const lW = Math.min(WORLD * 0.4, lenM * this.horizM)
-      const tW = Math.max(1.5, lW * 0.07)
-      const wall = new THREE.Mesh(new THREE.BoxGeometry(lW, hW, tW), concrete)
-      wall.position.set(at.x, at.y + hW / 2 - 0.4, at.z)
-      wall.castShadow = true
-      wall.receiveShadow = true
-      if (typeof this.dam?.heading_deg === 'number') {
-        wall.rotation.y = Math.PI / 2 - (this.dam.heading_deg * Math.PI) / 180
+      const lW0 = lenM * this.horizM
+      const sc = Math.min(40, Math.max(1, 26 / Math.max(lW0, 1e-6)))
+      const lW = lW0 * sc
+      const hW = Math.max(h * this.horizM * this.opts.terrainExag * sc, lW * 0.12)
+      const tW = Math.max(lW * 0.07, hW * 0.55)
+      // downstream = steepest fall of the ground around the dam
+      const down = this.downstreamDir(at)
+      const across = new THREE.Vector3(-down.z, 0, down.x)
+      const wall = new THREE.Group()
+      wall.position.set(at.x, at.y - hW * 0.15, at.z)
+      const theta =
+        typeof this.dam?.heading_deg === 'number'
+          ? Math.PI / 2 - (this.dam.heading_deg * Math.PI) / 180
+          : Math.atan2(-across.z, across.x)
+      wall.rotation.y = theta
+      const localZ = new THREE.Vector3(Math.sin(theta), 0, Math.cos(theta))
+      const zDown = localZ.dot(down) >= 0 ? 1 : -1
+      const N = 28
+      const segW = lW / N
+      const blocks: { base: THREE.Mesh; chunk: THREE.Mesh; x: number; jit: number }[] = []
+      for (let i = 0; i < N; i++) {
+        const x = -lW / 2 + (i + 0.5) * segW
+        const jit = Math.abs(Math.sin(i * 12.9898) * 43758.5453) % 1
+        const base = new THREE.Mesh(new THREE.BoxGeometry(segW * 1.02, 1, tW), concrete)
+        base.position.set(x, hW / 2, 0)
+        base.scale.y = hW
+        base.castShadow = true
+        base.receiveShadow = true
+        const chunk = new THREE.Mesh(new THREE.BoxGeometry(segW * 0.95, 1, tW * 0.9), concrete)
+        chunk.visible = false
+        chunk.castShadow = true
+        wall.add(base, chunk)
+        blocks.push({ base, chunk, x, jit })
       }
+      // rubble at the toe, revealed as blocks finish falling
+      const rubble = new THREE.InstancedMesh(new THREE.DodecahedronGeometry(1, 0), concrete, N * 3)
+      const d = new THREE.Object3D()
+      for (let i = 0; i < N * 3; i++) {
+        const r = (i * 0.618) % 1
+        d.position.set((r - 0.5) * lW * 0.8, hW * 0.05, zDown * (hW * (0.8 + ((i * 0.37) % 1) * 1.4)))
+        d.rotation.set(i, i * 2, i * 3)
+        d.scale.setScalar(segW * (0.35 + ((i * 0.53) % 1) * 0.5))
+        d.updateMatrix()
+        rubble.setMatrixAt(i, d.matrix)
+      }
+      rubble.count = 0
+      rubble.castShadow = true
+      wall.add(rubble)
       g.add(wall)
+      this.wall = { blocks, rubble, lW, hW, tW, s: sc, zDown }
+
+      // outflow jet: white-blue spray leaving the breach downstream
+      const n = 1400
+      const pos = new Float32Array(n * 3).fill(-1e5)
+      const geo = new THREE.BufferGeometry()
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3))
+      const pts = new THREE.Points(
+        geo,
+        new THREE.PointsMaterial({
+          color: '#dbeafe',
+          size: Math.max(1.4, lW * 0.05),
+          map: particleSprite(),
+          transparent: true,
+          opacity: 0.9,
+          depthWrite: false,
+          alphaTest: 0.05,
+        }),
+      )
+      pts.frustumCulled = false
+      pts.renderOrder = 3
+      g.add(pts)
+      this.jet = {
+        pts,
+        pos,
+        vel: new Float32Array(n * 3),
+        life: new Float32Array(n),
+        origin: new THREE.Vector3(at.x, at.y - hW * 0.15, at.z).add(down.clone().multiplyScalar(tW * 0.6)),
+        down,
+        across,
+        acc: 0,
+      }
+      this.updateBreach()
     }
     g.visible = this.opts.showDam
     this.scene.add(g)
     this.damGroup = g
+    this.shadowsDirty()
   }
 
   /** Affected-village pins from hazard-villages, coloured by modelled hazard. */

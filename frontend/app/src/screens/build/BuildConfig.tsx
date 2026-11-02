@@ -121,7 +121,7 @@ export function BuildConfig() {
       </Panel>
 
       {/* ------------------------------------------------- failure case */}
-      <Panel title="Failure case">
+      <Panel pinned title="Failure case">
         <div className="flex gap-1.5 p-2.5">
           {(['1', '2', '3'] as FailureCase[]).map((c) => {
             const meta = CASE_META[c]
@@ -156,7 +156,7 @@ export function BuildConfig() {
       {/* --------------------------------------------- step 1 · area & data */}
       {step === 0 && (
         <>
-          <Panel title="Study domain">
+          <Panel pinned title="Study domain">
             <Head right={`${reachInfo.actualKm} km active`}>Downstream River Reach (Simulation Domain)</Head>
             <Slider
               label="Study Reach Extent"
@@ -226,7 +226,7 @@ export function BuildConfig() {
 
       {/* -------------------------------------------- step 2 · dam & water */}
       {step === 1 && (
-        <Panel title="Dam & reservoir">
+        <Panel pinned title="Dam & reservoir">
           <Head right={dam?.crest_m != null ? `record · ${dam.name}` : 'no dam record'}>Water levels</Head>
           {s.crest_m > s.bed_m ? (
             <Slider
@@ -381,7 +381,7 @@ export function BuildConfig() {
 
       {/* -------------------------------------------- step 4 · population */}
       {step === 3 && (
-        <Panel title="Impact (population)">
+        <Panel pinned title="Impact (population)">
           <div className="flex items-center justify-between gap-2 px-3 py-[6px] text-[11px]">
             <span className="text-[var(--muted)]">Source</span>
             <Seg
@@ -432,11 +432,11 @@ export function BuildConfig() {
       {/* ------------------------------------------------- step 5 · review */}
       {step === 4 && (
         <>
-          <Panel title="Horizon">
+          <Panel pinned title="Horizon">
             <Field label="Duration" value={String(s.duration_hr)} suffix="hr" step={1} onChange={(v) => s.patch({ duration_hr: Number(v) || 1 })} />
             <Field label="Timestep" value={String(s.dt_s)} suffix="s" step={0.5} onChange={(v) => s.patch({ dt_s: Number(v) || 0.1 })} />
           </Panel>
-          <Panel title="Solver & Compute">
+          <Panel pinned title="Solver & Compute">
             <div className="flex items-center justify-between gap-2 px-3 py-[6px] text-[11px]">
               <span className="text-[var(--muted)]">Engine</span>
               <Seg
@@ -466,7 +466,7 @@ export function BuildConfig() {
               )}
             </div>
           </Panel>
-          <Panel title="Next">
+          <Panel pinned title="Next">
             <p className="px-3 py-2 text-[11px] leading-relaxed text-[var(--muted)]">
               Run <span className="font-semibold text-[var(--accent)]">Validate spec</span> in the
               Provenance panel on the right — then start the simulation below it.

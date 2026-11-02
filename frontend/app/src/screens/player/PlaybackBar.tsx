@@ -1,5 +1,7 @@
 import { Icon, Pill, Prov, Seg } from '../../components/ui'
+import { clock } from '../../lib/format'
 import { usePlayer } from './PlayerProvider'
+import { useStory } from './useStory'
 import type { TimeFormat } from './types'
 
 /**
@@ -12,6 +14,19 @@ export function PlaybackBar() {
     setFrame, playing, setPlaying, speed, setSpeed,
     timeFormat, setTimeFormat, framesDoc, runId,
   } = usePlayer()
+
+  // story events as markers on the scrubber — click to jump there
+  const events = useStory()
+  const marks =
+    frameCount > 1
+      ? events.map((e) => {
+          let idx = 0
+          for (let k = 0; k < frameList.length; k++) {
+            if (Math.abs(frameList[k].t - e.t) < Math.abs(frameList[idx].t - e.t)) idx = k
+          }
+          return { e, idx, left: (idx / (frameCount - 1)) * 100 }
+        })
+      : []
 
   const stepBack = () =>
     setFrame((f) => Math.max(0, (frameCount ? Math.min(f, frameCount - 1) : 0) - 1))
@@ -64,23 +79,36 @@ export function PlaybackBar() {
           <span className="text-[11px] text-[var(--muted)]">Speed</span>
           <Seg
             size="sm"
-            options={['0.5', '1', '2', '4'].map((s) => ({ value: s, label: `${s}×` }))}
+            options={['1', '2', '5', '10'].map((s) => ({ value: s, label: `${s}×` }))}
             value={speed}
             onChange={setSpeed}
           />
         </div>
       </div>
 
-      <input
-        type="range"
-        aria-label="Simulation frame"
-        min={0}
-        max={Math.max(0, frameCount - 1)}
-        value={clamped}
-        disabled={frameCount < 2}
-        onChange={(e) => setFrame(Number(e.target.value))}
-        className="mt-2 h-1.5 w-full cursor-pointer appearance-none rounded bg-[var(--line)] accent-[var(--accent)] disabled:opacity-50"
-      />
+      <div className="relative mt-3">
+        {marks.map(({ e, idx, left }, k) => (
+          <button
+            key={k}
+            title={`T+${clock(e.t)} · ${e.title}`}
+            onClick={() => setFrame(idx)}
+            className={`absolute -top-2.5 h-2.5 w-[3px] -translate-x-1/2 rounded-sm ${
+              idx <= clamped ? 'bg-amber-500' : 'bg-slate-300'
+            } hover:scale-y-150`}
+            style={{ left: `${left}%` }}
+          />
+        ))}
+        <input
+          type="range"
+          aria-label="Simulation frame"
+          min={0}
+          max={Math.max(0, frameCount - 1)}
+          value={clamped}
+          disabled={frameCount < 2}
+          onChange={(e) => setFrame(Number(e.target.value))}
+          className="h-1.5 w-full cursor-pointer appearance-none rounded bg-[var(--line)] accent-[var(--accent)] disabled:opacity-50"
+        />
+      </div>
 
       {frameCount > 0 && !framesDoc.offline && (
         <div className="mt-1.5 flex gap-1 overflow-x-auto pb-0.5">

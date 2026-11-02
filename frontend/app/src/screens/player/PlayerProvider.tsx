@@ -65,6 +65,9 @@ interface PlayerValue {
   selectedVillage: SceneVillage | null
   setSelectedVillage: (v: SceneVillage | null) => void
   colorMode: WaterColorMode
+  /** SPH runs: draw the solver's particles over the water surface (off by default). */
+  showParticles: boolean
+  setShowParticles: (v: boolean) => void
   setColorMode: (m: WaterColorMode) => void
   overlayStates: Partial<Record<'arrival' | 'velocity', string>>
   setOverlayState: (kind: 'arrival' | 'velocity', status: string) => void
@@ -98,6 +101,8 @@ interface PlayerValue {
   toggleLayer: (id: string) => void
   cameraPreset: CamPreset
   applyCamera: (view: CamPreset) => void
+  /** Why the last preset didn't move the camera (null when it did). */
+  cameraNote: string | null
   water: WaterState | null
   setWater: (w: WaterState | null) => void
   pick: PickPoint | null
@@ -162,10 +167,22 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const riverName = river?.name ?? damDetail.data?.river_name ?? null
 
   const damView: SceneDam | null = useMemo(() => {
-    const lon = damDetail.data?.lon ?? river?.damLon ?? null
-    const lat = damDetail.data?.lat ?? river?.damLat ?? null
+    let lon = damDetail.data?.lon ?? river?.damLon ?? null
+    let lat = damDetail.data?.lat ?? river?.damLat ?? null
+    // Draw the dam where the model breached it when the registry point lies
+    // outside the modelled grid (e.g. a run that fell back to synthetic terrain).
+    const t = terrainDoc.data
+    const b = t?.bounds
+    const inside =
+      typeof lon === 'number' && typeof lat === 'number' && b?.length === 4 && lon >= b[0] && lon <= b[2] && lat >= b[1] && lat <= b[3]
+    let placed: 'registry' | 'model' = 'registry'
+    if (!inside && t?.dam_lonlat) {
+      ;[lon, lat] = t.dam_lonlat
+      placed = 'model'
+    }
     if (typeof lon !== 'number' || typeof lat !== 'number') return null
     return {
+      placed,
       name: damDetail.data?.name ?? river?.damName ?? 'Dam',
       lon,
       lat,
@@ -173,7 +190,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       crest_length_m: damDetail.data?.crest_length_m ?? river?.damCrestLength ?? null,
       heading_deg: damDetail.data?.heading_deg ?? river?.damHeadingDeg ?? null,
     }
-  }, [damDetail.data, river])
+  }, [damDetail.data, river, terrainDoc.data])
   const damKey = damView
     ? [damView.lon, damView.lat, damView.height_m, damView.crest_length_m, damView.heading_deg].join(',')
     : ''
@@ -249,15 +266,16 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   // True scale by default — gorge floods run tens of metres deep, and 10×
   // turned them into walls. Shallow floods can raise it from Scene controls.
   const [waterExag, setWaterExag] = useState(1)
-  const [waterOpacity, setWaterOpacity] = useState(0.85)
-  const [cameraPreset, setCameraPreset] = useState<CamPreset>('dam')
+  const [waterOpacity, setWaterOpacity] = useState(0.95)
+  const [cameraPreset, setCameraPreset] = useState<CamPreset>('breach')
   const [water, setWater] = useState<WaterState | null>(null)
-  const [colorMode, setColorMode] = useState<WaterColorMode>('depth')
+  const [colorMode, setColorMode] = useState<WaterColorMode>('natural')
+  const [showParticles, setShowParticles] = useState(false)
   const [overlayStates, setOverlayStates] = useState<Partial<Record<'arrival' | 'velocity', string>>>({})
   const [selectedVillage, setSelectedVillage] = useState<SceneVillage | null>(null)
 
   useEffect(() => {
-    setColorMode('depth')
+    setColorMode('natural')
     setSelectedVillage(null)
     setOverlayStates({})
   }, [runId])
@@ -270,9 +288,22 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     [],
   )
 
+  const [cameraNote, setCameraNote] = useState<string | null>(null)
   const applyCamera = (view: CamPreset) => {
-    setCameraPreset(view)
-    sceneRef.current?.preset(view)
+    const ok = sceneRef.current?.preset(view) ?? false
+    if (ok) {
+      setCameraPreset(view)
+      setCameraNote(null)
+      return
+    }
+    // nothing in this run to aim at — say so instead of moving somewhere arbitrary
+    setCameraNote(
+      view === 'downstream'
+        ? 'No water in the loaded frame yet — play or step forward first.'
+        : view === 'infrastructure'
+          ? 'No OSM road, building or bridge in this run’s area gets flooded.'
+          : 'Nothing mapped is under water at this frame or during the run.',
+    )
   }
 
   /* --------------------------------------- depth-ramp + overlay ramps */
@@ -378,6 +409,8 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     selectedVillage,
     setSelectedVillage,
     colorMode,
+    showParticles,
+    setShowParticles,
     setColorMode,
     overlayStates,
     setOverlayState,
@@ -407,6 +440,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     toggleLayer,
     cameraPreset,
     applyCamera,
+    cameraNote,
     water,
     setWater,
     pick,

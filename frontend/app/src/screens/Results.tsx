@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { INFRA_COLORS, api, infraColorHex } from '../lib/api'
+import { INFRA_COLORS, api, infraColorHex, type Observation } from '../lib/api'
 import { useApi } from '../lib/useApi'
 import { useRunId } from '../lib/useRun'
 import { Panel } from '../components/ui'
@@ -17,6 +17,9 @@ import { WorkspaceLayout } from '../layouts'
 import { ResultsTimelinePanel } from './results/ResultsTimelinePanel'
 import { ResultsAnalyticsPanel } from './results/ResultsAnalyticsPanel'
 import { ResultsProbePanel } from './results/ResultsProbePanel'
+import { AssetPanel } from '../components/flood/AssetPanel'
+import { ResultsEvacuationPanel, evacFeatures } from './results/ResultsEvacuationPanel'
+import { ResultsValidationPanel } from './results/ResultsValidationPanel'
 import { ResultsImpactPanel } from './results/ResultsImpactPanel'
 import { ResultsCascadePanel } from './results/ResultsCascadePanel'
 
@@ -114,6 +117,14 @@ function ResultsView({ runId }: { runId: string }) {
       },
     ]
   }, [infra.data, mapFrame, mapShowMax])
+  // Evacuation corridors (roadmap §7) — greyed once the timeline frame passes
+  // a corridor's latest safe departure.
+  const evac = useApi(['run-evac', runId], () => api.runEvacuation(runId), {
+    enabled: Boolean(runId),
+    staleTime: 60_000,
+  })
+  const evacT = mapShowMax ? null : (infra.data?.times_s[mapFrame] ?? null)
+  const evacLayers = useMemo(() => evacFeatures(evac.data, evacT), [evac.data, evacT])
   const probeDoc = useApi(
     ['probe', runId, probe?.lat, probe?.lon],
     () => api.probe(runId, probe!.lon, probe!.lat),
@@ -336,13 +347,13 @@ function ResultsView({ runId }: { runId: string }) {
     }
 
     // infrastructure under the gauges/probe so those markers stay on top
-    out.push(...infraFeatures)
+    out.push(...infraFeatures, ...evacLayers)
 
     // real gauge markers (CH0 at the breach, CH5/CH10 downstream) + breach dot
     out.push(...gaugeFeatures(stationDoc.data, damDetail.data))
 
     return out
-  }, [riverDetail.data, activeRiver?.name, reachInfo, damDetail.data, boxes.data, probe, stationDoc.data, infraFeatures])
+  }, [riverDetail.data, activeRiver?.name, reachInfo, damDetail.data, boxes.data, probe, stationDoc.data, infraFeatures, evacLayers])
 
   // The legend mirrors the features above — one row per drawn layer, no more.
   // The flood row marks the raster layer itself (toggled from the same
@@ -426,6 +437,7 @@ function ResultsView({ runId }: { runId: string }) {
               simHours={simHours}
               engine={engine}
               engineLabel={summary.data?.engine_label ?? null}
+              scenarioLabel={summary.data ? (summary.data.scenario_label ?? null) : undefined}
               metrics={resultDoc.data?.metrics}
               series={seriesDoc.data}
             />
@@ -472,9 +484,25 @@ function ResultsView({ runId }: { runId: string }) {
       }
       right={
         <>
+          <AssetPanel runId={runId} pick={probe} frame={mapShowMax ? null : mapFrame} />
           <ResultsProbePanel scope="results" pending={probeDoc.pending} data={probeDoc.data} />
 
           <ResultsImpactPanel metrics={resultDoc.data?.metrics} impact={impact.data} />
+
+          <ResultsEvacuationPanel
+            runId={runId}
+            doc={evac.data}
+            pending={evac.pending}
+            offline={evac.offline}
+            tNow={evacT}
+          />
+
+          <ResultsValidationPanel
+            runId={runId}
+            scenarioId={scenarioId}
+            observed={(spec?.observed as Observation[] | undefined) ?? []}
+            pin={probe}
+          />
 
           <ResultsCascadePanel runId={runId} />
 

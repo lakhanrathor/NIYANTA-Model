@@ -409,6 +409,130 @@ export function infraDepthAt(f: InfraExposure, i: number): number | null {
   return f.s[i - f.f0] ?? null
 }
 
+/** A recorded field value at one point (spec.observed) — validation §30. */
+export interface Observation {
+  name: string
+  lon: number
+  lat: number
+  arrival_min?: number | null
+  depth_m?: number | null
+  velocity_ms?: number | null
+  source: string
+}
+export type ObsMetric = 'arrival_min' | 'depth_m' | 'velocity_ms'
+/** GET /validate/{run_id} — the stored validation_score row. */
+export interface RunValidation {
+  run_id: string
+  validation: {
+    benchmark: string | null
+    error_peak_pct: number | null
+    extent_error_pct: number | null
+    extent_iou: number | null
+    grade: string | null
+    detail: {
+      mass_balance_error_pct?: number | null
+      reference?: string | null
+      note?: string
+      observation_median_err_pct?: number | null
+      observations?: {
+        name: string
+        metric: ObsMetric
+        observed: number
+        modelled: number | null
+        err_pct: number | null
+        source: string
+      }[]
+    } | null
+  } | null
+}
+
+/** Evacuation corridors (roadmap §7): GET /runs/{id}/evacuation. */
+export type EvacClass = 'ok' | 'leave_now' | 'impossible'
+export interface EvacOrigin {
+  k: string
+  n: string | null
+  x: number
+  y: number
+  arrival_s: number
+  walk_km: number | null
+  walk_s: number | null
+  margin_h: number | null
+  cls: EvacClass
+  corridor: number | null
+}
+export interface RunEvacuation {
+  origins: EvacOrigin[]
+  /** path = [lon, lat][] from the origin's road node to its assembly point */
+  corridors: {
+    path: [number, number][]
+    origins: number
+    worst_margin_h: number | null
+    walk_km: number
+    cls: EvacClass
+    /** latest departure (s after breach) for the slowest origin on it */
+    leave_by_s: number | null
+    assembly: number
+  }[]
+  assembly: { x: number; y: number; origins: number }[]
+  stats: { ok: number; leave_now: number; impossible: number; origins: number }
+  assumptions: {
+    walk_kmh: number
+    leave_now_h: number
+    snap_m: number
+    road_cut_m: number
+    departure: string
+    safe_node: string
+  }
+  road_nodes: number
+  safe_nodes: number
+}
+
+/** One OSM asset picked from the run's exposure doc. */
+export interface PickedAsset {
+  kind: string // 'building' | 'road' | 'bridge' | 'hospital' | 'school'
+  name: string | null
+  /** distance from the click to the asset (m) */
+  dist_m: number
+  /** road segment length (km) */
+  km?: number
+  /** wet threshold this asset is judged against (m) */
+  thr_m: number
+  f: InfraExposure
+}
+
+/**
+ * Nearest building / road segment / point asset to a clicked lon/lat, within
+ * `maxM` metres (buildings measured from their footprint edge). Null when
+ * nothing is that close — a click on open ground stays a plain depth probe.
+ */
+export function nearestAsset(doc: RunInfra, lon: number, lat: number, maxM = 60): PickedAsset | null {
+  const kx = 111_320 * Math.cos((lat * Math.PI) / 180)
+  const ky = 111_320
+  const px = lon * kx
+  const py = lat * ky
+  let best: PickedAsset | null = null
+  const keep = (a: PickedAsset) => {
+    if (a.dist_m <= maxM && (!best || a.dist_m < best.dist_m)) best = a
+  }
+  for (const b of doc.buildings) {
+    const d = Math.max(0, Math.hypot(b.x * kx - px, b.y * ky - py) - b.a / 2)
+    keep({ kind: 'building', name: null, dist_m: d, thr_m: doc.thresholds.building_m, f: b })
+  }
+  for (const p of doc.points) {
+    const d = Math.hypot(p.x * kx - px, p.y * ky - py)
+    // a point asset wins a tie with the building it sits in
+    keep({ kind: p.k, name: p.n ?? null, dist_m: Math.max(0, d - 1), thr_m: doc.thresholds.building_m, f: p })
+  }
+  for (const r of doc.roads) {
+    const ax = r.p[0] * kx, ay = r.p[1] * ky, bx = r.p[2] * kx, by = r.p[3] * ky
+    const L2 = (bx - ax) ** 2 + (by - ay) ** 2
+    const t = L2 ? Math.max(0, Math.min(1, ((px - ax) * (bx - ax) + (py - ay) * (by - ay)) / L2)) : 0
+    const d = Math.hypot(ax + t * (bx - ax) - px, ay + t * (by - ay) - py)
+    keep({ kind: 'road', name: null, dist_m: d, km: r.km, thr_m: doc.thresholds.road_cut_m, f: r })
+  }
+  return best
+}
+
 /** Infrastructure state colours — shared by the 3D scene and the 2D map. */
 export const INFRA_COLORS = {
   dryBuilding: '#ece7da',
@@ -455,6 +579,10 @@ export interface Terrain3D {
   min: number
   max: number
   rows: number[][]
+  /** dataset | copernicus_auto | synthetic */
+  source?: string | null
+  /** the cell the model breached, [lon, lat] */
+  dam_lonlat?: [number, number] | null
 }
 
 export interface Scenario {
@@ -690,8 +818,14 @@ export interface RunSeries {
   times_s: number[]
   area_km2: { total: number[]; low: number[]; moderate: number[]; high: number[] }
   reach_km: number[]
+  /** v2: deepest water in the domain at each frame (m) */
+  max_depth_m?: number[]
+  /** v2: people in cells under water now / reached by water so far; null
+   *  when the run's area has no population grid (never zero-filled). */
+  population?: { now: number[]; reached: number[]; source: string | null } | null
   threshold_m: number
   bands_m: [number, number]
+  version?: number
 }
 
 export interface ResultMetrics {
@@ -729,17 +863,54 @@ export interface BreachHydrograph {
   duration_hr?: number
 }
 
+/** Spec §29 badge on a scenario; unset reads as "hypothetical". */
+export type ScenarioLabel = 'observed' | 'reconstruction' | 'hypothetical' | 'demo'
+
+/** One replayable scenario in the Scenario Lab (≥1 validated run). */
+export interface ScenarioLabItem {
+  scenario_id: string
+  name: string | null
+  case: string | null
+  hazard: 'dam_break' | 'glof' | 'other'
+  mode: string | null
+  producer: string | null
+  label: ScenarioLabel
+  /** true = an analyst chose the badge; false = the hypothetical default */
+  label_set: boolean
+  runs: number
+  latest: {
+    run_id: string
+    engine: string | null
+    engine_label: string | null
+    created: string | null
+    peak_discharge_cms: number | null
+    max_depth_m: number | null
+    inundation_km2: number | null
+    population_exposed: number | null
+    buildings_affected: number | null
+  }
+}
+
+export interface ScenarioLab {
+  labels: ScenarioLabel[]
+  counts: Record<'dam_break' | 'glof' | 'other', number>
+  scenarios: ScenarioLabItem[]
+}
+
 export interface RunSummary {
   id: string
   scenario_name?: string | null
   state?: string | null
   engine?: string | null
   engine_label?: string | null
+  scenario_label?: ScenarioLabel | null
   near_field_only?: boolean | null
   window_m?: number | null
   breach_width?: number | null
   breach_depth?: number | null
   breach_method?: string | null
+  /** breach formation time (h); 0 = instantaneous */
+  breach_t_form_hr?: number | null
   reservoir_level?: number | null
   sim_hours?: number | null
   run_id?: string | null
@@ -888,6 +1059,14 @@ export const api = {
     return request<Scenario[]>(`/scenarios${qs ? `?${qs}` : ''}`)
   },
   scenario: (id: string) => request<{ scenario: Scenario }>(`/scenarios/${id}`),
+  /** Scenario Lab catalogue: replayable scenarios by hazard, with badges. */
+  scenarioLab: () => request<ScenarioLab>('/scenario-lab'),
+  /** Set (or clear with null) a scenario's badge. */
+  setScenarioLabel: (id: string, label: ScenarioLabel | null) =>
+    request<{ scenario_id: string; label: ScenarioLabel; label_set: boolean }>(`/scenarios/${id}/label`, {
+      method: 'PUT',
+      body: JSON.stringify({ label }),
+    }),
   breachProfile: (damId: string, width: number, depth: number) =>
     request<BreachProfile>(
       `/breach/profile?dam_id=${encodeURIComponent(damId)}&width=${width}&depth=${depth}`,
@@ -929,6 +1108,14 @@ export const api = {
     request<Terrain3D>(`/runs/${id}/terrain.json${detail === 'full' ? '?detail=full' : ''}`),
   /** OSM roads/buildings/bridges with per-frame flood exposure (cached per run). */
   runInfrastructure: (id: string) => request<RunInfra>(`/runs/${id}/infrastructure`),
+  runEvacuation: (id: string) => request<RunEvacuation>(`/runs/${id}/evacuation`),
+  validation: (runId: string) => request<RunValidation>(`/validate/${runId}`),
+  rescoreValidation: (runId: string) => request<unknown>(`/validate/benchmark/${runId}`, { method: 'POST' }),
+  setObserved: (scenarioId: string, observed: Observation[]) =>
+    request<{ scenario_id: string; observed: Observation[] }>(`/scenarios/${scenarioId}/observed`, {
+      method: 'PUT',
+      body: JSON.stringify({ observed }),
+    }),
   /** SPH particles at one output frame (404 for non-SPH engines). */
   runParticles: (id: string, frame: number) => request<RunParticles>(`/runs/${id}/particles?frame=${frame}`),
   /** Affected villages with modelled depth/arrival (stage.impact product). */

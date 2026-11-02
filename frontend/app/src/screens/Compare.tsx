@@ -190,8 +190,11 @@ export function Compare() {
   })
   const cmpId = cmp.data?.a ?? idA
   const centre = reachInfo.endCoord ? `${reachInfo.endCoord[1]},${reachInfo.endCoord[0]}` : null
-  const lon = useApi(['lon', cmpId, centre], () => api.longitudinal(cmpId, centre!, idB), {
-    enabled: Boolean(cmpId && centre),
+  // The profile is built from the runs' own depth rasters; `lonlat` is only
+  // echoed back. Gating on a river-path reach end blanked the panel for every
+  // run without a dam on a river (e.g. the Chamoli analog).
+  const lon = useApi(['lon', cmpId, idB, centre], () => api.longitudinal(cmpId, centre ?? '', idB), {
+    enabled: Boolean(cmpId),
   })
   const frames = useApi(['frames', idA], () => api.frames(idA), { enabled: Boolean(idA) })
   const rawHours = frames.data?.sim_hours

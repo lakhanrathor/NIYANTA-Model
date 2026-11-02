@@ -32,6 +32,7 @@ export function CompareLayout({
       <div className="flex min-h-0 flex-1 gap-1.5 overflow-hidden">
         {left ? (
           <Panel
+            railId={`${layoutId}.left`}
             side="left"
             title={leftTitle}
             width={panels.left.width}
@@ -45,6 +46,7 @@ export function CompareLayout({
         <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">{center}</div>
         {right ? (
           <Panel
+            railId={`${layoutId}.right`}
             side="right"
             title={rightTitle}
             width={panels.right.width}

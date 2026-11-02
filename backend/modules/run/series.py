@@ -22,8 +22,14 @@ LOW_MAX_M = 0.5  # hazard bands: low [min, 0.5), moderate [0.5, 2), high >= 2
 HIGH_MIN_M = 2.0
 
 
+SERIES_VERSION = 2  # v2: + max_depth_m and population per frame (live readouts)
+
+
 def build(frames: FrameSeries, mesh: dict[str, Any], cell_m: float,
-          min_m: float = FLOOD_MIN_M) -> dict[str, Any]:
+          min_m: float = FLOOD_MIN_M, pop_grid: np.ndarray | None = None,
+          pop_source: str | None = None) -> dict[str, Any]:
+    """`pop_grid` = people per cell on this grid (work_impact.population_grid);
+    without one the population series is null, never zero-filled."""
     depth = frames.depth.astype(np.float32, copy=False)
     n_f, rows, cols = depth.shape
     r0, c0 = mesh["dam_rc"]
@@ -37,9 +43,18 @@ def build(frames: FrameSeries, mesh: dict[str, Any], cell_m: float,
     moderate: list[float] = []
     high: list[float] = []
     reach: list[float] = []
+    max_depth: list[float] = []
+    pop_now: list[int] | None = [] if pop_grid is not None else None
+    pop_cum: list[int] | None = [] if pop_grid is not None else None
+    reached = np.zeros((rows, cols), dtype=bool)
     for i in range(n_f):
         d = depth[i]
         wet = d > min_m
+        reached |= wet
+        max_depth.append(round(float(d.max()), 2) if d.size else 0.0)
+        if pop_grid is not None:
+            pop_now.append(int(round(float(pop_grid[wet].sum()))))
+            pop_cum.append(int(round(float(pop_grid[reached].sum()))))
         lo = wet & (d < LOW_MAX_M)
         md = wet & (d >= LOW_MAX_M) & (d < HIGH_MIN_M)
         hi = wet & (d >= HIGH_MIN_M)
@@ -54,8 +69,13 @@ def build(frames: FrameSeries, mesh: dict[str, Any], cell_m: float,
         "times_s": times_s,
         "area_km2": {"total": total, "low": low, "moderate": moderate, "high": high},
         "reach_km": reach,
+        "max_depth_m": max_depth,
+        # people living in cells under water now / reached by water so far
+        "population": None if pop_now is None else {"now": pop_now, "reached": pop_cum,
+                                                    "source": pop_source},
         "threshold_m": float(min_m),
         "bands_m": [float(LOW_MAX_M), float(HIGH_MIN_M)],
+        "version": SERIES_VERSION,
     }
 
 
@@ -74,12 +94,19 @@ def ensure(run_id: str) -> dict[str, Any]:
     missing_lonlat = bool(stations) and any(
         s.get("lon") is None or "in_domain" not in s for s in stations
     )
+    if stored and stored.get("version") != SERIES_VERSION:
+        stored = None  # older shape: rebuild once with the v2 fields
     if stored and not missing_lonlat:
         return stored
 
     patched: dict[str, Any] = {}
     mesh: dict[str, Any] | None = None
     if not stored:
+        from rasterio.transform import Affine
+
+        from modules.run import grid as grid_mod
+        from modules.run.work_impact import population_grid
+
         run_dir = paths.run_dir(run_id)
         frames = FrameSeries.load(run_dir / "frames.npz")
         mesh = load_mesh(run_id)
@@ -88,7 +115,9 @@ def ensure(run_id: str) -> dict[str, Any]:
             from modules.run import work_terrain
 
             _, grid = work_terrain.load_dem(run_id)
-        patched["series"] = build(frames, mesh, float(grid["cell_m"]))
+        pop, pop_source = population_grid(Affine(*grid_mod.geotransform(grid)), frames.max_depth.shape)
+        patched["series"] = build(frames, mesh, float(grid["cell_m"]),
+                                  pop_grid=pop, pop_source=pop_source)
 
     if missing_lonlat:
         from modules.run import grid as grid_mod
