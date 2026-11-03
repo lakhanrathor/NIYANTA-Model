@@ -426,13 +426,35 @@ CREATE TABLE IF NOT EXISTS alert_rule (
   created   timestamptz NOT NULL DEFAULT (datetime('now'))
 );
 
-CREATE TABLE IF NOT EXISTS subscriber (
-  id      uuid PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))), 2) || '-' || printf('%x', 8 + (abs(random()) % 4)) || substr(lower(hex(randomblob(2))), 2) || '-' || lower(hex(randomblob(6)))),
-  name    text,
-  channel text NOT NULL DEFAULT 'ws',             -- ws|sms|email
-  target  text,
-  active  boolean NOT NULL DEFAULT 1
+-- People who must hear about an alert (ministry / NDMA / CWC / district
+-- officials). Channels are optional per person; states [] = all of India.
+CREATE TABLE IF NOT EXISTS alert_recipient (
+  id        uuid PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))), 2) || '-' || printf('%x', 8 + (abs(random()) % 4)) || substr(lower(hex(randomblob(2))), 2) || '-' || lower(hex(randomblob(6)))),
+  name      text NOT NULL,
+  org       text,                                 -- "Ministry of Jal Shakti", "NDMA", "DM Tehri"
+  role      text,
+  email     text,
+  phone     text,                                 -- E.164, e.g. +9198xxxxxxxx
+  webhook   text,                                 -- https URL (Teams/Slack/SMS gateway relay)
+  states    jsonb NOT NULL DEFAULT '[]',          -- ["Uttarakhand"]; [] = every state
+  min_level text NOT NULL DEFAULT 'CRITICAL',     -- WARNING|CRITICAL
+  active    boolean NOT NULL DEFAULT 1,
+  created   timestamptz NOT NULL DEFAULT (datetime('now'))
 );
+
+-- One row per (alert, recipient, channel) attempt — what was sent, when, and
+-- whether it went out. status: sent|failed|not_configured
+CREATE TABLE IF NOT EXISTS alert_delivery (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  alert_id     uuid,
+  recipient_id uuid,
+  channel      text NOT NULL,                      -- email|sms|webhook
+  target       text,
+  status       text NOT NULL,
+  detail       text,
+  ts           timestamptz NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS ix_alert_delivery_alert ON alert_delivery(alert_id, ts DESC);
 
 -- ============================================================
 -- export / validate

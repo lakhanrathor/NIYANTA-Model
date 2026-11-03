@@ -7,6 +7,13 @@ from modules.catalog import catalog
 from modules.db import client as db
 
 
+RULE_TITLE = {
+    "population_exposed": "many people in the flood zone",
+    "arrival_fast": "flood arrives within hours",
+    "risk_high": "high dam-break risk",
+}
+
+
 def _evaluate(cond: dict[str, Any], metrics: dict[str, Any]) -> bool:
     metric = cond.get("metric")
     op = cond.get("op", ">")
@@ -51,12 +58,16 @@ def on_run_complete(run_id: str) -> dict[str, Any] | None:
     sc = catalog.scenario_get(run["scenario_id"])
     if sc:
         metrics.setdefault("risk_class", None)
+    # where: the dam this run breached, so the alert names it and sits on the map
+    dam_id = ((sc or {}).get("spec") or {}).get("dam_id")
+    dam = db.query_one("SELECT name, river, river_id, state FROM dam WHERE id = %s", (dam_id,)) if dam_id else None
+    where = f"{dam['name']}" if dam else f"Run {run_id[:8]}"
     fired = []
     for rule in alert_rules.rules():
         cond = rule.get("condition") or {}
         if not _evaluate(cond, metrics):
             continue
-        title = f"Run {run_id[:8]} triggered rule '{rule['name']}'"
+        title = f"{where}: {RULE_TITLE.get(rule['name'], rule['name'])}"
         # Re-running a stage re-evaluates the same rules; one open alert per
         # (run, rule) keeps the feed readable instead of 7 identical rows.
         if db.query_one(
@@ -73,5 +84,8 @@ def on_run_complete(run_id: str) -> dict[str, Any] | None:
             run_id=run_id,
             source="rule",
             payload={"rule": rule["name"], "metrics": metrics},
+            dam_id=dam_id,
+            river_id=(dam or {}).get("river_id"),
+            location=", ".join(x for x in ((dam or {}).get("river"), (dam or {}).get("state")) if x) or None,
         )
     return {"fired": fired}

@@ -5,11 +5,19 @@ from typing import Any
 from modules.db import client as db
 
 
-def create(level: str, title: str, body: str = "", run_id: str | None = None, source: str = "system", payload: dict | None = None) -> dict:
-    return db.insert(
+def create(level: str, title: str, body: str = "", run_id: str | None = None, source: str = "system",
+           payload: dict | None = None, **where: str | None) -> dict:
+    """Raise an alert; `where` may carry dam_id / river_id / box_id / location.
+    CRITICAL alerts are sent to matching officials straight away (dispatch.py)."""
+    row = db.insert(
         "alert",
-        {"level": level, "title": title, "body": body, "run_id": run_id, "source": source, "payload": payload or {}},
+        {"level": level, "title": title, "body": body, "run_id": run_id, "source": source, "payload": payload or {},
+         **{k: v for k, v in where.items() if k in ("dam_id", "river_id", "box_id", "location") and v}},
     )
+    from modules.alert import dispatch  # noqa: PLC0415
+
+    dispatch.auto_dispatch(row)
+    return row
 
 
 def get_list(state: str | None = None, limit: int = 100) -> list[dict]:

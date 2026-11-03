@@ -10,6 +10,7 @@ import { MapShell } from '../components/MapShell'
 import type { LegendItem, MapFeature } from '../components/MapShell'
 import { WorkspaceLayout } from '../layouts'
 import { AlertFeed } from './watch/AlertFeed'
+import { AlertContacts } from './watch/AlertContacts'
 import { BoxDetail } from './watch/BoxDetail'
 import { BoxList } from './watch/BoxList'
 import { SweepControl } from './watch/SweepControl'
@@ -206,7 +207,8 @@ export function Watch() {
       right={
         <>
           <AlertFeed />
-        <BoxDetail />
+          <AlertContacts />
+          <BoxDetail />
         </>
       }
     />

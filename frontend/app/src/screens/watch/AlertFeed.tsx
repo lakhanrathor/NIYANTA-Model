@@ -6,7 +6,7 @@ import { useApi } from '../../lib/useApi'
 import { useWatchContext } from '../../lib/watch-context'
 import { EM_DASH, relativeTime } from '../../lib/format'
 import { Empty, Panel, Pill } from '../../components/ui'
-import { watchApi } from './watchApi'
+import { watchApi, type DispatchResult } from './watchApi'
 
 const CATEGORY_COLOR: Record<string, string> = {
   glacier_change: 'var(--bad)',
@@ -29,6 +29,63 @@ function alertDot(a: AlertRow) {
   return LEVEL_COLOR[(a.level ?? '').toUpperCase()] ?? 'var(--muted)'
 }
 
+function dispatchSummary(r: DispatchResult): string {
+  if (!r.recipients) return 'No official covers this alert yet — add one under Alert contacts.'
+  const count = (st: string) => r.deliveries.filter((d) => d.status === st).length
+  const parts = [`${count('sent')} delivered`]
+  if (count('not_configured')) parts.push(`${count('not_configured')} channel(s) not set up on the server`)
+  if (count('failed')) parts.push(`${count('failed')} failed`)
+  return `Sent to ${r.recipients} official${r.recipients === 1 ? '' : 's'} · ${parts.join(' · ')}`
+}
+
+const STATUS_TONE: Record<string, string> = {
+  sent: 'text-[var(--ok)]',
+  failed: 'text-[var(--bad)]',
+  not_configured: 'text-[var(--warn)]',
+}
+
+/** The message officials receive for this alert, and every delivery attempt. */
+function AlertDetail({ alertId, tick }: { alertId: string; tick: number }) {
+  const msg = useApi(['alert-msg', alertId], () => watchApi.alertMessage(alertId))
+  const log = useApi(['alert-deliveries', alertId, tick], () => watchApi.alertDeliveries(alertId))
+  return (
+    <div className="border-t border-[var(--line)] bg-[var(--bg)] px-3 py-2 text-[11px]">
+      <div className="font-semibold text-[var(--muted)]">Message officials receive</div>
+      {msg.data ? (
+        <>
+          <div className="mt-1 font-semibold">{msg.data.subject}</div>
+          <pre className="mt-1 max-h-40 overflow-auto whitespace-pre-wrap font-sans text-[11px] leading-snug text-[var(--text)]">
+            {msg.data.text}
+          </pre>
+          <div className="mt-1 text-[10.5px] text-[var(--muted)]">
+            Goes to:{' '}
+            {msg.data.recipients.length ? msg.data.recipients.join(', ') : 'nobody yet — no matching official'}
+          </div>
+        </>
+      ) : (
+        <div className="mt-1 text-[var(--faint)]">{msg.pending ? 'Loading…' : EM_DASH}</div>
+      )}
+      <div className="mt-2 font-semibold text-[var(--muted)]">Delivery log</div>
+      {log.data?.length ? (
+        <ul className="mt-1 space-y-0.5">
+          {log.data.map((d) => (
+            <li key={d.id} className="flex gap-2">
+              <span className={`w-[92px] shrink-0 font-semibold ${STATUS_TONE[d.status] ?? ''}`}>
+                {d.status.replace('_', ' ')}
+              </span>
+              <span className="min-w-0 truncate" title={d.detail ?? ''}>
+                {d.channel} → {d.recipient_name ?? EM_DASH} ({d.target}) · {relativeTime(d.ts)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="mt-1 text-[var(--faint)]">Not sent yet — press DISPATCH to send it now.</div>
+      )}
+    </div>
+  )
+}
+
 /** Live alert feed — GET for history, WS for the moment something breaks.
  *  Reads/writes only the watch context. Actions hit the API, then refetch. */
 export function AlertFeed() {
@@ -37,6 +94,8 @@ export function AlertFeed() {
   const [tick, setTick] = useState(0)
   const [acting, setActing] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  // outcome of the last DISPATCH per alert, in words
+  const [sentNote, setSentNote] = useState<Record<string, string>>({})
 
   const alerts = useApi(['alerts', tick], () => api.alerts(50))
 
@@ -58,7 +117,13 @@ export function AlertFeed() {
     setActing(`${a.id}:${action}`)
     setError(null)
     try {
-      await watchApi.alertAct(a.id, action)
+      if (action === 'dispatch') {
+        const res = await watchApi.dispatchAlert(a.id)
+        setSentNote((n) => ({ ...n, [a.id]: dispatchSummary(res) }))
+        selectAlert(a.id, a.box_id ?? null)
+      } else {
+        await watchApi.alertAct(a.id, action)
+      }
       setTick((t) => t + 1)
     } catch (err) {
       setError(err instanceof Error ? err.message : `${action} failed`)
@@ -146,8 +211,12 @@ export function AlertFeed() {
                       ))}
                       <span className="num ml-auto text-[9px] uppercase text-[var(--faint)]">{state}</span>
                     </span>
+                    {sentNote[a.id] && (
+                      <span className="mt-1 block text-[10.5px] text-[var(--muted)]">{sentNote[a.id]}</span>
+                    )}
                   </span>
                 </button>
+                {active && <AlertDetail alertId={a.id} tick={tick} />}
               </li>
             )
           })}

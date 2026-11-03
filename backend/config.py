@@ -79,5 +79,19 @@ class Settings:
     evac_walk_kmh = float(os.getenv("NIYANTA_EVAC_WALK_KMH", "4.5"))
     evac_leave_now_h = float(os.getenv("NIYANTA_EVAC_LEAVE_NOW_H", "1.0"))
     evac_snap_m = float(os.getenv("NIYANTA_EVAC_SNAP_M", "500"))
+    # Alert delivery to officials. Unset channels are logged as
+    # "not_configured" — an alert is never reported as sent when it wasn't.
+    smtp_host = os.getenv("NIYANTA_SMTP_HOST", "")
+    smtp_port = int(os.getenv("NIYANTA_SMTP_PORT", "587"))
+    smtp_user = os.getenv("NIYANTA_SMTP_USER", "")
+    smtp_pass = os.getenv("NIYANTA_SMTP_PASS", "")
+    smtp_from = os.getenv("NIYANTA_SMTP_FROM", "") or os.getenv("NIYANTA_SMTP_USER", "")
+    # SMS gateway URL template; {to} and {text} are URL-encoded in, e.g.
+    # https://gateway.example/send?key=XYZ&to={to}&msg={text}
+    sms_url = os.getenv("NIYANTA_SMS_URL", "")
+    # base of the links in alert messages (the deployed frontend)
+    public_url = os.getenv("NIYANTA_PUBLIC_URL", "http://127.0.0.1:5174").rstrip("/")
+    # CRITICAL alerts go to matching recipients the moment they are raised
+    alert_auto_dispatch = os.getenv("NIYANTA_ALERT_AUTO_DISPATCH", "1") == "1"
 
 settings = Settings()
